@@ -11,8 +11,6 @@ class Menu extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
-
-        //tester
     }
 
     update(){        
