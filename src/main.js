@@ -16,18 +16,22 @@ const SCALE = 0.5;
 const tileSize = 35;
 
 let config = {
-  type: Phaser.CANVAS,
-  width: 900,
-  height: 576,
-  scene: [ Load, Menu, Play ],
+  type: Phaser.AUTO,
   title: "Fox Runner",
+  scale: {
+      mode: Phaser.Scale.FIT,
+      autoCenter: Phaser.Scale.CENTER_BOTH,
+      width: 1100,
+      height: 680,
+  },
   physics:{
     default: 'arcade',
     arcade:{
       gravity: {y: 1000},
       debug: true
     }
-  }
+  },
+  scene: [ Load, Menu, Play ]
 };
 
 let game = new Phaser.Game(config);

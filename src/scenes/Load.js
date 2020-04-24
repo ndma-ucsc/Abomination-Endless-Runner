@@ -6,6 +6,7 @@ class Load extends Phaser.Scene {
     preload(){
 
         this.load.spritesheet('fox', './assets/foxy.png', {frameWidth: 400, framHeight: 200});
+        this.load.image('start', './assets/start.png');
         
         /* test loading bar buffer*/
         // this.load.image('background', 'images/tut/background.png');
