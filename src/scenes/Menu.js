@@ -5,8 +5,7 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-        bgMusic = this.sound.add('bgMusic', {volume: 0.15, loop: true});
-        bgMusic.play();
+        
 
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
@@ -68,6 +67,8 @@ class Menu extends Phaser.Scene {
         }
         if(Phaser.Input.Keyboard.JustDown(keyENTER)) {
             if(this.selected == 1) {
+                console.log('here');
+                
                 this.scene.start("playScene");
             }
             if(this.selected == 2) {
