@@ -35,7 +35,7 @@ class Menu extends Phaser.Scene {
             console.log('Start');
             start.setVisible(false);
             title.setVisible(false);
-            game.scene.start("playScene");`
+            game.scene.start("playScene");
         });
     }
 
