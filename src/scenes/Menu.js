@@ -5,6 +5,9 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
+        bgMusic = this.sound.add('bgMusic', {volume: 0.15, loop: true});
+        bgMusic.play();
+
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);

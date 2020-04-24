@@ -5,17 +5,17 @@ class Load extends Phaser.Scene {
 
     preload(){
 
-        this.load.path = "assets/";
-        this.load.image('start', './assets/start.png');
+        this.load.path = "./assets/";
+        this.load.image('start', 'start.png');
         this.load.spritesheet('fox', 'base_fox.png', {frameWidth: 148, framHeight: 96, startFrame: 0, endFrame: 3});
         this.load.image('talltrees', 'talltrees.png');
-        this.load.audio()
+        this.load.audio('bgMusic', 'audio/Warm_Light.mp3');
         
         /* test loading bar buffer*/
-        this.load.image('background', 'images/tut/background.png');
-        for(var i =0;i<30;i++) {
-			this.load.image('background_'+i, 'images/tut/background.png');
-		};
+        // this.load.image('background', 'images/tut/background.png');
+        // for(var i =0;i<30;i++) {
+		// 	this.load.image('background_'+i, 'images/tut/background.png');
+		// };
 
         // loading bar frame
         var progressBar = this.add.graphics();
