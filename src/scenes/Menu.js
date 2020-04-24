@@ -37,6 +37,8 @@ class Menu extends Phaser.Scene {
             title.setVisible(false);
             game.scene.start("playScene");
         });
+
+        //tester
     }
 
     update(){
