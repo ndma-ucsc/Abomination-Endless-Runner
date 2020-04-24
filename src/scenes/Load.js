@@ -55,7 +55,7 @@ class Load extends Phaser.Scene {
             // active loading bar
             progressBar.clear();
             progressBar.fillStyle(0xffffff, 1);
-            progressBar.fillRect(game.config.width/4 + 10, game.config.height/2 + 10, (game.config.width / 2 - 10) * value, 30);
+            progressBar.fillRect(game.config.width/4 + 10, game.config.height/2 + 10, (game.config.width / 2 - 20) * value, 30);
         });
 
         // load tracking
