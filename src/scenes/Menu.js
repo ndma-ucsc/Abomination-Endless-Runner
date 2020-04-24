@@ -12,7 +12,7 @@ class Menu extends Phaser.Scene {
             repeat: -1
         });
 
-        //test
+        //tester
     }
 
     update(){        
