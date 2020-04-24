@@ -12,6 +12,14 @@ class Menu extends Phaser.Scene {
             fontFamily: 'Patricia',
             fontSize: '110px',
             color: '#FFFFFF'
+
+        });
+        // fox run
+        this.anims.create({
+            key: 'run',
+            frames: this.anims.generateFrameNumbers('fox', {start: 0, end: 3, first: 0}),
+            frameRate: 10,
+            repeat: -1
         });
         
         //start button
