@@ -4,8 +4,13 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-        // set up Phaser-provided cursor key input
-        cursors = this.input.keyboard.createCursorKeys();
+        // fox run
+        this.anims.create({
+            key: 'run',
+            frames: this.anims.generateFrameNumbers('fox', {start: 0, end: 3, first: 0}),
+            frameRate: 10,
+            repeat: -1
+        });
         
     }
 

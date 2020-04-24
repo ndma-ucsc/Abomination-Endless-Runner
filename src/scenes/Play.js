@@ -6,14 +6,14 @@ class Play extends Phaser.Scene {
     create() {
         this.JUMP_VELOCITY = -750;
         this.MAX_JUMPS = 1;
-        this.SCROLL_SPEED = 4;
+        this.SCROLL_SPEED = 3;
         currentScene = 3;
         this.physics.world.gravity.y = 3000;
 
+        this.talltrees = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'talltrees').setOrigin(0);
 
         // create player sprite
-        this.fox = this.physics.add.sprite(120, game.config.height/2-tileSize, 'fox').setScale(2);
-        this.fox.setTexture('fox');
+        this.fox = this.physics.add.sprite(120, game.config.height - 3 * tileSize + 22, 'fox');
 
         // make ground tiles group (actual ground)
         this.ground = this.add.group();
@@ -30,13 +30,8 @@ class Play extends Phaser.Scene {
         // add physics collider
         this.physics.add.collider(this.fox, this.ground);
 
-
-        this.obstacle = this.physics.add.sprite(game.config.width, game.config.height - 2 * tileSize + 3, 'texture_atlas', 'obstacle').setOrigin(0);
-        // this.physics.add.collider(this.obstacle, this.ground);
-        this.obstacle.body.allowGravity = false;
-        this.obstacle.body.immovable = false;
-        this.physics.add.collider(this.obstacle, this.fox);
-
+        // add obstacles
+        
 
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
@@ -45,25 +40,28 @@ class Play extends Phaser.Scene {
     } // end of create()
 
     update(){
-        if (!this.gameOver){
-        this.groundScroll.tilePositionX += this.SCROLL_SPEED;
-        this.obstacle.body.velocity.x = -250;
-        this.jumpingUpdate();
+
+        if(!this.gameOver){
+            this.talltrees.tilePositionX += this.SCROLL_SPEED;
+            this.groundScroll.tilePositionX += this.SCROLL_SPEED;
+            this.jumpUpdate();
         }
+        
 
     } // end of update()
 
-    jumpingUpdate(){
+    jumpUpdate(){
         // check if fox is grounded
 	    this.fox.isGrounded = this.fox.body.touching.down;
 	    // if so, we have jumps to spare
 	    if(this.fox.isGrounded) {
-            // this.fox.anims.play('walk', true);
+            this.fox.anims.play('run', true);
 	    	this.jumps = this.MAX_JUMPS;
 	    	this.jumping = false;
-	    } else {
-	    	// this.fox.anims.play('jump');
-	    }
+        }
+        // else {
+	    // 	this.fox.anims.play('jump');
+	    // }
         // allow steady velocity change up to a certain key down duration
         // see: https://photonstorm.github.io/phaser3-docs/Phaser.Input.Keyboard.html#.DownDuration__anchor
 	    if(this.jumps > 0 && Phaser.Input.Keyboard.DownDuration(cursors.up, 200)) {
@@ -78,4 +76,7 @@ class Play extends Phaser.Scene {
 	    }
     }
 
+    spawnObstacle(){
+
+    }
 }
