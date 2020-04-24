@@ -12,7 +12,7 @@ class Play extends Phaser.Scene {
 
 
         // create player sprite
-        this.fox = this.physics.add.sprite(120, game.config.height/2-tileSize, 'texture_atlas', 'fox');
+        this.fox = this.physics.add.sprite(120, game.config.height/2-tileSize, 'fox').setScale(2);
         this.fox.setTexture('fox');
 
         // make ground tiles group (actual ground)
