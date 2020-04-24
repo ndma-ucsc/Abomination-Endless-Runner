@@ -10,34 +10,50 @@ class Play extends Phaser.Scene {
         currentScene = 3;
         this.physics.world.gravity.y = 3000;
 
+
         // create player sprite
         this.fox = this.physics.add.sprite(120, game.config.height/2-tileSize, 'texture_atlas', 'fox');
         this.fox.setTexture('fox');
+
+        // make ground tiles group (actual ground)
+        this.ground = this.add.group();
+        for(let i = 0; i < game.config.width; i += tileSize) {
+            let groundTile = this.physics.add.sprite(i, game.config.height - tileSize, 'texture_atlas', 'tile_block').setOrigin(0);
+            groundTile.body.immovable = true;
+            groundTile.body.allowGravity = false;
+            this.ground.add(groundTile);
+        }
+
+        // pseudo ground
+        this.groundScroll = this.add.tileSprite(0, game.config.height-tileSize, game.config.width, tileSize, 'random_tile_block').setOrigin(0);
+
+        // add physics collider
+        this.physics.add.collider(this.fox, this.ground);
+
+
+        this.obstacle = this.physics.add.sprite(game.config.width, game.config.height - 2 * tileSize + 3, 'texture_atlas', 'obstacle').setOrigin(0);
+        // this.physics.add.collider(this.obstacle, this.ground);
+        this.obstacle.body.allowGravity = false;
+        this.obstacle.body.immovable = false;
+        this.physics.add.collider(this.obstacle, this.fox);
+
+
+        // set up Phaser-provided cursor key input
+        cursors = this.input.keyboard.createCursorKeys();
         
-         // make ground tiles group (actual ground)
-         this.ground = this.add.group();
-         for(let i = 0; i < game.config.width; i += tileSize) {
-             let groundTile = this.physics.add.sprite(i, game.config.height - tileSize, 'texture_atlas', 'tile_block').setOrigin(0);
-             groundTile.body.immovable = true;
-             groundTile.body.allowGravity = false;
-             this.ground.add(groundTile);
-         }
+        this.gameOver = false;
+    } // end of create()
 
-         // pseudo ground
-         this.groundScroll = this.add.tileSprite(0, game.config.height-tileSize, game.config.width, tileSize, 'random_tile_block').setOrigin(0);
-
-
-         // set up Phaser-provided cursor key input
-         cursors = this.input.keyboard.createCursorKeys();
-
-         // add physics collider
-         this.physics.add.collider(this.fox, this.ground);
- 
-    }
-
-    update(){        
+    update(){
+        if (!this.gameOver){
         this.groundScroll.tilePositionX += this.SCROLL_SPEED;
-        
+        this.obstacle.body.velocity.x = -250;
+        this.jumpingUpdate();
+        }
+
+    } // end of update()
+
+    jumpingUpdate(){
         // check if fox is grounded
 	    this.fox.isGrounded = this.fox.body.touching.down;
 	    // if so, we have jumps to spare
@@ -61,4 +77,5 @@ class Play extends Phaser.Scene {
 	    	this.jumping = false;
 	    }
     }
+
 }
