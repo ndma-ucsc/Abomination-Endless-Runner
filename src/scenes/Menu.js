@@ -24,6 +24,14 @@ class Menu extends Phaser.Scene {
             key: 'run',
             frames: this.anims.generateFrameNumbers('fox', {start: 0, end: 3, first: 0}),
             frameRate: 10,
+            repeat: -1
+        });
+
+        // fox death
+        this.anims.create({
+            key: 'death',
+            frames: this.anims.generateFrameNumbers('death', {start: 0, end: 9, first: 0}),
+            frameRate: 10,
             repeat: 0
         });
         
@@ -67,8 +75,6 @@ class Menu extends Phaser.Scene {
         }
         if(Phaser.Input.Keyboard.JustDown(keyENTER)) {
             if(this.selected == 1) {
-                console.log('here');
-                
                 this.scene.start("playScene");
             }
             if(this.selected == 2) {
