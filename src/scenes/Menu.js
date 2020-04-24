@@ -20,7 +20,7 @@ class Menu extends Phaser.Scene {
             key: 'run',
             frames: this.anims.generateFrameNumbers('fox', {start: 0, end: 3, first: 0}),
             frameRate: 10,
-            repeat: 0
+            repeat: -1
         });
         
         //start button
@@ -35,10 +35,8 @@ class Menu extends Phaser.Scene {
             console.log('Start');
             start.setVisible(false);
             title.setVisible(false);
-            game.scene.start("playScene");
+            game.scene.start("playScene");`
         });
-
-        //tester
     }
 
     update(){
