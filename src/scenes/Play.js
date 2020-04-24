@@ -4,11 +4,11 @@ class Play extends Phaser.Scene {
     }
 
     create() {
-        this.JUMP_VELOCITY = -700;
+        this.JUMP_VELOCITY = -750;
         this.MAX_JUMPS = 1;
         this.SCROLL_SPEED = 4;
         currentScene = 3;
-        this.physics.world.gravity.y = 2600;
+        this.physics.world.gravity.y = 3000;
 
         // create player sprite
         this.fox = this.physics.add.sprite(120, game.config.height/2-tileSize, 'texture_atlas', 'fox');
