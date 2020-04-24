@@ -4,6 +4,7 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        this.obstacleSpeed = -450;
         this.JUMP_VELOCITY = -750;
         this.MAX_JUMPS = 1;
         this.SCROLL_SPEED = 3;
@@ -31,7 +32,11 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.fox, this.ground);
 
         // add obstacles
-        
+        // set up barrier group and add first barrier to kick things off
+        this.obstacles = this.add.group({
+            runChildUpdate: true    // make sure update runs on group children
+        });
+        this.spawnObstacle();
 
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
@@ -39,16 +44,42 @@ class Play extends Phaser.Scene {
         this.gameOver = false;
     } // end of create()
 
+    spawnObstacle() {
+        let obstacle = new Obstacle(this, this.obstacleSpeed);     // create new barrier
+        this.obstacles.add(obstacle);        
+    }
+
     update(){
 
         if(!this.gameOver){
             this.talltrees.tilePositionX += this.SCROLL_SPEED;
             this.groundScroll.tilePositionX += this.SCROLL_SPEED;
+
             this.jumpUpdate();
+
+            // check for collisions
+            this.physics.world.collide(this.fox, this.obstacles, this.foxCollision, null, this);
         }
-        
 
     } // end of update()
+
+    foxCollision() {
+        this.gameOver = true;                    // turn off collision checking
+        // this.sound.play('death', { volume: 0.5 });  // play death sound
+
+        // create tween to fade out audio
+        // this.tweens.add({
+        //     targets: this.bgm,
+        //     volume: 0,
+        //     ease: 'Linear',
+        //     duration: 2000,
+        // });
+       
+        // kill paddle
+        this.fox.destroy();              
+        // switch states after timer expires
+        // this.time.delayedCall(3000, () => { this.scene.start('gameOverScene'); });
+    }
 
     jumpUpdate(){
         // check if fox is grounded
@@ -74,9 +105,5 @@ class Play extends Phaser.Scene {
 	    	this.jumps--;
 	    	this.jumping = false;
 	    }
-    }
-
-    spawnObstacle(){
-
     }
 }
