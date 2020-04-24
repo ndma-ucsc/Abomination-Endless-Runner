@@ -7,12 +7,27 @@
 // and grow up to nine tails to signify the players progression.
 ////////////////////////////////////////////////////////////////////////////////////
 
+"use strict"
+
+// global variables
+let cursors;
+let currentScene = 0;
+const SCALE = 0.5;
+const tileSize = 35;
 
 let config = {
   type: Phaser.CANVAS,
-  width: 1280,
-  height: 720,
+  width: 900,
+  height: 576,
   scene: [ Load, Menu, Play ],
+  title: "Fox Runner",
+  physics:{
+    default: 'arcade',
+    arcade:{
+      gravity: {y: 1000},
+      debug: true
+    }
+  }
 };
 
 let game = new Phaser.Game(config);

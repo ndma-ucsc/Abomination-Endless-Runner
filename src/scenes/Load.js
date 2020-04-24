@@ -3,31 +3,38 @@ class Load extends Phaser.Scene {
         super("loadScene");
     }
 
-    preload(){       
+    preload(){
+
+        this.load.spritesheet('fox', './assets/fox.png', {frameWidth: 400, framHeight: 200});
+        
+        /* test loading bar buffer*/
+        // this.load.image('background', 'images/tut/background.png');
+        // for(var i =0;i<100;i++) {
+		// 	this.load.image('background_'+i, 'images/tut/background.png');
+		// };
+
         // loading bar frame
         var progressBar = this.add.graphics();
         var progressBox = this.add.graphics();
         progressBox.fillStyle(0x222222, 0.8);
-        progressBox.fillRect(game.config.width/4, game.config.height/2, 320, 50);
+        progressBox.fillRect(game.config.width / 4, game.config.height / 2, game.config.width / 2, 50);
         
-        // active loading bar
-        var width = this.cameras.main.width;
-        var height = this.cameras.main.height;
+        // loading... text
         var loadingText = this.make.text({
-            x: width / 2 + 10,
-            y: height / 2 - 30,
+            x: game.config.width / 2 + 5,
+            y: game.config.height / 2 - 30,
             text: 'Loading...',
             style: {
                 font: '20px monospace',
                 fill: '#ffffff'
             }
         });
-
-        // loading percent
         loadingText.setOrigin(0.5, 0.5);
+
+        // loading percent text
         var percentText = this.make.text({
-            x: width / 2,
-            y: height / 2 + 25,
+            x: game.config.width / 2,
+            y: game.config.height / 2 + 70,
             text: '0%',
             style: {
                 font: '18px monospace',
@@ -40,9 +47,11 @@ class Load extends Phaser.Scene {
         this.load.on('progress', function (value) {
             // console.log(value);
             percentText.setText(parseInt(value * 100) + '%');
+            
+            // active loading bar
             progressBar.clear();
             progressBar.fillStyle(0xffffff, 1);
-            progressBar.fillRect(game.config.width/4 + 10, game.config.height/2 + 10, 300 * value, 30);
+            progressBar.fillRect(game.config.width/4 + 10, game.config.height/2 + 10, (game.config.width / 2 - 10) * value, 30);
         });
 
         // load tracking
