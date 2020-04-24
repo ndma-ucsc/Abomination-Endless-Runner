@@ -58,7 +58,9 @@ class Play extends Phaser.Scene {
             this.jumpUpdate();
 
             // check for collisions
-            this.physics.world.collide(this.fox, this.obstacles, this.foxCollision, null, this);
+            if (!collisionDebug){
+                this.physics.world.collide(this.fox, this.obstacles, this.foxCollision, null, this);
+            }
         }
 
     } // end of update()
@@ -68,17 +70,19 @@ class Play extends Phaser.Scene {
         // this.sound.play('death', { volume: 0.5 });  // play death sound
 
         // create tween to fade out audio
-        // this.tweens.add({
-        //     targets: this.bgm,
-        //     volume: 0,
-        //     ease: 'Linear',
-        //     duration: 2000,
-        // });
+        /*this.tweens.add({
+            targets: this.bgm,
+            volume: 0,
+            ease: 'Linear',
+            duration: 2000,
+        });*/
        
         // kill paddle
-        this.fox.destroy();              
+        this.fox.destroy();
+        let death = this.add.sprite(this.fox.x, this.fox.y, 'death').setOrigin(0,0);
+        death.anims.play('death').setScale(5).setOrigin(0.5); // explosion animation
         // switch states after timer expires
-        // this.time.delayedCall(3000, () => { this.scene.start('gameOverScene'); });
+        /*this.time.delayedCall(3000, () => { this.scene.start('gameOverScene'); });*/
     }
 
     jumpUpdate(){
@@ -94,13 +98,11 @@ class Play extends Phaser.Scene {
 	    // 	this.fox.anims.play('jump');
 	    // }
         // allow steady velocity change up to a certain key down duration
-        // see: https://photonstorm.github.io/phaser3-docs/Phaser.Input.Keyboard.html#.DownDuration__anchor
 	    if(this.jumps > 0 && Phaser.Input.Keyboard.DownDuration(cursors.up, 200)) {
 	        this.fox.body.velocity.y = this.JUMP_VELOCITY;
 	        this.jumping = true;
 	    }
         // finally, letting go of the UP key subtracts a jump
-        // see: https://photonstorm.github.io/phaser3-docs/Phaser.Input.Keyboard.html#.UpDuration__anchor
 	    if(this.jumping && Phaser.Input.Keyboard.UpDuration(cursors.up)) {
 	    	this.jumps--;
 	    	this.jumping = false;
