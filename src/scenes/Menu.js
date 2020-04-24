@@ -9,7 +9,7 @@ class Menu extends Phaser.Scene {
             key: 'run',
             frames: this.anims.generateFrameNumbers('fox', {start: 0, end: 3, first: 0}),
             frameRate: 10,
-            repeat: -1
+            repeat: 0
         });
     }
 
