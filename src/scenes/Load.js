@@ -11,10 +11,10 @@ class Load extends Phaser.Scene {
         this.load.image('talltrees', 'talltrees.png');
         
         /* test loading bar buffer*/
-        // this.load.image('background', 'images/tut/background.png');
-        // for(var i =0;i<100;i++) {
-		// 	this.load.image('background_'+i, 'images/tut/background.png');
-		// };
+        this.load.image('background', 'images/tut/background.png');
+        for(var i =0;i<30;i++) {
+			this.load.image('background_'+i, 'images/tut/background.png');
+		};
 
         // loading bar frame
         var progressBar = this.add.graphics();
