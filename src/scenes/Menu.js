@@ -9,6 +9,7 @@ class Menu extends Phaser.Scene {
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+        
         //title name
         let title = this.add.text(game.config.width/2-124, game.config.height/2-100, 'Title', {
             fontFamily: 'Patricia',
@@ -26,7 +27,7 @@ class Menu extends Phaser.Scene {
         });
         this.anims.create({
             key: 'run2',
-            frames: this.anims.generateFrameNumbers('foxy', {start: 0, end: 3, first: 0}),
+            frames: this.anims.generateFrameNumbers('fox_run', {start: 0, end: 7, first: 0}),
             frameRate: 10,
             repeat: -1
         });
