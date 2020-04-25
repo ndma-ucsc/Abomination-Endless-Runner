@@ -105,10 +105,13 @@ class Play extends Phaser.Scene {
                 this.multiplier += 1;
                 console.log('here');
                 // this.cameras.main.flash(5000);
-                this.fox.x = game.config.width / 5;
-                this.fox.y = game.config.height - 4 * tileSize + 22;
-                this.fox.setTexture('fox_run');
+                // this.fox.x = game.config.width / 5;
+                // this.fox.y = game.config.height - 4 * tileSize + 22;
+                // this.fox.setTexture('fox_run');
+                this.fox.destroy();
                 this.run = 'run2';
+                this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, 'fox_run').setOrigin(1);
+                this.physics.add.collider(this.fox, this.ground);
                 collisionDebug = true;
                 this.time.delayedCall(3000, () => {collisionDebug = false;});
             }
