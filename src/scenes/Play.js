@@ -8,7 +8,6 @@ class Play extends Phaser.Scene {
         this.JUMP_VELOCITY = -750;
         this.MAX_JUMPS = 1;
         this.SCROLL_SPEED = 3;
-        currentScene = 3;
         this.physics.world.gravity.y = 3000;
 
         this.talltrees = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'talltrees').setOrigin(0);
@@ -36,24 +35,33 @@ class Play extends Phaser.Scene {
         this.obstacles = this.add.group({
             runChildUpdate: true    // make sure update runs on group children
         });
-        this.spawnObstacle();
 
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
         
+        this.clock = this.time.addEvent({
+            delay: 5000,
+            callback: this.spawnObstacle,
+            callbackScope: this,
+            loop: true
+        });
         this.gameOver = false;
     } // end of create()
 
     spawnObstacle() {
-        let obstacle = new Obstacle(this, this.obstacleSpeed);     // create new barrier
-        this.obstacles.add(obstacle);        
+        let obstacle = new Obstacle(this,this.obstacleSpeed);     // create new obstacle
+        this.obstacles.add(obstacle);
+        console.log(this.clock.delay);
+        
     }
 
     update(){
-
         if(!this.gameOver){
             this.talltrees.tilePositionX += this.SCROLL_SPEED;
             this.groundScroll.tilePositionX += this.SCROLL_SPEED;
+            
+            // this.clock.delay = Math.random() * 100000 + 600;
+            this.clock.delay = Phaser.Math.Between(5000,7000);
 
             this.jumpUpdate();
 
@@ -68,21 +76,15 @@ class Play extends Phaser.Scene {
     foxCollision() {
         this.gameOver = true;                    // turn off collision checking
         // this.sound.play('death', { volume: 0.5 });  // play death sound
-
-        // create tween to fade out audio
-        /*this.tweens.add({
-            targets: this.bgm,
-            volume: 0,
-            ease: 'Linear',
-            duration: 2000,
-        });*/
        
         // kill paddle
         this.fox.destroy();
         let death = this.add.sprite(this.fox.x, this.fox.y, 'death').setOrigin(0,0);
         death.anims.play('death').setScale(5).setOrigin(0.5); // explosion animation
         // switch states after timer expires
-        /*this.time.delayedCall(3000, () => { this.scene.start('gameOverScene'); });*/
+        this.time.delayedCall(3000, () => {
+
+        });
     }
 
     jumpUpdate(){
@@ -94,18 +96,21 @@ class Play extends Phaser.Scene {
 	    	this.jumps = this.MAX_JUMPS;
 	    	this.jumping = false;
         }
-        // else {
-	    // 	this.fox.anims.play('jump');
-	    // }
+        else {
+            // this.fox.anims.play('jump');
+        }
+        if(Phaser.Input.Keyboard.JustDown(cursors.up) && this.fox.isGrounded){
+            this.sound.play('jump_sfx');
+        }
         // allow steady velocity change up to a certain key down duration
 	    if(this.jumps > 0 && Phaser.Input.Keyboard.DownDuration(cursors.up, 200)) {
 	        this.fox.body.velocity.y = this.JUMP_VELOCITY;
-	        this.jumping = true;
+            this.jumping = true;
 	    }
         // finally, letting go of the UP key subtracts a jump
 	    if(this.jumping && Phaser.Input.Keyboard.UpDuration(cursors.up)) {
 	    	this.jumps--;
-	    	this.jumping = false;
+            this.jumping = false;            
 	    }
     }
 }

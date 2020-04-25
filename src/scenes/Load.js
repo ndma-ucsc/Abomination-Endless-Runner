@@ -8,10 +8,13 @@ class Load extends Phaser.Scene {
         this.load.path = "./assets/";
         this.load.image('start', 'start.png');
         this.load.spritesheet('fox', 'base_fox.png', {frameWidth: 148, framHeight: 96, startFrame: 0, endFrame: 3});
+        this.load.spritesheet('foxy', 'foxy.png', {frameWidth: 148, framHeight: 96, startFrame: 0, endFrame: 3});
         this.load.image('talltrees', 'talltrees.png');
         // this.load.audio('death', '');
         this.load.audio('bgMusic', 'audio/Warm_Light.mp3');
-        
+        this.load.audio('obstacle', 'obstacle.png');
+        this.load.audio('jump_sfx', 'audio/jump_sfx.wav');
+
         this.load.spritesheet('death', 'fship_explosion.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 9}); // dummy
 
         /* test loading bar buffer*/

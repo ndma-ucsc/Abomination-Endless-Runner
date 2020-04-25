@@ -10,7 +10,6 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         this.body.allowGravity = false;
         // this.tint = Math.random() * 0xFFFFFF;   // randomize tint
         this.newObstacle = true;                 // custom property to control obstacle spawning
-
         this.scene = scene;
         this.velocity = velocity;
     }
@@ -23,16 +22,33 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityX(0);
         }
 
-        // add new obstacle when existing obstacle hits center X
-        if(this.newObstacle && this.x < game.config.width / 2 && !this.scene.gameOver) {
-            this.newObstacle = false;
-            // call parent scene method from this context
-            this.scene.spawnObstacle(this.parent, this.velocity);
-        }
+        // this.scene.time.addEvent({
+        //     delay: Phaser.Math.Between(5000, 10000),
+        //     callback: () =>{
+        //         // console.log(this);
+        //         // add new obstacle when existing barrier hits center X
+        //         if(this.newObstacle && this.x < game.config.width / 2 &&  !this.scene.gameOver) {
+        //             this.newObstacle = false;
+        //             // call parent scene method from this context
+        //             this.scene.spawnObstacle(this.parent, this.velocity);
+        //         }
+        //     },
+        //     callbackScope: this.scene,
+        //     loop: true
+        // })
 
-        // destroy paddle if it reaches the left edge of the screen
+
+        // if(this.newObstacle && this.x < game.config.width / 2 &&  !this.scene.gameOver) {
+        //     this.newObstacle = false;
+        //     // call parent scene method from this context
+        //     this.scene.spawnObstacle(this.parent, this.velocity);
+        // }
+
+        // destroy obstacle if it reaches the left edge of the screen
         if(this.x < -this.width) {
             this.destroy();
         }
+
+        
     }
 }
