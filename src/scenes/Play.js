@@ -9,6 +9,14 @@ class Play extends Phaser.Scene {
         this.MAX_JUMPS = 1;
         this.SCROLL_SPEED = 3;
         this.physics.world.gravity.y = 3000;
+        this.score = 0;
+        this.multiplier = 2;
+
+        this.scoreTimer = this.time.addEvent({
+            delay: 1000,
+            callback: () => {this.score += 1;},
+            loop: true
+        });
 
         this.talltrees = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'talltrees').setOrigin(0);
 
@@ -51,8 +59,6 @@ class Play extends Phaser.Scene {
     spawnObstacle() {
         let obstacle = new Obstacle(this,this.obstacleSpeed);     // create new obstacle
         this.obstacles.add(obstacle);
-        console.log(this.clock.delay);
-        
     }
 
     update(){
@@ -69,12 +75,19 @@ class Play extends Phaser.Scene {
             if (!collisionDebug){
                 this.physics.world.collide(this.fox, this.obstacles, this.foxCollision, null, this);
             }
+
+            if (this.score >= this.multiplier * 5){
+                this.score = 0;
+                this.multiplier += 1;
+                console.log('here');
+                this.fox.setTexture('foxy');
+            }
         }
 
     } // end of update()
 
     foxCollision() {
-        this.gameOver = true;                    // turn off collision checking
+        this.gameOver = true; // turn off collision checking
         // this.sound.play('death', { volume: 0.5 });  // play death sound
        
         // kill paddle

@@ -5,7 +5,6 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-        
 
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
