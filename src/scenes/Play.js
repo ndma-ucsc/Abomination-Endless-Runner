@@ -8,14 +8,21 @@ class Play extends Phaser.Scene {
         this.JUMP_VELOCITY = -750;
         this.MAX_JUMPS = 1;
         this.SCROLL_SPEED = 3;
+        // this.SCORE_MULTIPLIER = 0.175;
         this.physics.world.gravity.y = 3000;
-        this.score = 4;
-        this.multiplier = 2;
+
+        // score control
+        this.score = 29;
+        // this.trueScore = this.score * this.SCORE_MULTIPLIER;
+        this.multiplier = 6;
         this.run = 'run';
 
         this.scoreTimer = this.time.addEvent({
             delay: 1000,
-            callback: () => {this.score += 1;},
+            callback: () => {
+                this.score += 1;
+                this.trueScore += this.scoreTimer.getOverallProgress() * 5;
+            },
             loop: true
         });
 
@@ -54,13 +61,30 @@ class Play extends Phaser.Scene {
             callbackScope: this,
             loop: true
         });
+
+        // score display
+        let scoreConfig = {
+            fontFamily: 'Courier',
+            fontSize: '50px',
+            color: '#843605',
+            align: 'left',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+        }
+        this.trueScore = this.scoreTimer.getOverallProgress();
+        this.scoreText = this.add.text(69, 54, this.trueScore + 'm', scoreConfig);
+        
         this.gameOver = false;
     } // end of create()
+
 
     spawnObstacle() {
         let obstacle = new Obstacle(this,this.obstacleSpeed);     // create new obstacle
         this.obstacles.add(obstacle);
     }
+
 
     update(){
         if(!this.gameOver){
@@ -75,22 +99,23 @@ class Play extends Phaser.Scene {
             // check for collisions
             if (!collisionDebug){
                 this.physics.world.collide(this.fox, this.obstacles, this.foxCollision, null, this);
-            }
-
+            }            
             if (this.score >= this.multiplier * 5){
                 this.score = 0;
                 this.multiplier += 1;
                 console.log('here');
-                this.cameras.main.flash(5000);
-                this.fox.y = game.config.height - 3 * tileSize + 22;
+                // this.cameras.main.flash(5000);
+                this.fox.x = game.config.width / 5;
+                this.fox.y = game.config.height - 4 * tileSize + 22;
                 this.fox.setTexture('foxy');
                 this.run = 'run2';
                 collisionDebug = true;
                 this.time.delayedCall(3000, () => {collisionDebug = false;});
             }
+            this.scoreText.text = this.trueScore + 'm';
         }
-
     } // end of update()
+
 
     foxCollision() {
         this.gameOver = true; // turn off collision checking
@@ -101,6 +126,7 @@ class Play extends Phaser.Scene {
         let death = this.add.sprite(this.fox.x, this.fox.y, 'death').setOrigin(1);
         death.anims.play('death').setScale(5).setOrigin(1); // explosion animation
     }
+
 
     jumpUpdate(){
         // check if fox is grounded
