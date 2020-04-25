@@ -43,5 +43,4 @@ game.settings = {
 
 // reserve some keyboard variables
 let keyF, keyLEFT, keyRIGHT, keyUP, keyDOWN, keyENTER, bgMusic, runAnims; 
-let collisionDebug = true;
-// let collisionDebug = false;
+let collisionDebug = false;

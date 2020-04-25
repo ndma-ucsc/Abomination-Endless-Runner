@@ -24,6 +24,12 @@ class Menu extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
+        this.anims.create({
+            key: 'run2',
+            frames: this.anims.generateFrameNumbers('foxy', {start: 0, end: 3, first: 0}),
+            frameRate: 10,
+            repeat: -1
+        });
 
         // fox death
         this.anims.create({

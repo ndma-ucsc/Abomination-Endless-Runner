@@ -9,8 +9,9 @@ class Play extends Phaser.Scene {
         this.MAX_JUMPS = 1;
         this.SCROLL_SPEED = 3;
         this.physics.world.gravity.y = 3000;
-        this.score = 0;
+        this.score = 4;
         this.multiplier = 2;
+        this.run = 'run';
 
         this.scoreTimer = this.time.addEvent({
             delay: 1000,
@@ -21,7 +22,7 @@ class Play extends Phaser.Scene {
         this.talltrees = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'talltrees').setOrigin(0);
 
         // create player sprite
-        this.fox = this.physics.add.sprite(120, game.config.height - 3 * tileSize + 22, 'fox');
+        this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, 'fox').setOrigin(1);
 
         // make ground tiles group (actual ground)
         this.ground = this.add.group();
@@ -80,7 +81,12 @@ class Play extends Phaser.Scene {
                 this.score = 0;
                 this.multiplier += 1;
                 console.log('here');
+                this.cameras.main.flash(5000);
+                this.fox.y = game.config.height - 3 * tileSize + 22;
                 this.fox.setTexture('foxy');
+                this.run = 'run2';
+                collisionDebug = true;
+                this.time.delayedCall(3000, () => {collisionDebug = false;});
             }
         }
 
@@ -92,12 +98,8 @@ class Play extends Phaser.Scene {
        
         // kill paddle
         this.fox.destroy();
-        let death = this.add.sprite(this.fox.x, this.fox.y, 'death').setOrigin(0,0);
-        death.anims.play('death').setScale(5).setOrigin(0.5); // explosion animation
-        // switch states after timer expires
-        this.time.delayedCall(3000, () => {
-
-        });
+        let death = this.add.sprite(this.fox.x, this.fox.y, 'death').setOrigin(1);
+        death.anims.play('death').setScale(5).setOrigin(1); // explosion animation
     }
 
     jumpUpdate(){
@@ -105,12 +107,9 @@ class Play extends Phaser.Scene {
 	    this.fox.isGrounded = this.fox.body.touching.down;
 	    // if so, we have jumps to spare
 	    if(this.fox.isGrounded) {
-            this.fox.anims.play('run', true);
+            this.fox.anims.play(this.run, true);
 	    	this.jumps = this.MAX_JUMPS;
 	    	this.jumping = false;
-        }
-        else {
-            // this.fox.anims.play('jump');
         }
         if(Phaser.Input.Keyboard.JustDown(cursors.up) && this.fox.isGrounded){
             this.sound.play('jump_sfx');
