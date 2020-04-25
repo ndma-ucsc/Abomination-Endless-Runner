@@ -7,7 +7,7 @@
 // and grow up to nine tails to signify the players progression.
 ////////////////////////////////////////////////////////////////////////////////////
 
-"use strict"
+"use strict";
 
 // global variables
 let cursors;
@@ -42,6 +42,6 @@ game.settings = {
 }
 
 // reserve some keyboard variables
-let keyF, keyLEFT, keyRIGHT, keyUP, keyDOWN, keyENTER, bgMusic
+let keyF, keyLEFT, keyRIGHT, keyUP, keyDOWN, keyENTER, bgMusic; 
 // let collisionDebug = true;
 let collisionDebug = false;

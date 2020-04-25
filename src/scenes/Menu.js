@@ -10,7 +10,6 @@ class Menu extends Phaser.Scene {
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-
         //title name
         let title = this.add.text(game.config.width/2-124, game.config.height/2-100, 'Title', {
             fontFamily: 'Patricia',
