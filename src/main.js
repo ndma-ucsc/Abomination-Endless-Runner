@@ -28,18 +28,13 @@ let config = {
     default: 'arcade',
     arcade:{
       gravity: {y: 1000},
-      debug: true
+      debug: false
     }
   },
   scene: [ Load, Menu, Play ]
 };
 
 let game = new Phaser.Game(config);
-
-// define game settings
-game.settings = {
-  
-}
 
 // reserve some keyboard variables
 let keyF, keyLEFT, keyRIGHT, keyUP, keyDOWN, keyENTER, bgMusic, runAnims; 
