@@ -9,9 +9,9 @@ class Load extends Phaser.Scene {
         this.load.image('start', 'start.png');
 
         // these need to be atlas later
-        this.load.spritesheet('fox', 'base_fox.png', {frameWidth: 128, frameHeight: 87, startFrame: 0, endFrame: 3});
-        this.load.spritesheet('fox_run', 'fox_running.png', {frameWidth: 189, frameHeight: 96, startFrame: 0, endFrame: 7});
-        this.load.spritesheet('fox_jump', 'fox_jump.png', {frameWidth: 189, frameHeight: 96, startFrame: 0, endFrame: 13});
+        this.load.spritesheet('fox1', 'base_fox.png', {frameWidth: 128, frameHeight: 87, startFrame: 0, endFrame: 3});
+        this.load.spritesheet('fox2', 'base_fox2.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 4});
+        this.load.spritesheet('fox3', 'fox_running.png', {frameWidth: 189, frameHeight: 96, startFrame: 0, endFrame: 7});
 
         this.load.image('talltrees', 'talltrees.png');
         // this.load.audio('death', '');

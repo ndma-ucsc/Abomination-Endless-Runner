@@ -20,7 +20,8 @@ class Play extends Phaser.Scene {
         this.score = 0;
         // this.trueScore = this.score * this.SCORE_MULTIPLIER;
         this.level = 1;
-        this.run = 'run';
+        this.fox_sprite = ['fox1','fox2','fox3'];
+        this.run = this.fox_sprite[0] + '_run';        
 
         this.scoreTimer = this.time.addEvent({
             delay: 1000,
@@ -34,7 +35,7 @@ class Play extends Phaser.Scene {
         this.talltrees = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'talltrees').setOrigin(0);
 
         // create player sprite
-        this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, 'fox').setOrigin(1);
+        this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, this.fox_sprite[0]).setOrigin(1);
 
         // make ground tiles group (actual ground)
         this.ground = this.add.group();
@@ -123,8 +124,8 @@ class Play extends Phaser.Scene {
                 // this.fox.y = game.config.height - 4 * tileSize + 22;
                 // this.fox.setTexture('fox_run');
                 this.fox.destroy();
-                this.run = 'run2';
-                this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, 'fox_run').setOrigin(1);
+                this.run = this.fox_sprite[this.level - 1] + '_run';
+                this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, this.fox_sprite[this.level - 1]).setOrigin(1);
                 this.physics.add.collider(this.fox, this.ground);
                 this.collisionOn = false;
                 this.time.delayedCall(3000, () => {this.collisionOn = true;});

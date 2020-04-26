@@ -21,14 +21,20 @@ class Menu extends Phaser.Scene {
 
         // fox run
         this.anims.create({
-            key: 'run',
-            frames: this.anims.generateFrameNumbers('fox', {start: 0, end: 3, first: 0}),
+            key: 'fox1_run',
+            frames: this.anims.generateFrameNumbers('fox1', {start: 0, end: 3, first: 0}),
             frameRate: 10,
             repeat: -1
         });
         this.anims.create({
-            key: 'run2',
-            frames: this.anims.generateFrameNumbers('fox_run', {start: 0, end: 7, first: 0}),
+            key: 'fox2_run',
+            frames: this.anims.generateFrameNumbers('fox2', {start: 0, end: 4, first: 0}),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'fox3_run',
+            frames: this.anims.generateFrameNumbers('blue_fox', {start: 0, end: 7, first: 0}),
             frameRate: 10,
             repeat: -1
         });
