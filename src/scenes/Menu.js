@@ -34,7 +34,7 @@ class Menu extends Phaser.Scene {
         });
         this.anims.create({
             key: 'fox3_run',
-            frames: this.anims.generateFrameNumbers('blue_fox', {start: 0, end: 7, first: 0}),
+            frames: this.anims.generateFrameNumbers('fox3', {start: 0, end: 7, first: 0}),
             frameRate: 10,
             repeat: -1
         });
