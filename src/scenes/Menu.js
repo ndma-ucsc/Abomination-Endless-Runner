@@ -5,6 +5,7 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
+        switching = false;
         this.cameras.main.fadeIn(2000);
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
@@ -86,8 +87,9 @@ class Menu extends Phaser.Scene {
             this.credit.setTint(0xff0000);
         }
         if(Phaser.Input.Keyboard.JustDown(keyENTER)) {
-            this.cameras.main.fadeOut(2000);
-            this.time.delayedCall(2000,() => {
+            this.input.keyboard.enabled = false;
+            this.cameras.main.fadeOut(1500);
+            this.time.delayedCall(1500,() => {
                 if(this.selected == 1) {
                     this.scene.start("playScene");
                 }

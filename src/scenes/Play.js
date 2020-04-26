@@ -5,6 +5,7 @@ class Play extends Phaser.Scene {
 
     create() {
         this.cameras.main.fadeIn(1500);
+        this.input.keyboard.enabled = true;
         this.obstacleSpeed = -450;
         this.obstacleMin = 5000;
         this.obstacleMax = 7000;
@@ -133,6 +134,7 @@ class Play extends Phaser.Scene {
         }
 
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyENTER)){
+            this.input.keyboard.enabled = false;
             this.cameras.main.fadeOut(2000);
             this.time.delayedCall(2000, () => {this.scene.start("playScene");});
         }
@@ -150,7 +152,7 @@ class Play extends Phaser.Scene {
         let death = this.add.sprite(this.fox.x, this.fox.y, 'death').setOrigin(1);
         death.anims.play('death').setScale(5).setOrigin(1); // explosion animation
         let gameOverTextConfig = {
-            fontFamily: 'Courier',
+            fontFamily: 'Bradley Hand',
             fontSize: '50px',
             color: '#843605',
             align: 'left',
@@ -159,10 +161,12 @@ class Play extends Phaser.Scene {
                 bottom: 5,
             },
         }
-        this.gameOverText = this.add.text(game.config.width / 2, game.config.height / 2, 'Game Over\n Restart?', gameOverTextConfig).setOrigin(0.5);
+        this.gameOverText = this.add.text(game.config.width / 2, game.config.height / 2, 'Game Over', gameOverTextConfig).setOrigin(0.5);
+        this.gameOverText2 = this.add.text(game.config.width / 2, game.config.height / 2 + 50, 'Restart?', gameOverTextConfig).setOrigin(0.5)
+        this.gameOverText2.fontSize = '40px';
         this.gameOverText.alpha = 0;
         this.tweens.add({
-            targets: this.gameOverText,
+            targets: [this.gameOverText, this.gameOverText2],
             alpha: {from: 0, to: 1},
             ease: 'Linear',
             duration: 1000,
