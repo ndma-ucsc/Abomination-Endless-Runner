@@ -15,7 +15,7 @@ class Play extends Phaser.Scene {
         this.collisionOn = true;
         this.SCORE_MULTIPLIER = 1;
         this.physics.world.gravity.y = 3000;
-        this.scoreArray = [0, 150, 500, ]; // keep track of level threshold
+        this.scoreArray = [0, 300, 900, 1750, 5000, 13000, 30000, 75000, 150000]; // keep track of level threshold
         // score control
         this.score = 0;
         // this.trueScore = this.score * this.SCORE_MULTIPLIER;
@@ -110,12 +110,11 @@ class Play extends Phaser.Scene {
             if (!collisionDebug && this.collisionOn){
                 this.physics.world.collide(this.fox, this.obstacles, this.foxCollision, null, this);
             }            
-            if (this.level < 9 && this.trueScore == this.scoreArray[this.level]){
-                console.log('Level Up: ' + this.level);
-                this.SCORE_MULTIPLIER *= 5;
-                this.score = 0;
+            if (this.level < 9 && this.trueScore >= this.scoreArray[this.level]){
+                console.log(`Level Up: ${this.level} @ ${this.scoreArray[this.level]}m`);
+                this.SCORE_MULTIPLIER *= 2;
                 this.level += 1;
-                this.cameras.main.flash(5000);
+                this.cameras.main.flash(3000);
                 this.SCROLL_SPEED += 2;
                 this.obstacleSpeed -= 100;
                 this.obstacleMin -= 500;
@@ -127,8 +126,8 @@ class Play extends Phaser.Scene {
                 this.run = 'run2';
                 this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, 'fox_run').setOrigin(1);
                 this.physics.add.collider(this.fox, this.ground);
-                collisionDebug = true;
-                this.time.delayedCall(3000, () => {this.collisionOn = false;});
+                this.collisionOn = false;
+                this.time.delayedCall(3000, () => {this.collisionOn = true;});
             }
             this.scoreText.text = this.trueScore + 'm';
         }
