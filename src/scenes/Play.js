@@ -4,24 +4,28 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        this.cameras.main.fadeIn(1500);
         this.obstacleSpeed = -450;
+        this.obstacleMin = 5000;
+        this.obstacleMax = 7000;
         this.JUMP_VELOCITY = -750;
         this.MAX_JUMPS = 1;
         this.SCROLL_SPEED = 3;
-        // this.SCORE_MULTIPLIER = 0.175;
+        this.collisionOn = true;
+        this.SCORE_MULTIPLIER = 1;
         this.physics.world.gravity.y = 3000;
-
+        this.scoreArray = [0, 150, 500, ]; // keep track of level threshold
         // score control
-        this.score = 29;
+        this.score = 0;
         // this.trueScore = this.score * this.SCORE_MULTIPLIER;
-        this.multiplier = 6;
+        this.level = 1;
         this.run = 'run';
 
         this.scoreTimer = this.time.addEvent({
             delay: 1000,
             callback: () => {
                 this.score += 1;
-                this.trueScore += this.scoreTimer.getOverallProgress() * 5;
+                this.trueScore += Math.floor(this.scoreTimer.getOverallProgress() * 5 * this.SCORE_MULTIPLIER);
             },
             loop: true
         });
@@ -76,13 +80,18 @@ class Play extends Phaser.Scene {
         this.trueScore = this.scoreTimer.getOverallProgress();
         this.scoreText = this.add.text(69, 54, this.trueScore + 'm', scoreConfig);
         
+
+        keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+
         this.gameOver = false;
     } // end of create()
 
 
     spawnObstacle() {
         let obstacle = new Obstacle(this,this.obstacleSpeed);     // create new obstacle
+        obstacle.x += Phaser.Math.Between(0,300);
         this.obstacles.add(obstacle);
+        console.log(`Spawned in ${this.clock.delay}s @ ${obstacle.x}`);
     }
 
 
@@ -92,19 +101,24 @@ class Play extends Phaser.Scene {
             this.groundScroll.tilePositionX += this.SCROLL_SPEED;
             
             // this.clock.delay = Math.random() * 100000 + 600;
-            this.clock.delay = Phaser.Math.Between(5000,7000);
+            this.clock.delay = Phaser.Math.Between(this.obstacleMin,this.obstacleMax);
 
             this.jumpUpdate();
 
             // check for collisions
-            if (!collisionDebug){
+            if (!collisionDebug && this.collisionOn){
                 this.physics.world.collide(this.fox, this.obstacles, this.foxCollision, null, this);
             }            
-            if (this.score >= this.multiplier * 5){
+            if (this.level < 9 && this.trueScore == this.scoreArray[this.level]){
+                console.log('Level Up: ' + this.level);
+                this.SCORE_MULTIPLIER *= 5;
                 this.score = 0;
-                this.multiplier += 1;
-                console.log('here');
-                // this.cameras.main.flash(5000);
+                this.level += 1;
+                this.cameras.main.flash(5000);
+                this.SCROLL_SPEED += 2;
+                this.obstacleSpeed -= 100;
+                this.obstacleMin -= 500;
+                this.obstacleMax -= 500;
                 // this.fox.x = game.config.width / 5;
                 // this.fox.y = game.config.height - 4 * tileSize + 22;
                 // this.fox.setTexture('fox_run');
@@ -113,14 +127,21 @@ class Play extends Phaser.Scene {
                 this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, 'fox_run').setOrigin(1);
                 this.physics.add.collider(this.fox, this.ground);
                 collisionDebug = true;
-                this.time.delayedCall(3000, () => {collisionDebug = false;});
+                this.time.delayedCall(3000, () => {this.collisionOn = false;});
             }
             this.scoreText.text = this.trueScore + 'm';
         }
+
+        if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyENTER)){
+            this.cameras.main.fadeOut(2000);
+            this.time.delayedCall(2000, () => {this.scene.start("playScene");});
+        }
+        
     } // end of update()
 
 
     foxCollision() {
+        console.log("Game Over");
         this.gameOver = true; // turn off collision checking
         // this.sound.play('death', { volume: 0.5 });  // play death sound
        
@@ -128,6 +149,25 @@ class Play extends Phaser.Scene {
         this.fox.destroy();
         let death = this.add.sprite(this.fox.x, this.fox.y, 'death').setOrigin(1);
         death.anims.play('death').setScale(5).setOrigin(1); // explosion animation
+        let gameOverTextConfig = {
+            fontFamily: 'Courier',
+            fontSize: '50px',
+            color: '#843605',
+            align: 'left',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+        }
+        this.gameOverText = this.add.text(game.config.width / 2, game.config.height / 2, 'Game Over\n Restart?', gameOverTextConfig).setOrigin(0.5);
+        this.gameOverText.alpha = 0;
+        this.tweens.add({
+            targets: this.gameOverText,
+            alpha: {from: 0, to: 1},
+            ease: 'Linear',
+            duration: 1000,
+            repeat: 0
+        });
     }
 
 
@@ -139,6 +179,9 @@ class Play extends Phaser.Scene {
             this.fox.anims.play(this.run, true);
 	    	this.jumps = this.MAX_JUMPS;
 	    	this.jumping = false;
+        }
+        else{
+            // this.fox.anims.play('jump', true);
         }
         if(Phaser.Input.Keyboard.JustDown(cursors.up) && this.fox.isGrounded){
             this.sound.play('jump_sfx');

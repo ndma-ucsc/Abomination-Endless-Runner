@@ -5,7 +5,7 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-
+        this.cameras.main.fadeIn(2000);
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
@@ -30,6 +30,13 @@ class Menu extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('fox_run', {start: 0, end: 7, first: 0}),
             frameRate: 10,
             repeat: -1
+        });
+
+        // fox jump
+        this.anims.create({
+            key: 'jump',
+            frames: this.anims.generateFrameNumbers('fox_jump', {start: 0, end: 13, first: 0}),
+            frameRate: 10
         });
 
         // fox death
@@ -79,15 +86,18 @@ class Menu extends Phaser.Scene {
             this.credit.setTint(0xff0000);
         }
         if(Phaser.Input.Keyboard.JustDown(keyENTER)) {
-            if(this.selected == 1) {
-                this.scene.start("playScene");
-            }
-            if(this.selected == 2) {
-                //to be added
-            }
-            if(this.selected == 3) {
-                //to be added
-            }
+            this.cameras.main.fadeOut(2000);
+            this.time.delayedCall(2000,() => {
+                if(this.selected == 1) {
+                    this.scene.start("playScene");
+                }
+                if(this.selected == 2) {
+                    //to be added
+                }
+                if(this.selected == 3) {
+                    //to be added
+                }
+            });
         }
     }
 

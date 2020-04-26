@@ -7,11 +7,15 @@ class Load extends Phaser.Scene {
 
         this.load.path = "./assets/";
         this.load.image('start', 'start.png');
+
+        // these need to be atlas later
         this.load.spritesheet('fox_run', 'fox_running.png', {frameWidth: 189, frameHeight: 96, startFrame: 0, endFrame: 7});
-        this.load.spritesheet('fox', 'base_fox.png', {frameWidth: 148, framHeight: 96, startFrame: 0, endFrame: 3});
+        this.load.spritesheet('fox', 'base_fox.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 3});
+        this.load.spritesheet('fox_jump', 'fox_jump.png', {frameWidth: 189, frameHeight: 100, startFrame: 0, endFrame: 13});
+
         this.load.image('talltrees', 'talltrees.png');
         // this.load.audio('death', '');
-        this.load.audio('bgMusic', 'audio/Warm_Light.mp3');
+        this.load.audio('bgMusic', 'audio/Forest_Ventures.mp3');
         this.load.audio('obstacle', 'obstacle.png');
         this.load.audio('jump_sfx', 'audio/jump_sfx.wav');
 
@@ -80,9 +84,11 @@ class Load extends Phaser.Scene {
     }
 
     create() {
+        keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         bgMusic = this.sound.add('bgMusic', {volume: 0.15, loop: true});
         bgMusic.play();
-        this.scene.start("menuScene");
+        this.cameras.main.fadeOut(2000);
+        this.time.delayedCall(2000, () => {this.scene.start("menuScene");})
     }
 
     update(){        
