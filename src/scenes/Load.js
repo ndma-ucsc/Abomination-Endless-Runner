@@ -4,22 +4,21 @@ class Load extends Phaser.Scene {
     }
 
     preload(){
-
         this.load.path = "./assets/";
+
         this.load.image('start', 'start.png');
+        this.load.image('talltrees', 'talltrees.png'); // dummy
 
         // these need to be atlas later
         this.load.spritesheet('fox1', 'base_fox.png', {frameWidth: 128, frameHeight: 87, startFrame: 0, endFrame: 3});
         this.load.spritesheet('fox2', 'base_fox2.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 4});
         this.load.spritesheet('fox3', 'blue_fox.png', {frameWidth: 189, frameHeight: 96, startFrame: 0, endFrame: 7});
+        this.load.spritesheet('death', 'fship_explosion.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 9}); // dummy
 
-        this.load.image('talltrees', 'talltrees.png');
-        // this.load.audio('death', '');
-        this.load.audio('bgMusic', 'audio/Forest_Ventures.mp3');
         this.load.audio('obstacle', 'obstacle.png');
         this.load.audio('jump_sfx', 'audio/jump_sfx.wav');
-
-        this.load.spritesheet('death', 'fship_explosion.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 9}); // dummy
+        this.load.audio('bgMusic', 'audio/Forest_Ventures.mp3');
+        
 
         /* test loading bar buffer*/
         // this.load.image('background', 'images/tut/background.png');

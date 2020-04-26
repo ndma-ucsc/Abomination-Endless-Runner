@@ -90,7 +90,8 @@ class Play extends Phaser.Scene {
 
 
     spawnObstacle() {
-        let obstacle = new Obstacle(this,this.obstacleSpeed);     // create new obstacle
+        this.obstacle_sprite = ['rock', 'hole', 'spike'];
+        let obstacle = new Obstacle(this,this.obstacleSpeed, this.obstacle_sprite[Math.floor(Math.random() * 3)]);     // create new obstacle
         obstacle.x += Phaser.Math.Between(0,300);
         this.obstacles.add(obstacle);
         console.log(`Spawned in ${this.clock.delay}s @ ${obstacle.x}`);
