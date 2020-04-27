@@ -24,6 +24,7 @@ class Play extends Phaser.Scene {
         this.scoreArray = [0, 900, 2000, 7500, 25000, 100000, 175000, 300000, 400000]; // keep track of level threshold
         this.trueScore = 0;
         this.level = 1;
+        this.levelMax = 3;
         this.fox_sprite = ['fox1','fox2','fox3','fox4','fox5','fox6','fox7','fox8','fox9'];
         this.run = this.fox_sprite[0] + '_run';        
         
@@ -128,7 +129,7 @@ class Play extends Phaser.Scene {
             if (!collisionDebug && this.collisionOn){
                 this.physics.world.collide(this.fox, this.obstacles, this.foxCollision, null, this);
             }            
-            if (this.level < 9 && this.trueScore >= this.scoreArray[this.level]){
+            if (this.level < this.levelMax && this.trueScore >= this.scoreArray[this.level]){
                 // update level qualities
                 console.log(`Level Up: ${this.level} @ ${this.scoreArray[this.level]}m`);
 
