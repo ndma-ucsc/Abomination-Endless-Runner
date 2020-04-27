@@ -5,7 +5,6 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-        switching = false;
         this.cameras.main.fadeIn(2000);
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
@@ -56,7 +55,7 @@ class Menu extends Phaser.Scene {
         
         //start button
         this.start = this.add.sprite(game.config.width/2, game.config.height/2 + 80, 'start');
-        this.option = this.add.sprite(game.config.width/2, game.config.height/2 + 180, 'start'); //to be added
+        this.option = this.add.sprite(game.config.width/2, game.config.height/2 + 180, 'option'); //to be added
         this.credit = this.add.sprite(game.config.width/2, game.config.height/2 + 280, 'start'); //to be added
     }
 
@@ -100,7 +99,7 @@ class Menu extends Phaser.Scene {
                     this.scene.start("playScene");
                 }
                 if(this.selected == 2) {
-                    //to be added
+                    this.scene.start("optionScene");
                 }
                 if(this.selected == 3) {
                     //to be added

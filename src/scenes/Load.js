@@ -8,6 +8,7 @@ class Load extends Phaser.Scene {
 
         this.load.image('start', 'start.png');
         this.load.image('talltrees', 'talltrees.png'); // dummy
+        this.load.image('obstacle', 'obstacle.png');
 
         // these need to be atlas later
         this.load.spritesheet('fox1', 'base_fox.png', {frameWidth: 128, frameHeight: 87, startFrame: 0, endFrame: 3});
@@ -15,9 +16,18 @@ class Load extends Phaser.Scene {
         this.load.spritesheet('fox3', 'blue_fox.png', {frameWidth: 189, frameHeight: 96, startFrame: 0, endFrame: 7});
         this.load.spritesheet('death', 'fship_explosion.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 9}); // dummy
 
-        this.load.audio('obstacle', 'obstacle.png');
-        this.load.audio('jump_sfx', 'audio/jump_sfx.wav');
-        this.load.audio('bgMusic', 'audio/Forest_Ventures.mp3');
+        this.load.audio('jump_sfx', 'sfx/jump_sfx.wav');
+
+        this.load.audio('fox1_bgm', 'ost/Dreams_of_the_Brilliant.mp3');
+        this.load.audio('fox2_bgm', 'ost/The_Long_Journey.mp3');
+        this.load.audio('fox3_bgm', 'ost/Water_Spirit.mp3');
+        this.load.audio('fox4_bgm', 'ost/Wind_Spirit.mp3');
+        this.load.audio('fox5_bgm', 'ost/Earth_Spirit.mp3');
+        this.load.audio('fox6_bgm', 'ost/.mp3');
+        this.load.audio('fox7_bgm', 'ost/.mp3');
+        this.load.audio('fox8_bgm', 'ost/.mp3');
+        this.load.audio('fox9_bgm', 'ost/.mp3');
+        this.load.audio('death_bgm','ost/Autumn_Rain.mp3')
         
 
         /* test loading bar buffer*/
@@ -83,10 +93,10 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-        bgMusic = this.sound.add('bgMusic', {volume: 0.15, loop: true});
-        bgMusic.play();
         this.cameras.main.fadeOut(2000);
+        keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+        bgMusic = this.sound.add('fox1_bgm', {volume: 0.3, loop: true});
+        bgMusic.play();
         this.time.delayedCall(2000, () => {this.scene.start("menuScene");})
     }
 
