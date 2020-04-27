@@ -11,8 +11,8 @@ class Play extends Phaser.Scene {
         }
         this.input.keyboard.enabled = true;
         this.obstacleSpeed = -450;
-        this.obstacleMin = 5000;
-        this.obstacleMax = 7000;
+        this.obstacleMin = 4000;
+        this.obstacleMax = 5000;
         this.JUMP_VELOCITY = -750;
         this.MAX_JUMPS = 1;
         this.SCROLL_SPEED = 3;
@@ -21,7 +21,7 @@ class Play extends Phaser.Scene {
         this.physics.world.gravity.y = 3000;
         
         // score control
-        this.scoreArray = [0, 300, 900, 1750, 5000, 13000, 30000, 75000, 150000]; // keep track of level threshold
+        this.scoreArray = [0, 900, 2000, 7500, 25000, 100000, 175000, 300000, 400000]; // keep track of level threshold
         this.trueScore = 0;
         this.level = 1;
         this.fox_sprite = ['fox1','fox2','fox3','fox4','fox5','fox6','fox7','fox8','fox9'];
@@ -45,14 +45,14 @@ class Play extends Phaser.Scene {
         // make ground tiles group (actual ground)
         this.ground = this.add.group();
         for(let i = 0; i < game.config.width; i += tileSize) {
-            let groundTile = this.physics.add.sprite(i, game.config.height - tileSize, 'texture_atlas', 'tile_block').setOrigin(0);
+            let groundTile = this.physics.add.sprite(i, game.config.height - tileSize, 'tile_block').setOrigin(0);
             groundTile.body.immovable = true;
             groundTile.body.allowGravity = false;
             this.ground.add(groundTile);
         }
 
         // pseudo ground
-        this.groundScroll = this.add.tileSprite(0, game.config.height-tileSize, game.config.width, tileSize, 'random_tile_block').setOrigin(0);
+        this.groundScroll = this.add.tileSprite(0, game.config.height-tileSize, game.config.width, tileSize, 'tile_block').setOrigin(0);
 
         // add physics collider
         this.physics.add.collider(this.fox, this.ground);
@@ -66,7 +66,7 @@ class Play extends Phaser.Scene {
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
         
-        this.clock = this.time.addEvent({
+        this.obstacleClock = this.time.addEvent({
             delay: 5000,
             callback: this.spawnObstacle,
             callbackScope: this,
@@ -77,6 +77,7 @@ class Play extends Phaser.Scene {
         let scoreConfig = {
             fontFamily: 'Courier',
             fontSize: '50px',
+            strokeThickness: 3,
             color: '#843605',
             align: 'left',
             padding: {
@@ -88,27 +89,39 @@ class Play extends Phaser.Scene {
         
 
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+        keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
 
+        this.gamePaused = false;
         this.gameOver = false;
     } // end of create()
 
 
     spawnObstacle() {
-        this.obstacle_sprite = ['rock', 'hole', 'spike'];
-        let obstacle = new Obstacle(this,this.obstacleSpeed, this.obstacle_sprite[Math.floor(Math.random() * 3)]);     // create new obstacle
-        obstacle.x += Phaser.Math.Between(0,300);
-        this.obstacles.add(obstacle);
-        console.log(`Spawned in ${this.clock.delay}s @ ${obstacle.x}`);
+        if (!this.gamePaused && !this.gameOver){
+            this.obstacle_sprite = ['rock', 'hole', 'spike'];
+            let obstacle = new Obstacle(this,this.obstacleSpeed, this.obstacle_sprite[Math.floor(Math.random() * 3)]);     // create new obstacle
+            obstacle.x += Phaser.Math.Between(0,1000);
+            obstacle.x *= Phaser.Math.Between(1,2);
+            if(this.prevObstacle - obstacle.x >= 1000){
+                console.log(`Canceled spawn @ ${obstacle.x}`);
+                this.prevObstacle = 0;
+                obstacle.destroy();
+                return;
+            }
+            console.log(`Spawned in ${this.obstacleClock.delay}s @ ${obstacle.x} p: ${this.prevObstacle}`);
+            this.prevObstacle = obstacle.x;
+            this.prevObstacle = obstacle.x;
+            this.obstacles.add(obstacle);
+        }
     }
 
 
     update(){
-        if(!this.gameOver){
+        if(!this.gameOver && !this.gamePaused){
             this.talltrees.tilePositionX += this.SCROLL_SPEED;
             this.groundScroll.tilePositionX += this.SCROLL_SPEED;
             
-            // this.clock.delay = Math.random() * 100000 + 600;
-            this.clock.delay = Phaser.Math.Between(this.obstacleMin,this.obstacleMax);
+            // this.clock.delay = Math.ceil(Math.exp(Math.random()*(Math.log(this.obstacleMax)-Math.log(this.obstacleMin)))*this.obstacleMin);
             
             this.jumpUpdate();
             // check for collisions
@@ -124,8 +137,9 @@ class Play extends Phaser.Scene {
                 this.cameras.main.flash(3000);
                 this.SCROLL_SPEED += 2;
                 this.obstacleSpeed -= 100;
-                this.obstacleMin -= 500;
-                this.obstacleMax -= 500;
+                this.obstacleClock.delay -= 220;
+                // this.obstacleMin -= 500;
+                // this.obstacleMax -= 500;
 
                 // update music
                 this.tweens.add({        // fade out
@@ -198,7 +212,8 @@ class Play extends Phaser.Scene {
         death.anims.play('death').setScale(5).setOrigin(1); // explosion animation
         let gameOverTextConfig = {
             fontFamily: 'Bradley Hand',
-            fontSize: '50px',
+            strokeThickness: 3,
+            fontSize: '100px',
             color: '#843605',
             align: 'left',
             padding: {
@@ -207,14 +222,14 @@ class Play extends Phaser.Scene {
             },
         }
         this.gameOverText = this.add.text(game.config.width / 2, game.config.height / 2, 'Game Over', gameOverTextConfig).setOrigin(0.5);
-        this.gameOverText2 = this.add.text(game.config.width / 2, game.config.height / 2 + 50, 'Restart?', gameOverTextConfig).setOrigin(0.5)
+        this.gameOverText2 = this.add.text(game.config.width / 2, game.config.height / 2 + 100, 'Restart?', gameOverTextConfig).setOrigin(0.5)
         this.gameOverText2.fontSize = '40px';
         this.gameOverText.alpha = 0;
         this.tweens.add({
             targets: [this.gameOverText, this.gameOverText2],
             alpha: {from: 0, to: 1},
             ease: 'Linear',
-            duration: 1000,
+            duration: 2000,
             repeat: 0
         });
     }
@@ -237,7 +252,7 @@ class Play extends Phaser.Scene {
             // this.fox.anims.play('jump', true);
         }
         // allow steady velocity change up to a certain key down duration
-	    if(this.jumps > 0 && Phaser.Input.Keyboard.DownDuration(cursors.up, 200)) {
+	    if(this.jumps > 0 && Phaser.Input.Keyboard.DownDuration(cursors.up, 250)) {
 	        this.fox.body.velocity.y = this.JUMP_VELOCITY;
             this.jumping = true;
 	    }

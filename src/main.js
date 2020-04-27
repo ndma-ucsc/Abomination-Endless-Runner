@@ -13,7 +13,7 @@
 let cursors;
 let currentScene = 0;
 const SCALE = 0.5;
-const tileSize = 35;
+const tileSize = 30;
 
 let config = {
   type: Phaser.AUTO,
@@ -37,7 +37,7 @@ let config = {
 let game = new Phaser.Game(config);
 
 // reserve some keyboard variables
-let keyF, keyLEFT, keyRIGHT, keyUP, keyDOWN, keyENTER
+let keyF, keyP, keyLEFT, keyRIGHT, keyUP, keyDOWN, keyENTER
 let bgMusic;
 let bg_volume = 0.5;
 let collisionDebug = false;

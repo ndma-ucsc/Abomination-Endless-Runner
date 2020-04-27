@@ -9,6 +9,7 @@ class Load extends Phaser.Scene {
         this.load.image('start', 'start.png');
         this.load.image('talltrees', 'talltrees.png'); // dummy
         this.load.image('obstacle', 'obstacle.png');
+        this.load.image('tile_block', 'ForestTile.png');
 
         // these need to be atlas later
         this.load.spritesheet('fox1', 'base_fox.png', {frameWidth: 128, frameHeight: 87, startFrame: 0, endFrame: 3});
@@ -93,11 +94,11 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        this.cameras.main.fadeOut(2000);
+        this.cameras.main.fadeOut(1000);
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         bgMusic = this.sound.add('fox1_bgm', {volume: 0.3, loop: true});
         bgMusic.play();
-        this.time.delayedCall(2000, () => {this.scene.start("menuScene");})
+        this.time.delayedCall(1000, () => {this.scene.start("menuScene");})
     }
 
     update(){        
