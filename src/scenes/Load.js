@@ -95,7 +95,6 @@ class Load extends Phaser.Scene {
 
     create() {
         this.cameras.main.fadeOut(1000);
-        keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         bgMusic = this.sound.add('fox1_bgm', {volume: 0.3, loop: true});
         bgMusic.play();
         this.time.delayedCall(1000, () => {this.scene.start("menuScene");})

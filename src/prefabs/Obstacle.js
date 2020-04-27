@@ -9,7 +9,6 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         this.setImmovable();
         this.body.allowGravity = false;
         // this.tint = Math.random() * 0xFFFFFF;   // randomize tint
-        this.newObstacle = true;                 // custom property to control obstacle spawning
         this.scene = scene;
         this.velocity = velocity;
     }
@@ -17,16 +16,16 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
     update() {
         // override physics sprite update()
         super.update();
-
-        if(this.scene.gameOver){
+        if(this.scene.gameOver || this.scene.gamePaused){
             this.setVelocityX(0);
+        }
+        else if(!this.scene.gamePaused){
+            this.setVelocityX(this.velocity);
         }
 
         // destroy obstacle if it reaches the left edge of the screen
         if(this.x < -this.width) {
             this.destroy();
         }
-
-        
     }
 }

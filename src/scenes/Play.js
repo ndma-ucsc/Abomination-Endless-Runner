@@ -21,7 +21,7 @@ class Play extends Phaser.Scene {
         this.physics.world.gravity.y = 3000;
         
         // score control
-        this.scoreArray = [0, 900, 2000, 7500, 25000, 100000, 175000, 300000, 400000]; // keep track of level threshold
+        this.scoreArray = [0, 700, 1680, 5000, 15000, 30000, 70000, 150000, 300000]; // keep track of level threshold
         this.trueScore = 0;
         this.level = 1;
         this.levelMax = 3;
@@ -68,7 +68,7 @@ class Play extends Phaser.Scene {
         cursors = this.input.keyboard.createCursorKeys();
         
         this.obstacleClock = this.time.addEvent({
-            delay: 5000,
+            delay: 3000,
             callback: this.spawnObstacle,
             callbackScope: this,
             loop: true
@@ -85,7 +85,7 @@ class Play extends Phaser.Scene {
                 top: 5,
                 bottom: 5,
             },
-        }
+        };
         this.scoreText = this.add.text(69, 54, this.trueScore + 'm', scoreConfig);
         
 
@@ -100,16 +100,18 @@ class Play extends Phaser.Scene {
     spawnObstacle() {
         if (!this.gamePaused && !this.gameOver){
             this.obstacle_sprite = ['rock', 'hole', 'spike'];
-            let obstacle = new Obstacle(this,this.obstacleSpeed, this.obstacle_sprite[Math.floor(Math.random() * 3)]);     // create new obstacle
+            let obstacle = new Obstacle(this, this.obstacleSpeed, this.obstacle_sprite[Math.floor(Math.random() * 3)]);     // create new obstacle
             obstacle.x += Phaser.Math.Between(0,1000);
             obstacle.x *= Phaser.Math.Between(1,2);
-            if(this.prevObstacle - obstacle.x >= 1000){
-                console.log(`Canceled spawn @ ${obstacle.x}`);
-                this.prevObstacle = 0;
+            if(this.prevObstacle - obstacle.x >= 900 || this.prevObstacle - obstacle.x <= -2500){
+                console.log(`Canceled spawn @ ${obstacle.x}px Prev: ${this.prevObstacle}px`);
+                console.log(`Res: ${this.prevObstacle - obstacle.x}`);
+                this.prevObstacle = 1000;
                 obstacle.destroy();
                 return;
             }
-            console.log(`Spawned in ${this.obstacleClock.delay}s @ ${obstacle.x} p: ${this.prevObstacle}`);
+            console.log(`Spawned in ${this.obstacleClock.delay}s @ ${obstacle.x}px Prev: ${this.prevObstacle}px`);
+            console.log(`Res: ${this.prevObstacle - obstacle.x}`);
             this.prevObstacle = obstacle.x;
             this.prevObstacle = obstacle.x;
             this.obstacles.add(obstacle);
@@ -136,7 +138,7 @@ class Play extends Phaser.Scene {
                 this.SCORE_MULTIPLIER *= 2;
                 this.level += 1;
                 this.cameras.main.flash(3000);
-                this.SCROLL_SPEED += 2;
+                this.SCROLL_SPEED += 3;
                 this.obstacleSpeed -= 100;
                 this.obstacleClock.delay -= 220;
                 // this.obstacleMin -= 500;
@@ -169,6 +171,17 @@ class Play extends Phaser.Scene {
                 this.time.delayedCall(3000, () => {this.collisionOn = true;});
             }
             this.scoreText.text = this.trueScore + 'm';
+        }
+
+        if(!this.gameOver && !this.gamePaused && Phaser.Input.Keyboard.JustDown(keyP)){
+            console.log("Game Paused");
+            this.anims.pauseAll();
+            this.gamePaused = true;
+        }
+        else if(!this.gameOver && this.gamePaused && Phaser.Input.Keyboard.JustDown(keyP)){
+            console.log("Game Unpaused");
+            this.anims.resumeAll();
+            this.gamePaused = false;
         }
 
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyENTER)){

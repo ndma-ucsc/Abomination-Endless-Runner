@@ -5,18 +5,30 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
+        this.input.keyboard.enabled = false;
         this.cameras.main.fadeIn(2000);
+        this.time.delayedCall(2000, () => {this.input.keyboard.enabled = true;});
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         
         //title name
-        let title = this.add.text(game.config.width/2-124, game.config.height/2-100, 'Title', {
+        this.title = this.add.text(game.config.width/2, game.config.height/4, 'Title', {
             fontFamily: 'Patricia',
             fontSize: '110px',
             color: '#FFFFFF'
+        }).setOrigin(0.5);
 
-        });
+        let facadeConfig = {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            color: '#FACADE',
+            align: 'center',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+        };
 
         // fox run
         this.anims.create({
@@ -54,9 +66,35 @@ class Menu extends Phaser.Scene {
         });
         
         //start button
-        this.start = this.add.sprite(game.config.width/2, game.config.height/2 + 80, 'start');
-        this.option = this.add.sprite(game.config.width/2, game.config.height/2 + 180, 'option'); //to be added
-        this.credit = this.add.sprite(game.config.width/2, game.config.height/2 + 280, 'start'); //to be added
+        this.start = this.add.sprite(game.config.width/2, game.config.height/2, 'start').setOrigin(0.5);
+        this.option = this.add.sprite(game.config.width/2 + 70, game.config.height/2 + 100, 'start').setOrigin(0.5); //to be added
+        this.credit = this.add.sprite(game.config.width/2 + 140, game.config.height/2 + 200, 'start').setOrigin(0.5); //to be added
+
+        let facadeDebug = this.input.keyboard.createCombo(['f','a','c','a','d','e'], {
+            resetOnWrongKey: true,
+            maxKeyDelay: 0,
+            resetOnMatch: true,
+            deleteOnMatch: true,
+        });
+        this.input.keyboard.on('keycombomatch', (facadeDebug) => {
+            collisionDebug = !collisionDebug;
+            if (collisionDebug){
+                this.add.tween({
+                    targets: this.add.text(game.config.width/2, game.config.height/4 + 100, 'Collisions off!', facadeConfig).setOrigin(0.5),
+                    alpha: {from: 1, to: 0},
+                    duration: 3000,
+                    ease: 'Linear'
+                });
+            }
+            else if (!collisionDebug){
+                this.add.tween({
+                    targets: this.add.text(game.config.width/2, game.config.height/4 + 100, 'Collisions on!', facadeConfig).setOrigin(0.5),
+                    alpha: {from: 1, to: 0},
+                    duration: 3000,
+                    ease: 'Linear'
+                });
+            }
+        });
     }
 
     update(){
@@ -93,19 +131,16 @@ class Menu extends Phaser.Scene {
         }
         if(Phaser.Input.Keyboard.JustDown(keyENTER)) {
             this.input.keyboard.enabled = false;
-            this.cameras.main.fadeOut(1500);
-            this.time.delayedCall(1500,() => {
-                if(this.selected == 1) {
-                    this.scene.start("playScene");
-                }
-                if(this.selected == 2) {
-                    this.scene.start("optionScene");
-                }
-                if(this.selected == 3) {
-                    //to be added
-                }
-            });
+            if(this.selected == 1) {
+                this.cameras.main.fadeOut(1500);
+                this.time.delayedCall(1500,() => {this.scene.start("playScene");});
+            }
+            if(this.selected == 2) {
+                this.scene.start("optionScene");
+            }
+            if(this.selected == 3) {
+                //to be added
+            }
         }
     }
-
 }
