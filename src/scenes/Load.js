@@ -7,7 +7,7 @@ class Load extends Phaser.Scene {
         this.load.path = "./assets/";
 
         this.load.image('start', 'start.png');
-        this.load.image('talltrees', 'talltrees.png'); // dummy
+        this.load.image('talltrees', 'dark_forest.png'); // dummy
         this.load.image('obstacle', 'obstacle.png');
         this.load.image('tile_block', 'ForestTile.png');
         this.load.image('dream_border', 'dream_border.png')

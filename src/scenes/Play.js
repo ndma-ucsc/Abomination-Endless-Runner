@@ -38,7 +38,7 @@ class Play extends Phaser.Scene {
             loop: true
         });
         
-        this.talltrees = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'talltrees').setOrigin(0);
+        this.talltrees = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'talltrees').setOrigin(0).setDepth(-99999).setScale(1,1.4);
 
         // create player sprite
         this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, this.fox_sprite[0]).setOrigin(1);
@@ -95,7 +95,7 @@ class Play extends Phaser.Scene {
         this.gamePaused = false;
         this.gameOver = false;
         
-        this.add.image(0,0,'dream_border').setOrigin(0);
+        this.add.image(0,0,'dream_border').setOrigin(0).setDepth(9999999);
     } // end of create()
 
 
@@ -105,7 +105,7 @@ class Play extends Phaser.Scene {
             let obstacle = new Obstacle(this, this.obstacleSpeed, this.obstacle_sprite[Math.floor(Math.random() * 3)]);     // create new obstacle
             obstacle.x += Phaser.Math.Between(0,1000);
             obstacle.x *= Phaser.Math.Between(1,2);
-
+            obstacle.setDepth(-999);
             if(this.prevObstacle - obstacle.x >= 900 || this.prevObstacle - obstacle.x <= -2500){
                 console.log(`Canceled spawn @ ${obstacle.x}px Prev: ${this.prevObstacle}px`);
                 console.log(`Res: ${this.prevObstacle - obstacle.x}`);
