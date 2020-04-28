@@ -96,7 +96,6 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        //this.sound.pauseOnBlur = false
         this.time.delayedCall(1000, () => {this.scene.start("openScene");})
     }
 

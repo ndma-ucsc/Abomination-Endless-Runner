@@ -4,12 +4,11 @@ class Opening extends Phaser.Scene {
     }
 
     create() {
-        this.sound.pauseOnBlur = false
         bgMusic = this.sound.add('menu_ost', {volume: bg_volume, loop: true});
         bgMusic.play();
         cursors = this.input.keyboard.createCursorKeys();
         this.input.keyboard.on('keydown', () => {this.scene.start("menuScene");});
-
+        this.sound.pauseOnBlur = false
         let openConfig = {
             fontFamily: 'Arial',
             fontSize: '100px',

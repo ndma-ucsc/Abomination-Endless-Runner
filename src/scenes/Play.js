@@ -4,12 +4,7 @@ class Play extends Phaser.Scene {
     }
 
     create() {
-        this.sound.pauseOnBlur = false
         this.cameras.main.fadeIn(2000, 255, 255, 255);
-        if (!bgMusic.isPlaying){
-            bgMusic = this.sound.add('fox1_ost', {volume: bg_volume, loop: true});
-            bgMusic.play();
-        }
         this.input.keyboard.enabled = true;
         this.obstacleSpeed = -450;
         this.obstacleMin = 4000;
@@ -24,12 +19,16 @@ class Play extends Phaser.Scene {
         this.physics.world.gravity.y = 3000;
         
         // score control
-        this.scoreArray = [0, 700, 1660, 4470, 15000, 30000, 70000, 150000, 300000]; // keep track of level threshold
-        this.trueScore = 0;
+        this.scoreArray = [0, 700, 1670, 4470, 15000, 30000, 70000, 150000, 300000]; // keep track of level threshold
+        this.trueScore = 600;
         this.level = 1;
         this.levelMax = 3;
         this.fox_sprite = ['fox1','fox2','fox3','fox4','fox5','fox6','fox7','fox8','fox9'];
         this.run = this.fox_sprite[0] + '_run';        
+        if (!bgMusic.isPlaying){
+            bgMusic = this.sound.add(`${this.fox_sprite[this.level - 1]}_ost`, {volume: bg_volume, loop: true});
+            bgMusic.play();
+        }
         
         this.scoreTimer = this.time.addEvent({
             delay: 1000,
@@ -41,10 +40,10 @@ class Play extends Phaser.Scene {
             loop: true
         });
         
-        this.backgroundImage = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'fox1_bg').setOrigin(0).setDepth(-99999).setScale(1,1.4);
+        this.backgroundImage = this.add.tileSprite(0, 0, game.config.width, game.config.height, `${this.fox_sprite[this.level - 1]}_bg`).setOrigin(0).setDepth(-99999).setScale(1,1.4);
 
         // create player sprite
-        this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, this.fox_sprite[0]).setOrigin(1);
+        this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, this.fox_sprite[this.level - 1]).setOrigin(1);
 
         // make ground tiles group (actual ground)
         this.ground = this.add.group();
@@ -109,7 +108,7 @@ class Play extends Phaser.Scene {
             obstacle.x += Phaser.Math.Between(0,1000);
             obstacle.x *= Phaser.Math.Between(1,2);
             obstacle.setDepth(-999);
-            if(this.prevObstacle - obstacle.x >= this.obstacleSpreadMin || this.prevObstacle - obstacle.x <= -this.obstacleSpreadMax){
+            if((this.prevObstacle - obstacle.x >= this.obstacleSpreadMin || this.prevObstacle - obstacle.x <= this.obstacleSpreadMax)){
                 console.log(`Canceled spawn @ ${obstacle.x}px Prev: ${this.prevObstacle}px`);
                 console.log(`Res: ${this.prevObstacle - obstacle.x}`);
                 this.prevObstacle = 1000;
@@ -133,10 +132,7 @@ class Play extends Phaser.Scene {
             // this.clock.delay = Math.ceil(Math.exp(Math.random()*(Math.log(this.obstacleMax)-Math.log(this.obstacleMin)))*this.obstacleMin);
             
             this.jumpUpdate();
-            // check for collisions
-            if (!collisionDebug && this.collisionOn){
-                this.physics.world.collide(this.fox, this.obstacles, this.foxCollision, null, this);
-            }            
+                      
             if (this.level < this.levelMax && this.trueScore >= this.scoreArray[this.level]){
                 // update level qualities
                 console.log(`Level Up: ${this.level} @ ${this.scoreArray[this.level]}m`);
@@ -145,6 +141,7 @@ class Play extends Phaser.Scene {
                 this.level += 1;
                 this.cameras.main.flash(3000);
                 this.SCROLL_SPEED += 3;
+                this.obstacles.clear();
                 this.obstacleSpeed -= 100;
                 this.obstacleClock.delay -= 220;
                 this.obstacleSpreadMin -= 15;
@@ -186,14 +183,23 @@ class Play extends Phaser.Scene {
             this.physics.world.gravity.y = 0;
             this.fox.body.velocity.y = 0;
             this.anims.pauseAll();
+            bgMusic.pause();
+            this.cameras.main.alpha = 0.5;
             this.gamePaused = true;
         }
         else if(this.gamePaused && Phaser.Input.Keyboard.JustDown(keyP)){
             console.log("Game Unpaused");
             this.physics.world.gravity.y = 3000;
             this.anims.resumeAll();
+            bgMusic.resume();
+            this.cameras.main.alpha = 1;
             this.gamePaused = false;
         }
+
+        // check for collisions
+        if (!collisionDebug && this.collisionOn){
+            this.physics.world.collide(this.fox, this.obstacles, this.foxCollision, null, this);
+        }  
     } // end of update()
 
 
@@ -218,8 +224,8 @@ class Play extends Phaser.Scene {
             duration: 1000
         });
 
-        // kill paddle
         this.fox.destroy();
+        // death sequence
         let death = this.add.sprite(this.fox.x, this.fox.y, 'death').setOrigin(1);
         death.anims.play('death').setScale(5).setOrigin(1); // explosion animation
 
@@ -245,7 +251,7 @@ class Play extends Phaser.Scene {
             // this.fox.anims.play('jump', true);
         }
         if(!this.fox.isGrounded && Phaser.Input.Keyboard.DownDuration(cursors.down, 250)) {
-	        this.fox.body.velocity.y = -this.JUMP_VELOCITY;
+	        this.fox.body.velocity.y = -1.3*this.JUMP_VELOCITY;
 	    }
         // allow steady velocity change up to a certain key down duration
 	    if(this.jumps > 0 && Phaser.Input.Keyboard.DownDuration(cursors.up, 250)) {

@@ -4,12 +4,12 @@ class GameOver extends Phaser.Scene {
     }
 
     create() {
-        this.sound.pauseOnBlur = false
+        // this.sound.pauseOnBlur = false
         this.selected = 1
         this.cameras.main.setBackgroundColor('#FFFFFF');
         this.input.keyboard.enabled = false;
         this.cameras.main.fadeIn(1500, 255, 255, 255);
-        this.time.delayedCall(1500, () => {this.input.keyboard.enabled = true;});
+        this.time.delayedCall(1000, () => {this.input.keyboard.enabled = true;});
 
         let gameOverConfig = {
             fontFamily: 'Bradley Hand',
