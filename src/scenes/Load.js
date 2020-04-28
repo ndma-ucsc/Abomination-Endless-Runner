@@ -7,29 +7,30 @@ class Load extends Phaser.Scene {
         this.load.path = "./assets/";
 
         this.load.image('start', 'start.png');
-        this.load.image('talltrees', 'dark_forest.png'); // dummy
+        this.load.image('fox1_bg', 'dark_forest.png');
         this.load.image('obstacle', 'obstacle.png');
-        this.load.image('tile_block', 'ForestTile.png');
+        this.load.image('tile_block', 'forest_tile.png');
         this.load.image('dream_border', 'dream_border.png')
 
         // these need to be atlas later
         this.load.spritesheet('fox1', 'base_fox.png', {frameWidth: 128, frameHeight: 87, startFrame: 0, endFrame: 3});
         this.load.spritesheet('fox2', 'base_fox2.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 4});
-        this.load.spritesheet('fox3', 'blue_fox.png', {frameWidth: 189, frameHeight: 96, startFrame: 0, endFrame: 7});
+        this.load.spritesheet('fox3', 'water_fox1.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 4});
         this.load.spritesheet('death', 'fship_explosion.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 9}); // dummy
 
         this.load.audio('jump_sfx', 'sfx/jump_sfx.wav');
 
-        this.load.audio('fox1_bgm', 'ost/Dreams_of_the_Brilliant.mp3');
-        this.load.audio('fox2_bgm', 'ost/The_Long_Journey.mp3');
-        this.load.audio('fox3_bgm', 'ost/Water_Spirit.mp3');
-        this.load.audio('fox4_bgm', 'ost/Wind_Spirit.mp3');
-        this.load.audio('fox5_bgm', 'ost/Earth_Spirit.mp3');
-        this.load.audio('fox6_bgm', 'ost/.mp3');
-        this.load.audio('fox7_bgm', 'ost/.mp3');
-        this.load.audio('fox8_bgm', 'ost/.mp3');
-        this.load.audio('fox9_bgm', 'ost/.mp3');
-        this.load.audio('death_bgm','ost/Autumn_Rain.mp3')
+        this.load.audio('menu_ost', 'ost/I_Am_Different.mp3');
+        this.load.audio('fox1_ost', 'ost/Dreams_of_the_Brilliant.mp3');
+        this.load.audio('fox2_ost', 'ost/The_Long_Journey.mp3');
+        this.load.audio('fox3_ost', 'ost/Water_Spirit.mp3');
+        this.load.audio('fox4_ost', 'ost/Wind_Spirit.mp3');
+        this.load.audio('fox5_ost', 'ost/Earth_Spirit.mp3');
+        this.load.audio('fox6_ost', 'ost/.mp3');
+        this.load.audio('fox7_ost', 'ost/Days_of_Summer.mp3');
+        this.load.audio('fox8_ost', 'ost/Days_of_Winter.mp3');
+        this.load.audio('fox9_ost', 'ost/Into_The_Sky.mp3');
+        this.load.audio('death_ost','ost/Autumn_Rain.mp3')
         
 
         /* test loading bar buffer*/
@@ -95,10 +96,8 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        this.cameras.main.fadeOut(1000);
-        bgMusic = this.sound.add('fox1_bgm', {volume: 0.3, loop: true});
-        bgMusic.play();
-        this.time.delayedCall(1000, () => {this.scene.start("menuScene");})
+        //this.sound.pauseOnBlur = false
+        this.time.delayedCall(1000, () => {this.scene.start("openScene");})
     }
 
     update(){        

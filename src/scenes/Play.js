@@ -4,15 +4,18 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        this.sound.pauseOnBlur = false
         this.cameras.main.fadeIn(2000, 255, 255, 255);
         if (!bgMusic.isPlaying){
-            bgMusic = this.sound.add('fox1_bgm', {volume: 0.3, loop: true});
+            bgMusic = this.sound.add('fox1_ost', {volume: bg_volume, loop: true});
             bgMusic.play();
         }
         this.input.keyboard.enabled = true;
         this.obstacleSpeed = -450;
         this.obstacleMin = 4000;
         this.obstacleMax = 5000;
+        this.obstacleSpreadMin = 850;
+        this.obstacleSpreadMax = -2500;
         this.JUMP_VELOCITY = -750;
         this.MAX_JUMPS = 1;
         this.SCROLL_SPEED = 3;
@@ -21,7 +24,7 @@ class Play extends Phaser.Scene {
         this.physics.world.gravity.y = 3000;
         
         // score control
-        this.scoreArray = [0, 700, 1680, 5000, 15000, 30000, 70000, 150000, 300000]; // keep track of level threshold
+        this.scoreArray = [0, 700, 1660, 4470, 15000, 30000, 70000, 150000, 300000]; // keep track of level threshold
         this.trueScore = 0;
         this.level = 1;
         this.levelMax = 3;
@@ -38,7 +41,7 @@ class Play extends Phaser.Scene {
             loop: true
         });
         
-        this.talltrees = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'talltrees').setOrigin(0).setDepth(-99999).setScale(1,1.4);
+        this.backgroundImage = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'fox1_bg').setOrigin(0).setDepth(-99999).setScale(1,1.4);
 
         // create player sprite
         this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, this.fox_sprite[0]).setOrigin(1);
@@ -106,7 +109,7 @@ class Play extends Phaser.Scene {
             obstacle.x += Phaser.Math.Between(0,1000);
             obstacle.x *= Phaser.Math.Between(1,2);
             obstacle.setDepth(-999);
-            if(this.prevObstacle - obstacle.x >= 900 || this.prevObstacle - obstacle.x <= -2500){
+            if(this.prevObstacle - obstacle.x >= this.obstacleSpreadMin || this.prevObstacle - obstacle.x <= -this.obstacleSpreadMax){
                 console.log(`Canceled spawn @ ${obstacle.x}px Prev: ${this.prevObstacle}px`);
                 console.log(`Res: ${this.prevObstacle - obstacle.x}`);
                 this.prevObstacle = 1000;
@@ -124,7 +127,7 @@ class Play extends Phaser.Scene {
 
     update(){
         if(!this.gamePaused && !this.gameOver){
-            this.talltrees.tilePositionX += this.SCROLL_SPEED;
+            this.backgroundImage.tilePositionX += this.SCROLL_SPEED;
             this.groundScroll.tilePositionX += this.SCROLL_SPEED;
             
             // this.clock.delay = Math.ceil(Math.exp(Math.random()*(Math.log(this.obstacleMax)-Math.log(this.obstacleMin)))*this.obstacleMin);
@@ -144,8 +147,7 @@ class Play extends Phaser.Scene {
                 this.SCROLL_SPEED += 3;
                 this.obstacleSpeed -= 100;
                 this.obstacleClock.delay -= 220;
-                // this.obstacleMin -= 500;
-                // this.obstacleMax -= 500;
+                this.obstacleSpreadMin -= 15;
 
                 // update music
                 this.tweens.add({        // fade out
@@ -154,14 +156,17 @@ class Play extends Phaser.Scene {
                     ease: 'Linear',
                     duration: 1500,
                 });
-                bgMusic = this.sound.add(`${this.fox_sprite[this.level - 1]}_bgm`, {volume: 0, loop: true});                
+                bgMusic = this.sound.add(`${this.fox_sprite[this.level - 1]}_ost`, {volume: 0, loop: true});                
                 bgMusic.play();
                 this.tweens.add({        // fade in
                     targets: bgMusic,
-                    volume: 0.3,
+                    volume: bg_volume,
                     ease: 'Linear',
                     duration: 1500
                 });
+                
+                // update bg
+                this.backgroundImage.texture = this.fox_sprite[this.level - 1] + '_bg';
                 
                 // update fox sprite
                 this.fox.destroy();
@@ -178,33 +183,23 @@ class Play extends Phaser.Scene {
 
         if(!this.gamePaused && Phaser.Input.Keyboard.JustDown(keyP)){
             console.log("Game Paused");
+            this.physics.world.gravity.y = 0;
+            this.fox.body.velocity.y = 0;
             this.anims.pauseAll();
             this.gamePaused = true;
         }
         else if(this.gamePaused && Phaser.Input.Keyboard.JustDown(keyP)){
             console.log("Game Unpaused");
+            this.physics.world.gravity.y = 3000;
             this.anims.resumeAll();
             this.gamePaused = false;
         }
-
-        // if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyENTER)){
-        //     this.input.keyboard.enabled = false;
-        //     this.tweens.add({        // fade out
-        //         targets: bgMusic,
-        //         volume: 0,
-        //         ease: 'Linear',
-        //         duration: 1000
-        //     });
-        //     this.time.delayedCall(1000, () => {bgMusic.stop();})
-        //     this.cameras.main.fadeOut(1500);
-        //     this.time.delayedCall(2000, () => {this.scene.start("playScene");});
-        // }
-        
     } // end of update()
 
 
     foxCollision() {
         console.log("Game Over");
+        this.input.keyboard.enabled = false;
         this.gameOver = true; // turn off collision checking
         // this.sound.play('death', { volume: 0.3 });  // play death sound
        
@@ -214,11 +209,11 @@ class Play extends Phaser.Scene {
             ease: 'Linear',
             duration: 400,
         });
-        bgMusic = this.sound.add('death_bgm', {volume: 0, loop: true});                
+        bgMusic = this.sound.add('death_ost', {volume: 0, loop: true});                
         bgMusic.play();
         this.tweens.add({        // fade in
             targets: bgMusic,
-            volume: 0.3,
+            volume: bg_volume,
             ease: 'Linear',
             duration: 1000
         });
@@ -249,6 +244,9 @@ class Play extends Phaser.Scene {
         else{
             // this.fox.anims.play('jump', true);
         }
+        if(!this.fox.isGrounded && Phaser.Input.Keyboard.DownDuration(cursors.down, 250)) {
+	        this.fox.body.velocity.y = -this.JUMP_VELOCITY;
+	    }
         // allow steady velocity change up to a certain key down duration
 	    if(this.jumps > 0 && Phaser.Input.Keyboard.DownDuration(cursors.up, 250)) {
 	        this.fox.body.velocity.y = this.JUMP_VELOCITY;
@@ -258,6 +256,6 @@ class Play extends Phaser.Scene {
 	    if(this.jumping && Phaser.Input.Keyboard.UpDuration(cursors.up)) {
 	    	this.jumps--;
             this.jumping = false;            
-	    }
+        }
     }
 }
