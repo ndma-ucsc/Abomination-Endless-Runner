@@ -4,7 +4,7 @@ class Play extends Phaser.Scene {
     }
 
     create() {
-        this.cameras.main.fadeIn(2000);
+        this.cameras.main.fadeIn(2000, 255, 255, 255);
         if (!bgMusic.isPlaying){
             bgMusic = this.sound.add('fox1_bgm', {volume: 0.3, loop: true});
             bgMusic.play();
@@ -100,7 +100,7 @@ class Play extends Phaser.Scene {
 
 
     spawnObstacle() {
-        if (!this.gamePaused && !this.gameOver){
+        if (!this.gamePaused){
             this.obstacle_sprite = ['rock', 'hole', 'spike'];
             let obstacle = new Obstacle(this, this.obstacleSpeed, this.obstacle_sprite[Math.floor(Math.random() * 3)]);     // create new obstacle
             obstacle.x += Phaser.Math.Between(0,1000);
@@ -123,7 +123,7 @@ class Play extends Phaser.Scene {
 
 
     update(){
-        if(!this.gameOver && !this.gamePaused){
+        if(!this.gamePaused && !this.gameOver){
             this.talltrees.tilePositionX += this.SCROLL_SPEED;
             this.groundScroll.tilePositionX += this.SCROLL_SPEED;
             
@@ -176,29 +176,29 @@ class Play extends Phaser.Scene {
             this.scoreText.text = this.trueScore + 'm';
         }
 
-        if(!this.gameOver && !this.gamePaused && Phaser.Input.Keyboard.JustDown(keyP)){
+        if(!this.gamePaused && Phaser.Input.Keyboard.JustDown(keyP)){
             console.log("Game Paused");
             this.anims.pauseAll();
             this.gamePaused = true;
         }
-        else if(!this.gameOver && this.gamePaused && Phaser.Input.Keyboard.JustDown(keyP)){
+        else if(this.gamePaused && Phaser.Input.Keyboard.JustDown(keyP)){
             console.log("Game Unpaused");
             this.anims.resumeAll();
             this.gamePaused = false;
         }
 
-        if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyENTER)){
-            this.input.keyboard.enabled = false;
-            this.tweens.add({        // fade out
-                targets: bgMusic,
-                volume: 0,
-                ease: 'Linear',
-                duration: 1000
-            });
-            this.time.delayedCall(1000, () => {bgMusic.stop();})
-            this.cameras.main.fadeOut(1500);
-            this.time.delayedCall(2000, () => {this.scene.start("playScene");});
-        }
+        // if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyENTER)){
+        //     this.input.keyboard.enabled = false;
+        //     this.tweens.add({        // fade out
+        //         targets: bgMusic,
+        //         volume: 0,
+        //         ease: 'Linear',
+        //         duration: 1000
+        //     });
+        //     this.time.delayedCall(1000, () => {bgMusic.stop();})
+        //     this.cameras.main.fadeOut(1500);
+        //     this.time.delayedCall(2000, () => {this.scene.start("playScene");});
+        // }
         
     } // end of update()
 
@@ -228,45 +228,8 @@ class Play extends Phaser.Scene {
         let death = this.add.sprite(this.fox.x, this.fox.y, 'death').setOrigin(1);
         death.anims.play('death').setScale(5).setOrigin(1); // explosion animation
 
-        this.add.tween({
-            targets: this.cameras.main,
-            y: -1100,
-            duration: 3000,
-        });
-        this.cameras.main.fadeOut(3000);
-        
-        // let gameOverTextConfig = {
-        //     fontFamily: 'Bradley Hand',
-        //     strokeThickness: 3,
-        //     fontSize: '100px',
-        //     color: '#843605',
-        //     align: 'left',
-        //     padding: {
-        //         top: 5,
-        //         bottom: 5,
-        //     },
-        // }
-        // this.cameras.main.setO
-        // this.gameOverText = this.add.text(game.config.width / 2, 1.5 * game.config.height, 'Game Over', gameOverTextConfig).setOrigin(0.5);
-        // this.gameOverText2 = this.add.text(game.config.width / 2, 1.5 * game.config.height + 100, 'Restart?', gameOverTextConfig).setOrigin(0.5)
-        // this.add.tween({
-        //     targets: this.cameras.main,
-        //     alpha: 0,
-        //     y: this.gameOverText.y,
-        //     duration: 2000,
-        //     ease: 'Linear'
-        // });
-        // this.gameOverText2.fontSize = '40px';
-        // this.gameOverText.alpha = 1;
-        // this.gameOverText2.alpha = 1;
-        // this.tweens.add({
-        //     targets: [this.gameOverText, this.gameOverText2],
-        //     alpha: {from: 0, to: 1},
-        //     ease: 'Linear',
-        //     duration: 2000,
-        //     delay: 2000,
-        //     repeat: 0
-        // });
+        this.cameras.main.fadeOut(2000, 255, 255, 255);
+        this.time.delayedCall(2000, () => {this.scene.start("gameOverScene");});
     }
 
 

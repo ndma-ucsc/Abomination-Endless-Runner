@@ -5,7 +5,11 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-        this.add.image(game.config.width/2, game.config.height/2, 'dream_border').setMask(this.add.image(game.config.width/2, game.config.height/2, 'dream_border').setOrigin(0.5).setVisible(false).createBitmapMask());        
+        if (!bgMusic.isPlaying){
+            bgMusic = this.sound.add('fox1_bgm', {volume: 0.3, loop: true});
+            bgMusic.play();
+        }
+        // this.add.image(game.config.width/2, game.config.height/2, 'dream_border').setMask(this.add.image(game.config.width/2, game.config.height/2, 'dream_border').setOrigin(0.5).setVisible(false).createBitmapMask());        
         this.input.keyboard.enabled = false;
         this.cameras.main.fadeIn(2000);
         this.time.delayedCall(0, () => {this.input.keyboard.enabled = true;});
@@ -14,7 +18,7 @@ class Menu extends Phaser.Scene {
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         
         //title name
-        this.title = this.add.text(game.config.width/4, game.config.height/4 + 100, 'Title', {
+        this.add.text(game.config.width/4, game.config.height/4 + 100, 'Title', {
             fontFamily: 'Patricia',
             fontSize: '110px',
             color: '#FFFFFF'
@@ -23,7 +27,7 @@ class Menu extends Phaser.Scene {
         //start buttons
         this.optionGroup = this.add.group();
         this.optionOffset = 100;
-        this.start = this.add.sprite(game.config.width/2 + this.optionOffset, game.config.height/4, 'start').setOrigin(0.5);
+        this.start = this.add.sprite(game.config.width/2 + this.optionOffset, game.config.height/4, 'start').setOrigin(0.5).setScale(1.2);
         this.option = this.add.sprite(game.config.width/2 + 2*this.optionOffset, game.config.height/4 + 100, 'start').setOrigin(0.5); //to be added
         this.credit = this.add.sprite(game.config.width/2 + 3*this.optionOffset, game.config.height/4 + 200, 'start').setOrigin(0.5); //to be added
         this.optionGroup.addMultiple([this.start, this.option, this.credit]);
@@ -34,9 +38,11 @@ class Menu extends Phaser.Scene {
             alpha: {from: 0, to: 1},
             x: '+= 70',
             duration: 1000,
-            delay: 3000,
-            ease: 'Linear'
+            delay: 3500,
+            ease: 'Cubic'
         });
+
+        this.add.image(0,0,'dream_border').setOrigin(0);
 
         // animation loading
         // fox run
@@ -132,24 +138,24 @@ class Menu extends Phaser.Scene {
             }
         }
         else if(this.selected == 1) {
-            this.start.setTint(0xff0000);
-            this.option.setTint();
-            this.credit.setTint();
+            this.start.setTint(0xff0000).setScale(1.2);
+            this.option.setTint().setScale();
+            this.credit.setTint().setScale();
         }
         else if(this.selected == 2) {
-            this.start.setTint();
-            this.option.setTint(0xff0000);
-            this.credit.setTint();
+            this.start.setTint().setScale();
+            this.option.setTint(0xff0000).setScale(1.2);
+            this.credit.setTint().setScale();
         }
         else if(this.selected == 3) {
-            this.start.setTint();
-            this.option.setTint();
-            this.credit.setTint(0xff0000);
+            this.start.setTint().setScale();
+            this.option.setTint().setScale();
+            this.credit.setTint(0xff0000).setScale(1.2);
         }
         if(Phaser.Input.Keyboard.JustDown(keyENTER)) {
             this.input.keyboard.enabled = false;
             if(this.selected == 1) {
-                this.cameras.main.fadeOut(1500);
+                this.cameras.main.fadeOut(1500, 255, 255, 255);
                 this.time.delayedCall(1500,() => {this.scene.start("playScene");});
             }
             if(this.selected == 2) {
