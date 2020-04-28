@@ -10,6 +10,7 @@ class Load extends Phaser.Scene {
         this.load.image('talltrees', 'talltrees.png'); // dummy
         this.load.image('obstacle', 'obstacle.png');
         this.load.image('tile_block', 'ForestTile.png');
+        this.load.image('dream_border', 'dream_border.png')
 
         // these need to be atlas later
         this.load.spritesheet('fox1', 'base_fox.png', {frameWidth: 128, frameHeight: 87, startFrame: 0, endFrame: 3});

@@ -4,7 +4,7 @@ class Play extends Phaser.Scene {
     }
 
     create() {
-        this.cameras.main.fadeIn(1500);
+        this.cameras.main.fadeIn(2000);
         if (!bgMusic.isPlaying){
             bgMusic = this.sound.add('fox1_bgm', {volume: 0.3, loop: true});
             bgMusic.play();
@@ -94,6 +94,8 @@ class Play extends Phaser.Scene {
 
         this.gamePaused = false;
         this.gameOver = false;
+        
+        this.add.image(0,0,'dream_border').setOrigin(0);
     } // end of create()
 
 
@@ -103,6 +105,7 @@ class Play extends Phaser.Scene {
             let obstacle = new Obstacle(this, this.obstacleSpeed, this.obstacle_sprite[Math.floor(Math.random() * 3)]);     // create new obstacle
             obstacle.x += Phaser.Math.Between(0,1000);
             obstacle.x *= Phaser.Math.Between(1,2);
+
             if(this.prevObstacle - obstacle.x >= 900 || this.prevObstacle - obstacle.x <= -2500){
                 console.log(`Canceled spawn @ ${obstacle.x}px Prev: ${this.prevObstacle}px`);
                 console.log(`Res: ${this.prevObstacle - obstacle.x}`);
@@ -224,28 +227,46 @@ class Play extends Phaser.Scene {
         this.fox.destroy();
         let death = this.add.sprite(this.fox.x, this.fox.y, 'death').setOrigin(1);
         death.anims.play('death').setScale(5).setOrigin(1); // explosion animation
-        let gameOverTextConfig = {
-            fontFamily: 'Bradley Hand',
-            strokeThickness: 3,
-            fontSize: '100px',
-            color: '#843605',
-            align: 'left',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-        }
-        this.gameOverText = this.add.text(game.config.width / 2, game.config.height / 2, 'Game Over', gameOverTextConfig).setOrigin(0.5);
-        this.gameOverText2 = this.add.text(game.config.width / 2, game.config.height / 2 + 100, 'Restart?', gameOverTextConfig).setOrigin(0.5)
-        this.gameOverText2.fontSize = '40px';
-        this.gameOverText.alpha = 0;
-        this.tweens.add({
-            targets: [this.gameOverText, this.gameOverText2],
-            alpha: {from: 0, to: 1},
-            ease: 'Linear',
-            duration: 2000,
-            repeat: 0
+
+        this.add.tween({
+            targets: this.cameras.main,
+            y: -1100,
+            duration: 3000,
         });
+        this.cameras.main.fadeOut(3000);
+        
+        // let gameOverTextConfig = {
+        //     fontFamily: 'Bradley Hand',
+        //     strokeThickness: 3,
+        //     fontSize: '100px',
+        //     color: '#843605',
+        //     align: 'left',
+        //     padding: {
+        //         top: 5,
+        //         bottom: 5,
+        //     },
+        // }
+        // this.cameras.main.setO
+        // this.gameOverText = this.add.text(game.config.width / 2, 1.5 * game.config.height, 'Game Over', gameOverTextConfig).setOrigin(0.5);
+        // this.gameOverText2 = this.add.text(game.config.width / 2, 1.5 * game.config.height + 100, 'Restart?', gameOverTextConfig).setOrigin(0.5)
+        // this.add.tween({
+        //     targets: this.cameras.main,
+        //     alpha: 0,
+        //     y: this.gameOverText.y,
+        //     duration: 2000,
+        //     ease: 'Linear'
+        // });
+        // this.gameOverText2.fontSize = '40px';
+        // this.gameOverText.alpha = 1;
+        // this.gameOverText2.alpha = 1;
+        // this.tweens.add({
+        //     targets: [this.gameOverText, this.gameOverText2],
+        //     alpha: {from: 0, to: 1},
+        //     ease: 'Linear',
+        //     duration: 2000,
+        //     delay: 2000,
+        //     repeat: 0
+        // });
     }
 
 

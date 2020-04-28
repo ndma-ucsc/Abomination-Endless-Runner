@@ -5,31 +5,40 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
+        this.add.image(game.config.width/2, game.config.height/2, 'dream_border').setMask(this.add.image(game.config.width/2, game.config.height/2, 'dream_border').setOrigin(0.5).setVisible(false).createBitmapMask());        
         this.input.keyboard.enabled = false;
         this.cameras.main.fadeIn(2000);
-        this.time.delayedCall(2000, () => {this.input.keyboard.enabled = true;});
+        this.time.delayedCall(0, () => {this.input.keyboard.enabled = true;});
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         
         //title name
-        this.title = this.add.text(game.config.width/2, game.config.height/4, 'Title', {
+        this.title = this.add.text(game.config.width/4, game.config.height/4 + 100, 'Title', {
             fontFamily: 'Patricia',
             fontSize: '110px',
             color: '#FFFFFF'
         }).setOrigin(0.5);
+        
+        //start buttons
+        this.optionGroup = this.add.group();
+        this.optionOffset = 100;
+        this.start = this.add.sprite(game.config.width/2 + this.optionOffset, game.config.height/4, 'start').setOrigin(0.5);
+        this.option = this.add.sprite(game.config.width/2 + 2*this.optionOffset, game.config.height/4 + 100, 'start').setOrigin(0.5); //to be added
+        this.credit = this.add.sprite(game.config.width/2 + 3*this.optionOffset, game.config.height/4 + 200, 'start').setOrigin(0.5); //to be added
+        this.optionGroup.addMultiple([this.start, this.option, this.credit]);
+        this.optionGroup.setAlpha(0);
 
-        let facadeConfig = {
-            fontFamily: 'Courier',
-            fontSize: '28px',
-            color: '#FACADE',
-            align: 'center',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-        };
+        this.add.tween({
+            targets: [this.start, this.option, this.credit],
+            alpha: {from: 0, to: 1},
+            x: '+= 70',
+            duration: 1000,
+            delay: 3000,
+            ease: 'Linear'
+        });
 
+        // animation loading
         // fox run
         this.anims.create({
             key: 'fox1_run',
@@ -64,11 +73,19 @@ class Menu extends Phaser.Scene {
             frameRate: 10,
             repeat: 0
         });
-        
-        //start button
-        this.start = this.add.sprite(game.config.width/2, game.config.height/2, 'start').setOrigin(0.5);
-        this.option = this.add.sprite(game.config.width/2 + 70, game.config.height/2 + 100, 'start').setOrigin(0.5); //to be added
-        this.credit = this.add.sprite(game.config.width/2 + 140, game.config.height/2 + 200, 'start').setOrigin(0.5); //to be added
+
+
+        // For testing
+        let facadeConfig = {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            color: '#FACADE',
+            align: 'center',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+        };
 
         let facadeDebug = this.input.keyboard.createCombo(['f','a','c','a','d','e'], {
             resetOnWrongKey: true,

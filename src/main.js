@@ -31,13 +31,13 @@ let config = {
       debug: false
     }
   },
-  scene: [ Load, Menu, Option, Play ]
+  scene: [Load, Menu, Option, Play, GameOver]
 };
 
 let game = new Phaser.Game(config);
 
 // reserve some keyboard variables
-let keyF, keyP, keyLEFT, keyRIGHT, keyUP, keyDOWN, keyENTER
+let keyF, keyP, keyLEFT, keyRIGHT, keyUP, keyDOWN, keyENTER;
 let bgMusic;
 let bg_volume = 0.5;
 let collisionDebug = false;
