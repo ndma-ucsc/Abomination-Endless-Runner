@@ -10,7 +10,7 @@ class Menu extends Phaser.Scene {
             bgMusic.play();
         }
         this.input.keyboard.enabled = false;
-        this.cameras.main.fadeIn(2000);
+        this.cameras.main.fadeIn(1500);
         this.time.delayedCall(0, () => {this.input.keyboard.enabled = true;});
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
@@ -145,6 +145,7 @@ class Menu extends Phaser.Scene {
     }
 
     update(){
+        keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         if(this.input.keyboard.checkDown(cursors.up, 250)) {
             if(this.selected > 1) {
                 this.selected--;
@@ -190,18 +191,18 @@ class Menu extends Phaser.Scene {
                 this.time.delayedCall(1500,() => {this.scene.start("playScene");});
             }
             if(this.selected == 2) {
-                this.add.tween({
-                    targets: this.cameras.main,
-                    zoom: {from: 1 , to: 0.001},
-                    ease: 'Linear',
-                    duration: 500
+                this.cameras.main.fadeOut(500);
+                this.time.delayedCall(500,() => {
+                    this.cameras.main.fadeIn(1);
+                    this.scene.launch("optionScene");
                 });
-                this.time.delayedCall(1500,() => {this.scene.start("optionScene");});
             }
             if(this.selected == 3) {
                 //to be added
                 this.scene.start("playScene");
             }
+            this.time.delayedCall(1500, () => {this.input.keyboard.enabled = true;console.log('on');
+            });
         }
     }
 }
