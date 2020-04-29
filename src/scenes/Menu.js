@@ -70,36 +70,34 @@ class Menu extends Phaser.Scene {
 
         // animation loading
         // fox run
-        this.anims.create({
-            key: 'fox1_run',
-            frames: this.anims.generateFrameNumbers('fox1', {start: 0, end: 3, first: 0}),
-            frameRate: 10,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'fox2_run',
-            frames: this.anims.generateFrameNumbers('fox2', {start: 0, end: 4, first: 0}),
-            frameRate: 10,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'fox3_run',
-            frames: this.anims.generateFrameNumbers('fox3', {start: 0, end: 7, first: 0}),
-            frameRate: 10,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'fox7_run',
-            frames: this.anims.generateFrameNumbers('fox7', {start: 0, end: 4, first: 0}),
-            frameRate: 10,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'fox8_run',
-            frames: this.anims.generateFrameNumbers('fox8', {start: 0, end: 4, first: 0}),
-            frameRate: 10,
-            repeat: -1
-        });
+        for (let i = 1; i <= 2; i++){
+            this.anims.create({
+                key: `fox${i}_run`,
+                frames: this.anims.generateFrameNumbers('fox1', {start: 0, end: 3, first: 0}),
+                frameRate: 10,
+                repeat: -1
+            });
+        }
+
+        for (let i = 3; i <= 6; i++){
+            this.anims.create({
+                key: `fox${i}_run`,
+                frames: this.anims.generateFrameNumbers('fox1', {start: 0, end: 7, first: 0}),
+                frameRate: 10,
+                repeat: -1
+            });
+        }
+
+        for (let i = 7; i <= 9; i++){
+            this.anims.create({
+                key: `fox${i}_run`,
+                frames: this.anims.generateFrameNumbers('fox1', {start: 0, end: 4, first: 0}),
+                frameRate: 10,
+                repeat: -1
+            });
+        }
+
+        
 
         // fox jump
         this.anims.create({

@@ -170,7 +170,7 @@ class Play extends Phaser.Scene {
                 // update fox sprite
                 this.fox.destroy();
                 this.run = this.fox_sprite[this.level - 1] + '_run';
-                this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, this.fox_sprite[this.level - 1]).setOrigin(1);
+                this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize, this.fox_sprite[this.level - 1]).setOrigin(1);
                 this.physics.add.collider(this.fox, this.ground);
 
                 // i-frame buffer
