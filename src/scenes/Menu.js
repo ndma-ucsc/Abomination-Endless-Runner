@@ -94,10 +94,8 @@ class Menu extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
+        //fox run 2
         this.anims.create({
-            key: 'fox8_run',
-            frames: this.anims.generateFrameNumbers('fox8', {start: 0, end: 4, first: 0}),
-            frameRate: 10,
             repeat: -1
         });
 
