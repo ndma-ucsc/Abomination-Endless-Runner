@@ -31,13 +31,6 @@ class Load extends Phaser.Scene {
         
         this.load.path = "./assets/misc/";
         this.load.image('start', 'start.png');
-        this.load.image('obstacle', 'obstacle.png');
-        this.load.image('tile_block', 'forest_tile.png');
-        this.load.image('dream_border', 'dream_border.png')
-        this.load.spritesheet('death', 'death_animation.png', {frameWidth: 96, frameHeight: 96, startFrame: 0, endFrame: 5});
-
-        this.load.path = "./assets/sfx/";
-        this.load.audio('jump_sfx', 'jump_sfx.wav');
 
 
         /* test loading bar buffer*/
