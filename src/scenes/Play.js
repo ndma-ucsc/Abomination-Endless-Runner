@@ -139,7 +139,7 @@ class Play extends Phaser.Scene {
                 // update level qualities
                 console.log(`Level Up: ${this.level} @ ${this.scoreArray[this.level]}m`);
 
-                this.SCORE_MULTIPLIER *= 2;
+                this.SCORE_MULTIPLIER *= 1.2;
                 this.level += 1;
                 this.cameras.main.flash(3000);
                 this.SCROLL_SPEED += 3;
