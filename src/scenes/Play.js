@@ -20,7 +20,7 @@ class Play extends Phaser.Scene {
         
         // score control
         this.scoreArray = [0, 700, 1670, 4470, 15000, 30000, 70000, 150000, 300000]; // keep track of level threshold
-        this.trueScore = 600;
+        this.trueScore = 0;
         this.level = 1;
         this.levelMax = 3;
         this.fox_sprite = ['fox1','fox2','fox3','fox4','fox5','fox6','fox7','fox8','fox9'];
