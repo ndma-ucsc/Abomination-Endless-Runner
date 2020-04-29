@@ -71,7 +71,7 @@ class Menu extends Phaser.Scene {
         for (let i = 1; i <= 2; i++){
             this.anims.create({
                 key: `fox${i}_run`,
-                frames: this.anims.generateFrameNumbers(`fox${i}`, {start: 0, end: 3, first: 0}),
+                frames: this.anims.generateFrameNumbers(`fox${i}`, {start: 0, end: 4, first: 0}),
                 frameRate: 10,
                 repeat: -1
             });
@@ -94,16 +94,7 @@ class Menu extends Phaser.Scene {
                 repeat: -1
             });
         }
-
         
-
-        // fox jump
-        this.anims.create({
-            key: 'jump',
-            frames: this.anims.generateFrameNumbers('fox_jump', {start: 0, end: 13, first: 0}),
-            frameRate: 10
-        });
-
         // fox death
         this.anims.create({
             key: 'death',

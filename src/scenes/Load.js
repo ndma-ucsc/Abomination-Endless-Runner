@@ -9,12 +9,12 @@ class Load extends Phaser.Scene {
 
         // these need to be atlas later
         this.load.path = "./assets/fox_sprites/";
-        this.load.spritesheet('fox1', 'base_fox.png', {frameWidth: 128, frameHeight: 87, startFrame: 0, endFrame: 3});
+        this.load.spritesheet('fox1', 'base_fox.png', {frameWidth: 128, frameHeight: 87, startFrame: 0, endFrame: 4});
         this.load.spritesheet('fox2', 'base_fox2.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 4});
-        this.load.spritesheet('fox3', 'water_fox.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 7});
-        this.load.spritesheet('fox4', 'cloud_fox.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 7});
-        this.load.spritesheet('fox5', 'earth_fox.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 7});
-        this.load.spritesheet('fox6', 'fire_fox.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 7});
+        this.load.spritesheet('fox3', 'water_fox.png', {frameWidth: 189.25, frameHeight: 96, startFrame: 0, endFrame: 7});
+        this.load.spritesheet('fox4', 'base_fox2.png', {frameWidth: 189.25, frameHeight: 96, startFrame: 0, endFrame: 7}); // dummy
+        this.load.spritesheet('fox5', 'earth_fox.png', {frameWidth: 189.25, frameHeight: 96, startFrame: 0, endFrame: 7});
+        this.load.spritesheet('fox6', 'fire_fox.png', {frameWidth: 189.25, frameHeight: 96, startFrame: 0, endFrame: 7});
         this.load.spritesheet('fox7', 'light_fox.png', {frameWidth: 148, frameHeight: 105, startFrame: 0, endFrame: 4});
         this.load.spritesheet('fox8', 'dark_fox.png', {frameWidth: 148, frameHeight: 105, startFrame: 0, endFrame: 4});
         this.load.spritesheet('fox9', 'final_fox.png', {frameWidth: 148, frameHeight: 105, startFrame: 0, endFrame: 4});
