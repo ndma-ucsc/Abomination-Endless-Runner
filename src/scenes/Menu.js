@@ -17,13 +17,16 @@ class Menu extends Phaser.Scene {
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         
         this.selected = 1;
+        
         //title name
-        this.titleConfig = {
+        let titleConfig = {
             fontFamily: 'Patricia',
             fontSize: '110px',
-            color: '#FFFFFF'
+            color: '#FFFFFF',
+            align: 'center'
         };
-        this.titleText = this.add.text(game.config.width/4, game.config.height/4 + 100, 'Title', this.titleConfig).setOrigin(0.5);
+        this.titleText = this.add.text(game.config.width/4, game.config.height/4 + 100, 'Title', titleConfig).setOrigin(0.5);
+
         this.titleText.alpha = 0;
 
         this.add.tween({
