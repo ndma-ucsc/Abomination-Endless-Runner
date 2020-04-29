@@ -25,10 +25,32 @@ class Menu extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
+        //fox run 2
         this.anims.create({
             key: 'run2',
             frames: this.anims.generateFrameNumbers('fox_run', {start: 0, end: 7, first: 0}),
-            frameRate: 10,
+            frameRate: 12,
+            repeat: -1
+        });
+        //fox water run
+        this.anims.create({
+            key: 'water_run',
+            frames: this.anims.generateFrameNumbers('foxWater_run', {start: 0, end: 7, first: 0}),
+            frameRate: 12,
+            repeat: -1
+        });
+        //fox fire run
+        this.anims.create({
+            key: 'fire_run',
+            frames: this.anims.generateFrameNumbers('foxFire_run', {start: 0, end: 7, first: 0}),
+            frameRate: 12,
+            repeat: -1
+        });
+        //fox earth run
+        this.anims.create({
+            key: 'earth_run',
+            frames: this.anims.generateFrameNumbers('foxEarth_run', {start: 0, end: 7, first: 0}),
+            frameRate: 12,
             repeat: -1
         });
 

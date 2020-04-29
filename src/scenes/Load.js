@@ -8,6 +8,9 @@ class Load extends Phaser.Scene {
         this.load.path = "./assets/";
         this.load.image('start', 'start.png');
         this.load.spritesheet('fox_run', 'fox_running.png', {frameWidth: 189, framHeight: 69.420, startFrame: 0, endFrame: 7});
+        this.load.spritesheet('foxWater_run', 'foxWater_running.png', {frameWidth: 189, framHeight: 69.420, startFrame: 0, endFrame: 7});
+        this.load.spritesheet('foxFire_run', 'foxFire_running.png', {frameWidth: 189, framHeight: 69.420, startFrame: 0, endFrame: 7});
+        this.load.spritesheet('foxEarth_run', 'foxEarth_running.png', {frameWidth: 189, framHeight: 69.420, startFrame: 0, endFrame: 7});
         this.load.spritesheet('fox', 'base_fox.png', {frameWidth: 148, framHeight: 96, startFrame: 0, endFrame: 3});
         this.load.image('talltrees', 'talltrees.png');
         // this.load.audio('death', '');

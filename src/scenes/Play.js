@@ -100,18 +100,44 @@ class Play extends Phaser.Scene {
             if (!collisionDebug){
                 this.physics.world.collide(this.fox, this.obstacles, this.foxCollision, null, this);
             }            
-            if (this.score >= this.multiplier * 5){
-                this.score = 0;
-                this.multiplier += 1;
+            if (this.trueScore == 100){ //air fox wip (+10% cdr)
                 console.log('here');
-                // this.cameras.main.flash(5000);
-                this.fox.x = game.config.width / 5;
-                this.fox.y = game.config.height - 4 * tileSize + 22;
+                this.cameras.main.flash(10000);
+
                 this.fox.setTexture('fox_run');
                 this.run = 'run2';
                 collisionDebug = true;
                 this.time.delayedCall(3000, () => {collisionDebug = false;});
             }
+            if (this.trueScore == 200){ //fire fox
+                console.log('here');
+                this.cameras.main.flash(10000);
+
+                this.fox.setTexture('foxFire_run');
+                this.run = 'fire_run';
+                collisionDebug = true;
+                this.time.delayedCall(3000, () => {collisionDebug = false;});
+            }
+            if (this.trueScore == 300){ //water fox 
+                console.log('here');
+                this.cameras.main.flash(10000);
+
+                this.fox.setTexture('foxWater_run');
+                this.run = 'water_run';
+                collisionDebug = true;
+                this.time.delayedCall(3000, () => {collisionDebug = false;});
+            }
+            if (this.trueScore == 400){ //earth fox 
+                console.log('here');
+                this.cameras.main.flash(10000);
+
+                this.fox.setTexture('foxEarth_run');
+                this.run = 'earth_run';
+                collisionDebug = true;
+                this.time.delayedCall(3000, () => {collisionDebug = false;});
+            }
+            
+            
             this.scoreText.text = this.trueScore + 'm';
         }
     } // end of update()
