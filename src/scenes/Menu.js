@@ -25,7 +25,7 @@ class Menu extends Phaser.Scene {
             color: '#FFFFFF',
             align: 'center'
         };
-        this.titleText = this.add.text(game.config.width/4, game.config.height/4 + 100, 'Title', titleConfig).setOrigin(0.5); 
+        this.titleText = this.add.text(game.config.width/4, game.config.height/4 + 100, 'Title', titleConfig).setOrigin(0.5);
 
         this.titleText.alpha = 0;
 
@@ -94,8 +94,10 @@ class Menu extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
-        //fox run 2
         this.anims.create({
+            key: 'fox8_run',
+            frames: this.anims.generateFrameNumbers('fox8', {start: 0, end: 4, first: 0}),
+            frameRate: 10,
             repeat: -1
         });
 

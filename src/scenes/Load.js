@@ -12,7 +12,7 @@ class Load extends Phaser.Scene {
         this.load.spritesheet('fox1', 'base_fox.png', {frameWidth: 128, frameHeight: 87, startFrame: 0, endFrame: 3});
         this.load.spritesheet('fox2', 'base_fox2.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 4});
         this.load.spritesheet('fox3', 'water_fox1.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 4});
-
+        
         this.load.spritesheet('fox7', 'light_fox.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 4});
         this.load.spritesheet('fox8', 'dark_fox.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 4});
 
@@ -31,6 +31,13 @@ class Load extends Phaser.Scene {
         
         this.load.path = "./assets/misc/";
         this.load.image('start', 'start.png');
+        this.load.image('obstacle', 'obstacle.png');
+        this.load.image('tile_block', 'forest_tile.png');
+        this.load.image('dream_border', 'dream_border.png')
+        this.load.spritesheet('death', 'death_animation.png', {frameWidth: 96, frameHeight: 96, startFrame: 0, endFrame: 5});
+
+        this.load.path = "./assets/sfx/";
+        this.load.audio('jump_sfx', 'jump_sfx.wav');
 
 
         /* test loading bar buffer*/
@@ -97,9 +104,5 @@ class Load extends Phaser.Scene {
 
     create() {
         this.time.delayedCall(1000, () => {this.scene.start("openScene");})
-    }
-
-    update(){        
-        
     }
 }
