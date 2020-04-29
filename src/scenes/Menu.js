@@ -25,7 +25,7 @@ class Menu extends Phaser.Scene {
             color: '#FFFFFF',
             align: 'center'
         };
-        this.titleText = this.add.text(game.config.width/4, game.config.height/4 + 100, 'Title', titleConfig).setOrigin(0.5);
+        this.titleText = this.add.text(game.config.width/4, game.config.height/4 + 100, 'Title', titleConfig).setOrigin(0.5); 
 
         this.titleText.alpha = 0;
 
