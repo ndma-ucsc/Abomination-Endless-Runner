@@ -7,7 +7,7 @@ class Option extends Phaser.Scene {
         
         this.add.text(0,0,'sup').setOrigin(0);
         console.log('here');
-        this.scene.start("menuScene");
+        this.scene.start("menuScene"); 
         
 
     }

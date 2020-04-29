@@ -12,7 +12,7 @@ class Load extends Phaser.Scene {
         this.load.spritesheet('fox1', 'base_fox.png', {frameWidth: 128, frameHeight: 87, startFrame: 0, endFrame: 3});
         this.load.spritesheet('fox2', 'base_fox2.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 4});
         this.load.spritesheet('fox3', 'water_fox1.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 4});
-        
+
         this.load.spritesheet('fox7', 'light_fox.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 4});
         this.load.spritesheet('fox8', 'dark_fox.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 4});
 
