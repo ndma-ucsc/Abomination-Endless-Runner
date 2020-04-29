@@ -173,6 +173,8 @@ class Play extends Phaser.Scene {
                 this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize, this.fox_sprite[this.level - 1]).setOrigin(1);
                 this.physics.add.collider(this.fox, this.ground);
 
+                this.groundScroll.setTexture()
+
                 // i-frame buffer
                 this.collisionOn = false;
                 this.time.delayedCall(3000, () => {this.collisionOn = true;});

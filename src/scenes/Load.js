@@ -19,6 +19,10 @@ class Load extends Phaser.Scene {
         this.load.spritesheet('fox8', 'dark_fox.png', {frameWidth: 148, frameHeight: 105, startFrame: 0, endFrame: 4});
         this.load.spritesheet('fox9', 'final_fox.png', {frameWidth: 148, frameHeight: 105, startFrame: 0, endFrame: 4});
 
+        this.load.path = "./assets/tiles/";
+        this.load.image('fox1', 'meadow_tile.png');
+        this.load.image('fox2', 'forest_tile.png');
+
         this.load.path = "./assets/ost/";
         this.load.audio('menu_ost', 'I_Am_Different.mp3');
         this.load.audio('fox1_ost', 'Dreams_of_the_Brilliant.mp3');
@@ -35,7 +39,6 @@ class Load extends Phaser.Scene {
         this.load.path = "./assets/misc/";
         this.load.image('start', 'start.png');
         this.load.image('obstacle', 'obstacle.png');
-        this.load.image('tile_block', 'forest_tile.png');
         this.load.image('dream_border', 'dream_border.png')
         this.load.spritesheet('death', 'death_animation.png', {frameWidth: 96, frameHeight: 96, startFrame: 0, endFrame: 6});
 
