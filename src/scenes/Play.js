@@ -226,7 +226,7 @@ class Play extends Phaser.Scene {
             duration: 1000
         });
 
-        this.fox.destroy();
+        this.fox.alpha = 0;
         // death sequence
         let death = this.add.sprite(this.fox.x, this.fox.y, 'death').setOrigin(1);
         death.anims.play('death'); // explosion animation
