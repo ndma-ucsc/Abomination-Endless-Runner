@@ -66,8 +66,6 @@ class Menu extends Phaser.Scene {
             ease: 'Cubic'
         });
 
-        
-
         // animation loading
         // fox run
         for (let i = 1; i <= 2; i++){
