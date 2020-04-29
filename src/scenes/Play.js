@@ -148,36 +148,35 @@ class Play extends Phaser.Scene {
                 this.obstacleClock.delay -= 220;
                 this.obstacleSpreadMin -= 15;
 
-            }
-            if (this.trueScore == 200){ //fire fox
-                console.log('here');
-                this.cameras.main.flash(10000);
+                // update music
+                this.tweens.add({        // fade out
+                    targets: bgMusic,
+                    volume: 0,
+                    ease: 'Linear',
+                    duration: 1500,
+                });
+                bgMusic = this.sound.add(`${this.fox_sprite[this.level - 1]}_ost`, {volume: 0, loop: true});                
+                bgMusic.play();
+                this.tweens.add({        // fade in
+                    targets: bgMusic,
+                    volume: bg_volume,
+                    ease: 'Linear',
+                    duration: 1500
+                });
+                
+                // update bg
+                this.backgroundImage.texture = this.fox_sprite[this.level - 1] + '_bg';
+                
+                // update fox sprite
+                this.fox.destroy();
+                this.run = this.fox_sprite[this.level - 1] + '_run';
+                this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, this.fox_sprite[this.level - 1]).setOrigin(1);
+                this.physics.add.collider(this.fox, this.ground);
 
-                this.fox.setTexture('foxFire_run');
-                this.run = 'fire_run';
-                collisionDebug = true;
-                this.time.delayedCall(3000, () => {collisionDebug = false;});
+                // i-frame buffer
+                this.collisionOn = false;
+                this.time.delayedCall(3000, () => {this.collisionOn = true;});
             }
-            if (this.trueScore == 300){ //water fox 
-                console.log('here');
-                this.cameras.main.flash(10000);
-
-                this.fox.setTexture('foxWater_run');
-                this.run = 'water_run';
-                collisionDebug = true;
-                this.time.delayedCall(3000, () => {collisionDebug = false;});
-            }
-            if (this.trueScore == 400){ //earth fox 
-                console.log('here');
-                this.cameras.main.flash(10000);
-
-                this.fox.setTexture('foxEarth_run');
-                this.run = 'earth_run';
-                collisionDebug = true;
-                this.time.delayedCall(3000, () => {collisionDebug = false;});
-            }
-            
-            
             this.scoreText.text = this.trueScore + 'm';
         }
 
@@ -202,7 +201,7 @@ class Play extends Phaser.Scene {
         // check for collisions
         if (!collisionDebug && this.collisionOn){
             this.physics.world.collide(this.fox, this.obstacles, this.foxCollision, null, this);
-        }  
+        }   
     } // end of update()
 
 
