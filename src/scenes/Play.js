@@ -19,10 +19,10 @@ class Play extends Phaser.Scene {
         this.physics.world.gravity.y = 3000;
         
         // score control
-        this.scoreArray = [0, 700, 1670, 4470, 15000, 30000, 70000, 150000, 300000]; // keep track of level threshold
-        this.trueScore = 0;
+        this.scoreArray = [0, 700, 1670, 4470, 4471, 4772, 4473, 7000]; // keep track of level threshold
+        this.trueScore = 4000;
         this.level = 1;
-        this.levelMax = 3;
+        this.levelMax = 5;
         this.fox_sprite = ['fox1','fox2','fox3','fox4','fox5','fox6','fox7','fox8','fox9'];
         this.run = this.fox_sprite[0] + '_run';        
         if (!bgMusic.isPlaying){
@@ -108,10 +108,11 @@ class Play extends Phaser.Scene {
             obstacle.x += Phaser.Math.Between(0,1000);
             obstacle.x *= Phaser.Math.Between(1,2);
             obstacle.setDepth(-999);
-            if((this.prevObstacle - obstacle.x >= this.obstacleSpreadMin || this.prevObstacle - obstacle.x <= this.obstacleSpreadMax)){
+            if((this.prevObstacle - obstacle.x >= this.obstacleSpreadMin || this.prevObstacle - obstacle.x <= this.obstacleSpreadMax) ||
+            (this.prevObstacle - obstacle.x >= -1000 || this.prevObstacle - obstacle.x <= 500)){
                 console.log(`Canceled spawn @ ${obstacle.x}px Prev: ${this.prevObstacle}px`);
                 console.log(`Res: ${this.prevObstacle - obstacle.x}`);
-                this.prevObstacle = 1000;
+                this.prevObstacle = undefined;
                 obstacle.destroy();
                 return;
             }
@@ -227,7 +228,7 @@ class Play extends Phaser.Scene {
         this.fox.destroy();
         // death sequence
         let death = this.add.sprite(this.fox.x, this.fox.y, 'death').setOrigin(1);
-        death.anims.play('death').setScale(5).setOrigin(1); // explosion animation
+        death.anims.play('death'); // explosion animation
 
         this.cameras.main.fadeOut(2000, 255, 255, 255);
         this.time.delayedCall(2000, () => {this.scene.start("gameOverScene");});

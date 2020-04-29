@@ -38,15 +38,15 @@ class Menu extends Phaser.Scene {
             delay: 2000
         });
 
-        // this.dreamBorder = this.add.image(0,0,'dream_border').setOrigin(0).setDepth(9999);
-        // this.dreamBorder.alpha = 0;
-        // this.add.tween({
-        //     targets: this.dreamBorder,
-        //     alpha: 1,
-        //     ease: 'Linear',
-        //     duration: 1500,
-        //     delay: 3000
-        // });
+        this.dreamBorder = this.add.image(0,0,'dream_border').setOrigin(0).setDepth(9999);
+        this.dreamBorder.alpha = 0;
+        this.add.tween({
+            targets: this.dreamBorder,
+            alpha: 1,
+            ease: 'Linear',
+            duration: 1500,
+            delay: 3000
+        });
         
         //start buttons
         this.optionGroup = this.add.group();
@@ -88,6 +88,18 @@ class Menu extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
+        this.anims.create({
+            key: 'fox7_run',
+            frames: this.anims.generateFrameNumbers('fox7', {start: 0, end: 4, first: 0}),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'fox8_run',
+            frames: this.anims.generateFrameNumbers('fox8', {start: 0, end: 4, first: 0}),
+            frameRate: 10,
+            repeat: -1
+        });
 
         // fox jump
         this.anims.create({
@@ -99,7 +111,7 @@ class Menu extends Phaser.Scene {
         // fox death
         this.anims.create({
             key: 'death',
-            frames: this.anims.generateFrameNumbers('death', {start: 0, end: 9, first: 0}),
+            frames: this.anims.generateFrameNumbers('death', {start: 0, end: 5, first: 0}),
             frameRate: 10,
             repeat: 0
         });
