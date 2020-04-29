@@ -7,6 +7,7 @@ class Play extends Phaser.Scene {
         this.cameras.main.fadeIn(2000, 255, 255, 255);
         this.input.keyboard.enabled = true;
         this.obstacleSpeed = -450;
+        this.obstacleSpeed = -1500;
         this.obstacleMin = 4000;
         this.obstacleMax = 5000;
         this.obstacleSpreadMin = 850;
@@ -56,7 +57,7 @@ class Play extends Phaser.Scene {
         }
 
         // pseudo ground
-        this.groundScroll = this.add.tileSprite(0, game.config.height-tileSize, game.config.width, tileSize, 'tile_block').setOrigin(0);
+        this.groundScroll = this.add.tileSprite(0, game.config.height-tileSize, game.config.width, tileSize, `${this.fox_sprite[this.level - 1]}_tile`).setOrigin(0);
 
         // add physics collider
         this.physics.add.collider(this.fox, this.ground);
@@ -137,14 +138,14 @@ class Play extends Phaser.Scene {
                       
             if (this.level < this.levelMax && this.trueScore >= this.scoreArray[this.level]){
                 // update level qualities
-                console.log(`Level Up: ${this.level} @ ${this.scoreArray[this.level]}m`);
+                console.log(`Level Up: ${this.level + 1} @ ${this.scoreArray[this.level]}m`);
 
-                this.SCORE_MULTIPLIER *= 1.2;
+                // this.SCORE_MULTIPLIER *= 1.2;
                 this.level += 1;
                 this.cameras.main.flash(3000);
                 this.SCROLL_SPEED += 3;
                 this.obstacles.clear();
-                this.obstacleSpeed -= 100;
+                this.obstacleSpeed -= 150;
                 this.obstacleClock.delay -= 220;
                 this.obstacleSpreadMin -= 15;
 
@@ -173,7 +174,8 @@ class Play extends Phaser.Scene {
                 this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize, this.fox_sprite[this.level - 1]).setOrigin(1);
                 this.physics.add.collider(this.fox, this.ground);
 
-                this.groundScroll.setTexture()
+                this.groundScroll.destroy();
+                this.groundScroll = this.add.tileSprite(0, game.config.height-tileSize, game.config.width, tileSize, `${this.fox_sprite[this.level - 1]}_tile`).setOrigin(0);
 
                 // i-frame buffer
                 this.collisionOn = false;
@@ -186,6 +188,7 @@ class Play extends Phaser.Scene {
             console.log("Game Paused");
             this.physics.world.gravity.y = 0;
             this.fox.body.velocity.y = 0;
+            this.scoreTimer.paused = true;
             this.anims.pauseAll();
             bgMusic.pause();
             this.cameras.main.alpha = 0.5;
@@ -194,6 +197,7 @@ class Play extends Phaser.Scene {
         else if(this.gamePaused && Phaser.Input.Keyboard.JustDown(keyP)){
             console.log("Game Unpaused");
             this.physics.world.gravity.y = 3000;
+            this.scoreTimer.paused = false;
             this.anims.resumeAll();
             bgMusic.resume();
             this.cameras.main.alpha = 1;

@@ -20,8 +20,8 @@ class Load extends Phaser.Scene {
         this.load.spritesheet('fox9', 'final_fox.png', {frameWidth: 148, frameHeight: 105, startFrame: 0, endFrame: 4});
 
         this.load.path = "./assets/tiles/";
-        this.load.image('fox1', 'meadow_tile.png');
-        this.load.image('fox2', 'forest_tile.png');
+        this.load.image('fox1_tile', 'meadow_tile.png');
+        this.load.image('fox2_tile', 'forest_tile.png');
 
         this.load.path = "./assets/ost/";
         this.load.audio('menu_ost', 'I_Am_Different.mp3');

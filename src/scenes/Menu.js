@@ -116,18 +116,6 @@ class Menu extends Phaser.Scene {
             },
         };
 
-        let physicsDebug = this.input.keyboard.createCombo(['d' ,'e' ,'b' ,'u' ,'g'], {
-            resetOnWrongKey: true,
-            maxKeyDelay: 0,
-            resetOnMatch: true,
-            deleteOnMatch: true,
-        });
-
-        this.input.keyboard.on('keycombomatch', (physicsDebug) => {
-            console.log("debugging physics");
-            game.config.physics.arcade.debug = !game.config.physics.arcade.debug;
-        });
-
         let facadeDebug = this.input.keyboard.createCombo(['f','a','c','a','d','e'], {
             resetOnWrongKey: true,
             maxKeyDelay: 0,
