@@ -34,7 +34,7 @@ class Option extends Phaser.Scene {
                 this.selected = 2;
             }
         }
-        else if(this.input.keyboard.checkDown(cursors.down, 250))
+        else if(this.input.keyboard.checkDown(cursors.down, 250)){
             if(this.selected < 2) {
                 this.selected++;
             }
