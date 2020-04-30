@@ -7,6 +7,7 @@ class Load extends Phaser.Scene {
         this.load.path = "./assets/bg/";
         this.load.image('fox1_bg', 'meadows.png');
         this.load.image('fox2_bg', 'forest.png');
+        this.load.image('fox4_bg', 'river.png');
 
         // these need to be atlas later
         this.load.path = "./assets/fox_sprites/";
