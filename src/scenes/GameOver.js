@@ -4,7 +4,7 @@ class GameOver extends Phaser.Scene {
     }
 
     create() {
-        // this.sound.pauseOnBlur = false
+        console.log('gameoverScene');
         this.selected = 1
         this.cameras.main.setBackgroundColor('#FFFFFF');
         this.input.keyboard.enabled = false;

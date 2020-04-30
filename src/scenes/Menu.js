@@ -15,6 +15,7 @@ class Menu extends Phaser.Scene {
         
         this.selected = 1;
         
+        
         //title name
         let titleConfig = {
             fontFamily: 'Patricia',
