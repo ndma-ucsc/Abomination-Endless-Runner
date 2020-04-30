@@ -77,7 +77,7 @@ class Option extends Phaser.Scene {
 
             case 2:{
                 if(Phaser.Input.Keyboard.JustDown(keyENTER)){
-                    this.isFullscreen ? this.scale.stopFullscreen() : this.scale.startFullscreen();
+                    this.scale.isFullscreen ? this.scale.stopFullscreen() : this.scale.startFullscreen();
                 }
                 break;
             }

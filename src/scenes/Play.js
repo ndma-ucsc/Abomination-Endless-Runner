@@ -7,7 +7,7 @@ class Play extends Phaser.Scene {
         this.cameras.main.fadeIn(2000, 255, 255, 255);
         this.input.keyboard.enabled = true;
         this.obstacleSpeed = -450;
-        this.obstacleSpeed = -1500;
+        // this.obstacleSpeed = -1500;
         this.obstacleMin = 4000;
         this.obstacleMax = 5000;
         this.obstacleSpreadMin = 850;
@@ -22,7 +22,7 @@ class Play extends Phaser.Scene {
         // score control
         // this.scoreArray = [0, 700, 1670, 0, 0, 0, 4473, 7000]; // keep track of level threshold
         this.scoreArray = [0, 100, 200, 300, 400, 500, 600, 700, 800]; // tester track
-        this.trueScore = 0 ;
+        this.trueScore = 200;
         this.level = 1;
         this.levelMax = 9;
         this.fox_sprite = ['fox1','fox2','fox3','fox4','fox5','fox6','fox7','fox8','fox9'];
@@ -104,7 +104,7 @@ class Play extends Phaser.Scene {
 
 
     spawnObstacle() {
-        if (!this.gamePaused || !this.gameOver){
+        if (!this.gamePaused && !this.gameOver){
             this.obstacle_sprite = ['rock', 'hole', 'spike'];
             let obstacle = new Obstacle(this, this.obstacleSpeed, this.obstacle_sprite[Math.floor(Math.random() * 3)]);     // create new obstacle
             obstacle.x += Phaser.Math.Between(0,1000);
@@ -172,7 +172,7 @@ class Play extends Phaser.Scene {
                 // update fox sprite
                 this.fox.destroy();
                 this.run = this.fox_sprite[this.level - 1] + '_run';
-                this.fox = this.physics.add.sprite(game.config.width / 5 + 60, game.config.height - 3 * tileSize, this.fox_sprite[this.level - 1]).setOrigin(1);
+                this.fox = this.physics.add.sprite(game.config.width / 5 + 100, game.config.height - 3 * tileSize, this.fox_sprite[this.level - 1]).setOrigin(1);
                 this.physics.add.collider(this.fox, this.ground);
 
                 // update ground

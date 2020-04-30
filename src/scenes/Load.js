@@ -38,8 +38,8 @@ class Load extends Phaser.Scene {
         this.load.audio('fox2_ost', 'The_Long_Journey.mp3');
         this.load.audio('fox3_ost', 'Wind_Spirit.mp3');
         this.load.audio('fox4_ost', 'Water_Spirit.mp3');
-        this.load.audio('fox5_ost', 'Earth_Spirit.mp3');
-        this.load.audio('fox6_ost', 'Snowdrift.mp3');
+        this.load.audio('fox5_ost', 'Snowdrift.mp3');
+        this.load.audio('fox6_ost', 'Earth_Spirit.mp3');
         this.load.audio('fox7_ost', 'Days_of_Summer.mp3');
         this.load.audio('fox8_ost', 'Days_of_Winter.mp3');
         this.load.audio('fox9_ost', 'Into_The_Sky.mp3');
