@@ -109,6 +109,7 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        this.time.delayedCall(1000, () => {this.scene.start("openScene");})
+        // this.scene.start("openScene");
+        this.scene.start("optionScene");
     }
 }
