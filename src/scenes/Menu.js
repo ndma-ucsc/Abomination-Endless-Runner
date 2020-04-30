@@ -12,9 +12,6 @@ class Menu extends Phaser.Scene {
         this.input.keyboard.enabled = false;
         this.cameras.main.fadeIn(1500);
         this.time.delayedCall(0, () => {this.input.keyboard.enabled = true;});
-        // set up Phaser-provided cursor key input
-        cursors = this.input.keyboard.createCursorKeys();
-        keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         
         this.selected = 1;
         
@@ -68,25 +65,7 @@ class Menu extends Phaser.Scene {
 
         // animation loading
         // fox run
-        for (let i = 1; i <= 2; i++){
-            this.anims.create({
-                key: `fox${i}_run`,
-                frames: this.anims.generateFrameNumbers(`fox${i}`, {start: 0, end: 4, first: 0}),
-                frameRate: 10,
-                repeat: -1
-            });
-        }
-
-        for (let i = 3; i <= 6; i++){
-            this.anims.create({
-                key: `fox${i}_run`,
-                frames: this.anims.generateFrameNumbers(`fox${i}`, {start: 0, end: 7, first: 0}),
-                frameRate: 10,
-                repeat: -1
-            });
-        }
-
-        for (let i = 7; i <= 9; i++){
+        for (let i = 1; i <= 9; i++){
             this.anims.create({
                 key: `fox${i}_run`,
                 frames: this.anims.generateFrameNumbers(`fox${i}`, {start: 0, end: 4, first: 0}),
@@ -145,6 +124,8 @@ class Menu extends Phaser.Scene {
     }
 
     update(){
+        // set up Phaser-provided cursor key input
+        cursors = this.input.keyboard.createCursorKeys();
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         if(this.input.keyboard.checkDown(cursors.up, 250)) {
             if(this.selected > 1) {
@@ -194,6 +175,7 @@ class Menu extends Phaser.Scene {
                 this.cameras.main.fadeOut(500);
                 this.time.delayedCall(500,() => {
                     this.cameras.main.fadeIn(1);
+                    this.input.keyboard.enabled = true;
                     this.scene.launch("optionScene");
                 });
             }
@@ -201,8 +183,6 @@ class Menu extends Phaser.Scene {
                 //to be added
                 this.scene.start("playScene");
             }
-            this.time.delayedCall(1500, () => {this.input.keyboard.enabled = true;console.log('on');
-            });
         }
     }
 }
