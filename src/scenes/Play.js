@@ -175,6 +175,7 @@ class Play extends Phaser.Scene {
                 this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize, this.fox_sprite[this.level - 1]).setOrigin(1);
                 this.physics.add.collider(this.fox, this.ground);
 
+                // update ground
                 this.groundScroll.destroy();
                 this.groundScroll = this.add.tileSprite(0, game.config.height-tileSize, game.config.width, tileSize, `${this.fox_sprite[this.level - 1]}_tile`).setOrigin(0);
 
