@@ -45,7 +45,7 @@ class Play extends Phaser.Scene {
         this.backgroundImage = this.add.tileSprite(0, 0, game.config.width, game.config.height, `${this.fox_sprite[this.level - 1]}_bg`).setOrigin(0).setDepth(-99999).setScale(1,1.4);
 
         // create player sprite
-        this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, 'fox_atlas', `${this.fox_sprite[this.level - 1]}_sprite`).setOrigin(1);
+        this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, 'fox_atlas', `${this.fox_sprite[this.level - 1]}_sprite1`).setOrigin(1);
 
         // make ground tiles group (actual ground)
         this.ground = this.add.group();
@@ -172,7 +172,7 @@ class Play extends Phaser.Scene {
                 // update fox sprite
                 this.fox.destroy();
                 this.run = this.fox_sprite[this.level - 1] + '_run';
-                this.fox = this.physics.add.sprite(game.config.width / 5 + 100, game.config.height - 3 * tileSize, this.fox_sprite[this.level - 1]).setOrigin(1);
+                this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, 'fox_atlas', `${this.fox_sprite[this.level - 1]}_sprite1`).setOrigin(1);
                 this.physics.add.collider(this.fox, this.ground);
 
                 // update ground

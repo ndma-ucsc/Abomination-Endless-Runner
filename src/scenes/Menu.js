@@ -66,17 +66,42 @@ class Menu extends Phaser.Scene {
 
         // animation loading
         // fox run
-        this.anims.create({
-            key: 'fox1_run',
-            frames: this.anims.generateFrameNumbers('fox_atlas', {
-                prefix: 'fox1_sprite',
-                start: 0,
-                end: 4,
-            }),
-            frameRate: 10,
-            repeat: -1
-        });
-        
+        for (let i = 1; i <= 2; i++){
+            this.anims.create({
+                key: `fox${i}_run`,
+                frames: this.anims.generateFrameNumbers('fox_atlas', {
+                    prefix: `fox${i}_sprite`,
+                    start: 1,
+                    end: 5,
+                }),
+                frameRate: 10,
+                repeat: -1
+            });
+        }
+        for (let i = 3; i <= 6; i++){
+            this.anims.create({
+                key: `fox${i}_run`,
+                frames: this.anims.generateFrameNumbers('fox_atlas', {
+                    prefix: `fox${i}_sprite`,
+                    start: 1,
+                    end: 8,
+                }),
+                frameRate: 10,
+                repeat: -1
+            });
+        }
+        for (let i = 1; i <= 2; i++){
+            this.anims.create({
+                key: `fox${i}_run`,
+                frames: this.anims.generateFrameNumbers('fox_atlas', {
+                    prefix: `fox${i}_sprite`,
+                    start: 1,
+                    end: 5,
+                }),
+                frameRate: 10,
+                repeat: -1
+            });
+        }
         
         // fox death
         this.anims.create({
