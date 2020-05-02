@@ -122,8 +122,7 @@ class Play extends Phaser.Scene {
 
     spawnObstacle() {
         if (!this.gamePaused && !this.gameOver){
-            let obstacle = new Obstacle(this, this.obstacleSpeed, 'obstacle', {frame: this.level-1}).setScale(0.7);     // create new obstacle
-            // obstacle.frame = this.level - 1;
+            let obstacle = new Obstacle(this, this.obstacleSpeed, 'obstacle', `${this.fox_sprite[this.level-1]}_obs`);     // create new obstacle
             obstacle.x += Phaser.Math.Between(0,1000);
             obstacle.x *= Phaser.Math.Between(1,2);
             obstacle.setDepth(-999);

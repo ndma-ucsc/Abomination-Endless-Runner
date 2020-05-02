@@ -49,7 +49,7 @@ class Load extends Phaser.Scene {
         this.load.image('start', 'start.png');
         this.load.image('option', 'option.png');
         this.load.image('tutorial', 'tutorial.png');
-        this.load.spritesheet('obstacle', 'obstacles.png', {frameWidth: 120, frameHeight: 76, startFrame: 0, endFrame: 5});
+        this.load.atlas('obstacle', 'obstacles.png', 'obstacles.json');
         this.load.image('dream_border', 'dream_border.png');
         this.load.spritesheet('death', 'death_animation.png', {frameWidth: 96, frameHeight: 96, startFrame: 0, endFrame: 6});
 
