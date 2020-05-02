@@ -14,7 +14,7 @@ class Play extends Phaser.Scene {
         this.obstacleSpreadMax = -2500;
         this.JUMP_VELOCITY = -750;
         this.MAX_JUMPS = 1;
-        this.SCROLL_SPEED = 3;
+        this.SCROLL_SPEED = 4.5;
         this.collisionOn = true;
         this.SCORE_MULTIPLIER = 1;
         this.physics.world.gravity.y = 3000;
@@ -105,7 +105,7 @@ class Play extends Phaser.Scene {
 
     spawnObstacle() {
         if (!this.gamePaused && !this.gameOver){
-            let obstacle = new Obstacle(this, this.obstacleSpeed, 'obstacle');     // create new obstacle
+            let obstacle = new Obstacle(this, this.obstacleSpeed, 'obstacle', {frame: this.level-1}).setScale(0.7);     // create new obstacle
             // obstacle.frame = this.level - 1;
             obstacle.x += Phaser.Math.Between(0,1000);
             obstacle.x *= Phaser.Math.Between(1,2);
@@ -184,6 +184,11 @@ class Play extends Phaser.Scene {
                 this.time.delayedCall(3000, () => {this.collisionOn = true;});
             }
             this.scoreText.text = this.trueScore + 'm';
+
+            // check for collisions
+            if (!collisionDebug && this.collisionOn){
+                this.physics.world.collide(this.fox, this.obstacles, this.foxCollision, null, this);
+            }  
         }
 
         if(!this.gamePaused && Phaser.Input.Keyboard.JustDown(keyP)){
@@ -204,12 +209,7 @@ class Play extends Phaser.Scene {
             bgMusic.resume();
             this.cameras.main.alpha = 1;
             this.gamePaused = false;
-        }
-
-        // check for collisions
-        if (!collisionDebug && this.collisionOn){
-            this.physics.world.collide(this.fox, this.obstacles, this.foxCollision, null, this);
-        }   
+        } 
     } // end of update()
 
 
