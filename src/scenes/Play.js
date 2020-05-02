@@ -105,8 +105,8 @@ class Play extends Phaser.Scene {
 
     spawnObstacle() {
         if (!this.gamePaused && !this.gameOver){
-            this.obstacle_sprite = ['rock', 'hole', 'spike'];
-            let obstacle = new Obstacle(this, this.obstacleSpeed, this.obstacle_sprite[Math.floor(Math.random() * 3)]);     // create new obstacle
+            let obstacle = new Obstacle(this, this.obstacleSpeed, 'obstacle');     // create new obstacle
+            // obstacle.frame = this.level - 1;
             obstacle.x += Phaser.Math.Between(0,1000);
             obstacle.x *= Phaser.Math.Between(1,2);
             obstacle.setDepth(-999);
@@ -172,7 +172,7 @@ class Play extends Phaser.Scene {
                 // update fox sprite
                 this.fox.destroy();
                 this.run = this.fox_sprite[this.level - 1] + '_run';
-                this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, 'fox_atlas', `${this.fox_sprite[this.level - 1]}_sprite1`).setOrigin(1);
+                this.fox = this.physics.add.sprite(game.config.width / 5 + 100, game.config.height - 3 * tileSize + 22, 'fox_atlas', `${this.fox_sprite[this.level - 1]}_sprite1`).setOrigin(1);
                 this.physics.add.collider(this.fox, this.ground);
 
                 // update ground

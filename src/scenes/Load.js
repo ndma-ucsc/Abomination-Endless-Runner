@@ -7,7 +7,7 @@ class Load extends Phaser.Scene {
 
         this.load.path = "./assets/fox_sprites/";
         this.load.atlas('fox_atlas', 'fox_atlas.png', 'fox_atlas.json');
-        
+
         this.load.path = "./assets/bg/";
         this.load.image('option_bg', 'option_bg.png');
         this.load.image('fox1_bg', 'meadows.png');
@@ -48,7 +48,7 @@ class Load extends Phaser.Scene {
         this.load.image('title', 'title.png');
         this.load.image('start', 'start.png');
         this.load.image('option', 'option.png');
-        this.load.image('obstacle', 'obstacle.png');
+        this.load.spritesheet('obstacle', 'obstacles.png', {frameWidth: 120, frameHeight: 76, startFrame: 0, endFrame: 5});
         this.load.image('dream_border', 'dream_border.png');
         this.load.spritesheet('death', 'death_animation.png', {frameWidth: 96, frameHeight: 96, startFrame: 0, endFrame: 6});
 
