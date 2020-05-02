@@ -90,7 +90,7 @@ class Menu extends Phaser.Scene {
                 repeat: -1
             });
         }
-        for (let i = 1; i <= 2; i++){
+        for (let i = 7; i <= 9; i++){
             this.anims.create({
                 key: `fox${i}_run`,
                 frames: this.anims.generateFrameNumbers('fox_atlas', {
