@@ -5,9 +5,16 @@ class Load extends Phaser.Scene {
 
     preload(){
         this.load.path = "./assets/bg/";
+        this.load.image('option_bg', 'option_bg.png');
         this.load.image('fox1_bg', 'meadows.png');
         this.load.image('fox2_bg', 'forest.png');
+        this.load.image('fox3_bg', 'cloud.png');
         this.load.image('fox4_bg', 'river.png');
+        this.load.image('fox5_bg', 'volcano.png');
+        this.load.image('fox6_bg', 'earth.png');
+        this.load.image('fox7_bg', 'light.png');
+        this.load.image('fox8_bg', 'dark.png');
+        this.load.image('fox9_bg', 'final.png');
 
         // these need to be atlas later
         this.load.path = "./assets/fox_sprites/";
@@ -46,6 +53,7 @@ class Load extends Phaser.Scene {
         this.load.audio('death_ost','Autumn_Rain.mp3')
         
         this.load.path = "./assets/misc/";
+        this.load.image('title', 'title.png');
         this.load.image('start', 'start.png');
         this.load.image('option', 'option.png');
         this.load.image('obstacle', 'obstacle.png');

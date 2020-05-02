@@ -17,6 +17,8 @@ class Option extends Phaser.Scene {
             },
         };
 
+        this.add.image(game.config.width/2, game.config.height/2, 'option_bg').setOrigin(0.5);
+
         this.add.text(game.config.width/2, 50, 'Options', {fontSize: '100px'}).setOrigin(0.5);
         this.volume = this.add.text(game.config.width/6, game.config.height/4, `Volume  ${Math.floor(bg_volume * 10)}` , optionTextConfig).setOrigin(0,0.5);
         this.fullscreen = this.add.text(game.config.width/6, 2*game.config.height/4, `Fullscreen    ${this.scale.isFullscreen ? '✔' : '❌'}`, optionTextConfig).setOrigin(0,0.5);
