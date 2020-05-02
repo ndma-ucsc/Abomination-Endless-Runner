@@ -8,7 +8,7 @@ class Option extends Phaser.Scene {
         this.volume_array = [0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1];
         let optionTextConfig = {
             fontFamily: 'Bradley Hand',
-            fontSize: '50px',
+            fontSize: '55px',
             color: '#0D7DB0',
             align: 'center',
             padding: {
@@ -17,12 +17,15 @@ class Option extends Phaser.Scene {
             },
         };
 
-        this.add.image(game.config.width/2, game.config.height/2, 'option_bg').setOrigin(0.5);
+        this.opBG = this.add.sprite(game.config.width/2, game.config.height/2, 'option_bg').setOrigin(0.5);
+        this.dreamBorder = this.add.image(0,0,'dream_border').setOrigin(0).setDepth(9999);
 
-        this.add.text(game.config.width/2, 50, 'Options', {fontSize: '100px'}).setOrigin(0.5);
-        this.volume = this.add.text(game.config.width/6, game.config.height/4, `Volume  ${Math.floor(bg_volume * 10)}` , optionTextConfig).setOrigin(0,0.5);
-        this.fullscreen = this.add.text(game.config.width/6, 2*game.config.height/4, `Fullscreen    ${this.scale.isFullscreen ? '✔' : '❌'}`, optionTextConfig).setOrigin(0,0.5);
-        this.return = this.add.text(game.config.width/6, 3*game.config.height/4, 'Return to Menu', optionTextConfig).setOrigin(0,0.5);
+        this.add.sprite(game.config.width/2, 60, 'option').setOrigin(0.5).setScale(1.3);
+        this.volume = this.add.sprite(game.config.width/6 - 5, game.config.height/4, 'volume').setOrigin(0,0.5).setScale(0.7);
+        this.volumeText = this.add.text(game.config.width/6 + 770, game.config.height/4 + 15, `${Math.floor(bg_volume * 10)}` , optionTextConfig).setOrigin(0,0.5);
+        this.fullscreen = this.add.sprite(game.config.width/6, 2*game.config.height/4, 'fullscreen').setOrigin(0,0.5).setScale(0.7);
+        this.fullscreenText = this.add.text(game.config.width/6 + 750, game.config.height/4 + 175, `${this.scale.isFullscreen ? '✔' : '❌'}`, optionTextConfig).setOrigin(0,0.5);
+        this.return = this.add.sprite(game.config.width/6 + 10, 3*game.config.height/4, 'return').setOrigin(0,0.5).setScale(0.7);
 
         cursors = this.input.keyboard.createCursorKeys();
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
@@ -48,19 +51,19 @@ class Option extends Phaser.Scene {
         }
 
         if(this.selected == 1) {
-            this.volume.setTint(0x1081e0).setScale(1.2);
+            this.volume.setTint(0xABFFA6).setScale(1.1);
             this.fullscreen.setTint().setScale();
             this.return.setTint().setScale();
         }
         else if(this.selected == 2) {
             this.volume.setTint().setScale();
-            this.fullscreen.setTint(0x1081e0).setScale(1.2);
+            this.fullscreen.setTint(0xABFFA6).setScale(1.1);
             this.return.setTint().setScale();
         }
         else if(this.selected == 3) {
             this.volume.setTint().setScale();
             this.fullscreen.setTint().setScale();
-            this.return.setTint(0x1081e0).setScale(1.2);
+            this.return.setTint(0xABFFA6).setScale(1.1);
         }
         switch(this.selected){
             case 1:{
@@ -90,9 +93,9 @@ class Option extends Phaser.Scene {
                         targets: this.cameras.main,
                         alpha: 0,
                         ease: 'Linear',
-                        duration: 500
+                        duration: 1000
                     });
-                    this.time.delayedCall(500,() => {
+                    this.time.delayedCall(1000,() => {
                         this.scene.resume("menuScene");
                         this.scene.stop();
                     });
@@ -100,7 +103,7 @@ class Option extends Phaser.Scene {
                 }
             }
         }
-        this.volume.text = `Volume  ${volPt}`;
-        this.fullscreen.text = `Fullscreen    ${this.scale.isFullscreen ? '✔' : '❌'}`;
+        this.volumeText.text = `${volPt}`;
+        this.fullscreenText.text = `${this.scale.isFullscreen ? '✔' : '❌'}`;
     } // end of update
 }
