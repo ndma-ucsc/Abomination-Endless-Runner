@@ -92,6 +92,23 @@ class Play extends Phaser.Scene {
         };
         this.scoreText = this.add.text(69, 54, this.trueScore + 'm', scoreConfig);
         
+        this.tutorials = this.add.sprite(game.config.width/2, game.config.height/2, 'tutorial');
+        this.tutorials.alpha = 0;
+        //fade tutorials in
+        this.tweens.add({
+            targets: this.tutorials,
+            duration: 2000,
+            alpha: 1
+        });
+
+        //fade tutorials out
+        this.time.delayedCall(5000, () => { 
+            this.tweens.add({
+                targets: this.tutorials,
+                duration: 2000,
+                alpha: 0
+            });
+        });
 
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);

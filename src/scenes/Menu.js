@@ -17,18 +17,10 @@ class Menu extends Phaser.Scene {
         
         
         //title name
-        let titleConfig = {
-            fontFamily: 'Patricia',
-            fontSize: '110px',
-            color: '#FFFFFF',
-            align: 'center'
-        };
-        this.titleText = this.add.text(game.config.width/4, game.config.height/4 + 100, 'Title', titleConfig).setOrigin(0.5);
-
-        this.titleText.alpha = 0;
-
+        this.title = this.add.sprite(game.config.width/4 + 50, game.config.height/4 + 100, 'title').setScale(1.4,1.4);
+        this.title.alpha = 0;
         this.add.tween({
-            targets: this.titleText,
+            targets: this.title,
             y: {from: game.config.height/4 + 150, to: game.config.height/4 + 100},
             alpha: 1,
             ease: 'Linear',
@@ -50,7 +42,7 @@ class Menu extends Phaser.Scene {
         this.optionGroup = this.add.group();
         this.optionOffset = 100;
         this.start = this.add.sprite(game.config.width/2 + this.optionOffset, game.config.height/4, 'start').setOrigin(0.5);
-        this.option = this.add.sprite(game.config.width/2 + 2*this.optionOffset, game.config.height/4 + 100, 'start').setOrigin(0.5); //to be added
+        this.option = this.add.sprite(game.config.width/2 + 2*this.optionOffset, game.config.height/4 + 100, 'option').setOrigin(0.5); //to be added
         this.help = this.add.sprite(game.config.width/2 + 3*this.optionOffset, game.config.height/4 + 200, 'start').setOrigin(0.5); //to be added
         this.optionGroup.addMultiple([this.start, this.option, this.help]);
         this.optionGroup.setAlpha(0);
