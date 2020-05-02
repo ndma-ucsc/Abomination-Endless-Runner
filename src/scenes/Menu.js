@@ -40,7 +40,7 @@ class Menu extends Phaser.Scene {
         this.dreamBorder.alpha = 0;
         this.add.tween({
             targets: this.dreamBorder,
-            alpha: 1,
+            alpha: 0.5,
             ease: 'Linear',
             duration: 1500,
             delay: 3000
@@ -69,10 +69,12 @@ class Menu extends Phaser.Scene {
         for (let i = 1; i <= 2; i++){
             this.anims.create({
                 key: `fox${i}_run`,
-                frames: this.anims.generateFrameNumbers('fox_atlas', {
+                frames: this.anims.generateFrameNames('fox_atlas', {
                     prefix: `fox${i}_sprite`,
                     start: 1,
                     end: 5,
+                    suffix: '',
+                    zeroPad: 0
                 }),
                 frameRate: 10,
                 repeat: -1
@@ -81,7 +83,7 @@ class Menu extends Phaser.Scene {
         for (let i = 3; i <= 6; i++){
             this.anims.create({
                 key: `fox${i}_run`,
-                frames: this.anims.generateFrameNumbers('fox_atlas', {
+                frames: this.anims.generateFrameNames('fox_atlas', {
                     prefix: `fox${i}_sprite`,
                     start: 0,
                     end: 7,
@@ -93,7 +95,7 @@ class Menu extends Phaser.Scene {
         for (let i = 7; i <= 9; i++){
             this.anims.create({
                 key: `fox${i}_run`,
-                frames: this.anims.generateFrameNumbers('fox_atlas', {
+                frames: this.anims.generateFrameNames('fox_atlas', {
                     prefix: `fox${i}_sprite`,
                     start: 1,
                     end: 5,

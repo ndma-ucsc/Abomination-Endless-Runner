@@ -257,9 +257,6 @@ class Play extends Phaser.Scene {
 	    	this.jumps = this.MAX_JUMPS;
 	    	this.jumping = false;
         }
-        else{
-            // this.fox.anims.play('jump', true);
-        }
         if(!this.fox.isGrounded && Phaser.Input.Keyboard.DownDuration(cursors.down, 250)) {
 	        this.fox.body.velocity.y = -1.3*this.JUMP_VELOCITY;
 	    }
