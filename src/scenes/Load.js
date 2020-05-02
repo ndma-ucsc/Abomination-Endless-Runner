@@ -18,15 +18,16 @@ class Load extends Phaser.Scene {
 
         // these need to be atlas later
         this.load.path = "./assets/fox_sprites/";
-        this.load.spritesheet('fox1', 'base_fox.png', {frameWidth: 128, frameHeight: 87, startFrame: 0, endFrame: 4});
-        this.load.spritesheet('fox2', 'base_fox2.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 4});
-        this.load.spritesheet('fox3', 'cloud_fox3.png', {frameWidth: 189.25, frameHeight: 96, startFrame: 0, endFrame: 7});
-        this.load.spritesheet('fox4', 'water_fox4.png', {frameWidth: 189.25, frameHeight: 96, startFrame: 0, endFrame: 7});
-        this.load.spritesheet('fox5', 'fire_fox5.png', {frameWidth: 189.25, frameHeight: 96, startFrame: 0, endFrame: 7});
-        this.load.spritesheet('fox6', 'earth_fox6.png', {frameWidth: 189.25, frameHeight: 96, startFrame: 0, endFrame: 7});
-        this.load.spritesheet('fox7', 'light_fox.png', {frameWidth: 148, frameHeight: 105, startFrame: 0, endFrame: 4});
-        this.load.spritesheet('fox8', 'dark_fox.png', {frameWidth: 148, frameHeight: 105, startFrame: 0, endFrame: 4});
-        this.load.spritesheet('fox9', 'final_fox.png', {frameWidth: 148, frameHeight: 105, startFrame: 0, endFrame: 4});
+        this.load.atlas('fox_atlas', 'fox_atlas.png', 'fox_atlas.json');
+        // this.load.spritesheet('fox1', 'base_fox.png', {frameWidth: 128, frameHeight: 87, startFrame: 0, endFrame: 4});
+        // this.load.spritesheet('fox2', 'base_fox2.png', {frameWidth: 148, frameHeight: 96, startFrame: 0, endFrame: 4});
+        // this.load.spritesheet('fox3', 'cloud_fox3.png', {frameWidth: 189.25, frameHeight: 96, startFrame: 0, endFrame: 7});
+        // this.load.spritesheet('fox4', 'water_fox4.png', {frameWidth: 189.25, frameHeight: 96, startFrame: 0, endFrame: 7});
+        // this.load.spritesheet('fox5', 'fire_fox5.png', {frameWidth: 189.25, frameHeight: 96, startFrame: 0, endFrame: 7});
+        // this.load.spritesheet('fox6', 'earth_fox6.png', {frameWidth: 189.25, frameHeight: 96, startFrame: 0, endFrame: 7});
+        // this.load.spritesheet('fox7', 'light_fox.png', {frameWidth: 148, frameHeight: 105, startFrame: 0, endFrame: 4});
+        // this.load.spritesheet('fox8', 'dark_fox.png', {frameWidth: 148, frameHeight: 105, startFrame: 0, endFrame: 4});
+        // this.load.spritesheet('fox9', 'final_fox.png', {frameWidth: 148, frameHeight: 105, startFrame: 0, endFrame: 4});
 
         this.load.path = "./assets/tiles/";
         this.load.image('fox1_tile', 'meadow_tile.png');
