@@ -83,8 +83,8 @@ class Menu extends Phaser.Scene {
                 key: `fox${i}_run`,
                 frames: this.anims.generateFrameNumbers('fox_atlas', {
                     prefix: `fox${i}_sprite`,
-                    start: 1,
-                    end: 8,
+                    start: 0,
+                    end: 7,
                 }),
                 frameRate: 10,
                 repeat: -1
