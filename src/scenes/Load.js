@@ -24,13 +24,13 @@ class Load extends Phaser.Scene {
         this.load.path = "./assets/tiles/";
         this.load.image('fox1_tile', 'meadow_tile.png');
         this.load.image('fox2_tile', 'forest_tile.png');
-        // this.load.image('fox3_tile', 'forest_tile.png');
-        // this.load.image('fox4_tile', 'forest_tile.png');
-        // this.load.image('fox5_tile', 'forest_tile.png');
-        // this.load.image('fox6_tile', 'forest_tile.png');
-        // this.load.image('fox7_tile', 'forest_tile.png');
-        // this.load.image('fox8_tile', 'forest_tile.png');
-        // this.load.image('fox9_tile', 'forest_tile.png');
+        this.load.image('fox3_tile', 'cloud_tile.png');
+        this.load.image('fox4_tile', 'river_tile.png');
+        this.load.image('fox5_tile', 'volcano_tile.png');
+        this.load.image('fox6_tile', 'meadow_tile.png');
+        this.load.image('fox7_tile', 'light_tile.png');
+        this.load.image('fox8_tile', 'dark_tile.png');
+        this.load.image('fox9_tile', 'final_tile.png');
 
         this.load.path = "./assets/ost/";
         this.load.audio('menu_ost', 'I_Am_Different.mp3');
@@ -47,6 +47,7 @@ class Load extends Phaser.Scene {
         
         this.load.path = "./assets/misc/";
         this.load.image('start', 'start.png');
+        this.load.image('option', 'option.png');
         this.load.image('obstacle', 'obstacle.png');
         this.load.image('dream_border', 'dream_border.png');
         this.load.spritesheet('death', 'death_animation.png', {frameWidth: 96, frameHeight: 96, startFrame: 0, endFrame: 6});
