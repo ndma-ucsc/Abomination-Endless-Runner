@@ -117,7 +117,7 @@ class Load extends Phaser.Scene {
         
         // destroy loading bar
         this.load.on('complete', function () {
-            console.log('complete');
+            // console.log('complete');
             progressBar.destroy();
             progressBox.destroy();	
             loadingText.destroy();
