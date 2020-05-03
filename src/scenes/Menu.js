@@ -15,9 +15,10 @@ class Menu extends Phaser.Scene {
         
         this.selected = 1;
         
-        
+        this.add.image(0,0,'menu_bg').setOrigin(0);
+
         //title name
-        this.title = this.add.sprite(game.config.width/4 + 50, game.config.height/4 + 100, 'title').setScale(1.4,1.4);
+        this.title = this.add.sprite(game.config.width/4 + 50, game.config.height/4 + 100, 'title').setScale().setOrigin(0.5,1);
         this.title.alpha = 0;
         this.add.tween({
             targets: this.title,
@@ -32,7 +33,7 @@ class Menu extends Phaser.Scene {
         this.dreamBorder.alpha = 0;
         this.add.tween({
             targets: this.dreamBorder,
-            alpha: 0.5,
+            alpha: 0.7,
             ease: 'Linear',
             duration: 1500,
             delay: 1200
@@ -40,7 +41,7 @@ class Menu extends Phaser.Scene {
         
         //start buttons
         this.optionGroup = this.add.group();
-        this.optionOffset = 100;
+        this.optionOffset = 140;
         this.start = this.add.sprite(game.config.width/2 + this.optionOffset, game.config.height/4, 'start').setOrigin(0.5);
         this.option = this.add.sprite(game.config.width/2 + 2*this.optionOffset, game.config.height/4 + 100, 'option').setOrigin(0.5); //to be added
         this.optionGroup.addMultiple([this.start, this.option]);
@@ -158,12 +159,12 @@ class Menu extends Phaser.Scene {
             }
         }
         if(this.selected == 1) {
-            this.start.setTint(0xABFFA6).setScale(1.2);
+            this.start.setTint(0x135300).setScale(1.2);
             this.option.setTint().setScale();
         }
         else if(this.selected == 2) {
             this.start.setTint().setScale();
-            this.option.setTint(0xABFFA6).setScale(1.2);
+            this.option.setTint(0x135300).setScale(1.2);
         }
 
         if(Phaser.Input.Keyboard.JustDown(keyENTER)) {

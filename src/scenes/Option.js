@@ -17,7 +17,7 @@ class Option extends Phaser.Scene {
             },
         };
 
-        this.opBG = this.add.sprite(game.config.width/2, game.config.height/2, 'option_bg').setOrigin(0.5);
+        this.opBG = this.add.sprite(0, 0, 'option_bg').setOrigin(0);
         this.dreamBorder = this.add.image(0,0,'dream_border').setOrigin(0).setDepth(9999);
 
         this.add.sprite(game.config.width/2, 60, 'option').setOrigin(0.5).setScale(1.3);
