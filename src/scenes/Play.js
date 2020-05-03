@@ -14,7 +14,7 @@ class Play extends Phaser.Scene {
         this.obstacleSpreadMax = -2500;
         this.JUMP_VELOCITY = -750;
         this.MAX_JUMPS = 1;
-        this.SCROLL_SPEED = 4.5;
+        this.SCROLL_SPEED = 7;
         this.collisionOn = true;
         this.SCORE_MULTIPLIER = 1;
         this.physics.world.gravity.y = 3000;
@@ -102,12 +102,11 @@ class Play extends Phaser.Scene {
         });
 
         //fade tutorials out
-        this.time.delayedCall(5000, () => { 
-            this.tweens.add({
-                targets: this.tutorials,
-                duration: 2000,
-                alpha: 0
-            });
+        this.tweens.add({
+            targets: this.tutorials,
+            duration: 2000,
+            alpha: 0,
+            delay: 3000
         });
 
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
@@ -122,8 +121,7 @@ class Play extends Phaser.Scene {
 
     spawnObstacle() {
         if (!this.gamePaused && !this.gameOver){
-            let obstacle = new Obstacle(this, this.obstacleSpeed, 'obstacle', {frame: this.level-1}).setScale(0.7);     // create new obstacle
-            // obstacle.frame = this.level - 1;
+            let obstacle = new Obstacle(this, this.obstacleSpeed, 'obstacle', `${this.fox_sprite[this.level-1]}_obs`);     // create new obstacle
             obstacle.x += Phaser.Math.Between(0,1000);
             obstacle.x *= Phaser.Math.Between(1,2);
             obstacle.setDepth(-999);
@@ -159,12 +157,12 @@ class Play extends Phaser.Scene {
 
                 // this.SCORE_MULTIPLIER *= 1.2;
                 this.level += 1;
-                this.cameras.main.flash(3000);
-                this.SCROLL_SPEED += 3;
-                this.obstacles.clear();
+                this.cameras.main.flash(2000);
+                this.obstacles.clear(true,true);
                 this.obstacleSpeed -= 150;
                 this.obstacleClock.delay -= 220;
                 this.obstacleSpreadMin -= 15;
+                this.SCROLL_SPEED += 1;
 
                 // update music
                 this.tweens.add({        // fade out

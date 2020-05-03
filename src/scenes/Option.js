@@ -65,42 +65,38 @@ class Option extends Phaser.Scene {
             this.fullscreen.setTint().setScale();
             this.return.setTint(0xABFFA6).setScale(1.1);
         }
-        switch(this.selected){
-            case 1:{
-                if(this.input.keyboard.checkDown(cursors.left, 250) && volPt > 0){
-                    volPt --;
-                    bg_volume = this.volume_array[volPt];
-                    bgMusic.volume = bg_volume;
-                }
-                else if(this.input.keyboard.checkDown(cursors.right, 250) && volPt < 10){
-                    volPt ++;
-                    bg_volume = this.volume_array[volPt];
-                    bgMusic.volume = bg_volume;
-                }
-                break;
+        if(this.selected == 1){
+            if(this.input.keyboard.checkDown(cursors.left, 250) && volPt > 0){
+                volPt --;
+                bg_volume = this.volume_array[volPt];
+                bgMusic.volume = bg_volume;
             }
-
-            case 2:{
-                if(Phaser.Input.Keyboard.JustDown(keyENTER)){
-                    this.scale.isFullscreen ? this.scale.stopFullscreen() : this.scale.startFullscreen();
-                }
-                break;
+            else if(this.input.keyboard.checkDown(cursors.right, 250) && volPt < 10){
+                volPt ++;
+                bg_volume = this.volume_array[volPt];
+                bgMusic.volume = bg_volume;
             }
+            
+        }
 
-            case 3:{
-                if(Phaser.Input.Keyboard.JustDown(keyENTER)){
-                    this.add.tween({
-                        targets: this.cameras.main,
-                        alpha: 0,
-                        ease: 'Linear',
-                        duration: 1000
-                    });
-                    this.time.delayedCall(1000,() => {
-                        this.scene.resume("menuScene");
-                        this.scene.stop();
-                    });
-                    break;
-                }
+        else if(this.selected == 2){
+            if(Phaser.Input.Keyboard.JustDown(keyENTER)){
+                this.scale.isFullscreen ? this.scale.stopFullscreen() : this.scale.startFullscreen();
+            }
+            
+        }
+        else if(this.selected == 3){
+            if(Phaser.Input.Keyboard.JustDown(keyENTER)){
+                this.add.tween({
+                    targets: this.cameras.main,
+                    alpha: 0,
+                    ease: 'Linear',
+                    duration: 500
+                });
+                this.time.delayedCall(500,() => {
+                    this.scene.resume("menuScene");
+                    this.scene.stop();
+                });
             }
         }
         this.volumeText.text = `${volPt}`;
