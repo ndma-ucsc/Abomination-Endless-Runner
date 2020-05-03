@@ -11,7 +11,7 @@ class Menu extends Phaser.Scene {
         }
         this.input.keyboard.enabled = false;
         this.cameras.main.fadeIn(1000);
-        this.time.delayedCall(1000, () => {this.input.keyboard.enabled = true;});
+        this.time.delayedCall(1500, () => {this.input.keyboard.enabled = true;});
         
         this.selected = 1;
         
