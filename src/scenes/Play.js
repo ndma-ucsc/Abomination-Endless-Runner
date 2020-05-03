@@ -21,7 +21,7 @@ class Play extends Phaser.Scene {
         
         // score control
         // this.scoreArray = [0, 700, 1670, 0, 0, 0, 4473, 7000]; // keep track of level threshold
-        this.scoreArray = [0, 75, 150, 225, 300, 375, 450, 525, 600]; // tester track
+        this.scoreArray = [0, 50,100,150,200,250,300,350,400]; // tester track
         this.trueScore = 0;
         this.level = 1;
         this.levelMax = 9;
@@ -40,7 +40,7 @@ class Play extends Phaser.Scene {
             loop: true
         });
         
-        this.backgroundImage = this.add.tileSprite(0, 0, game.config.width, game.config.height, `${this.fox_sprite[this.level - 1]}_bg`).setOrigin(0).setDepth(-99999).setScale(1,1.4);
+        this.backgroundImage = this.add.tileSprite(0, 0, game.config.width, game.config.height, `${this.fox_sprite[this.level - 1]}_bg`).setOrigin(0).setDepth(-99999);
 
         // create player sprite
         this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 35, 'fox_atlas', `${this.fox_sprite[this.level - 1]}_sprite1`).setOrigin(1);
@@ -113,7 +113,7 @@ class Play extends Phaser.Scene {
         this.gamePaused = false;
         this.gameOver = false;
         
-        this.add.image(0,0,'dream_border').setOrigin(0).setDepth(9999999);
+        this.add.image(0,0,'dream_border').setOrigin(0);
     } // end of create()
 
     spawnObstacle() {
@@ -167,7 +167,7 @@ class Play extends Phaser.Scene {
                 
                 // update bg
                 this.backgroundImage.destroy();
-                this.backgroundImage = this.add.tileSprite(0, 0, game.config.width, game.config.height, `${this.fox_sprite[this.level - 1]}_bg`).setOrigin(0).setDepth(-99999).setScale(1,1.4);
+                this.backgroundImage = this.add.tileSprite(0, 0, game.config.width, game.config.height, `${this.fox_sprite[this.level - 1]}_bg`).setOrigin(0).setDepth(-99999);
                 
                 // update fox sprite
                 this.fox.destroy();

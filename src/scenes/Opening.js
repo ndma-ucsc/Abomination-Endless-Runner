@@ -33,7 +33,7 @@ class Opening extends Phaser.Scene {
             alpha: {from: 0, to: 1},
             ease: 'Linear',
             duration: 20,
-            delay: 500
+            delay: 400
         });
         this.add.tween({
             targets: this.AbominationText,
@@ -48,7 +48,7 @@ class Opening extends Phaser.Scene {
             alpha: {from: 0, to: 1},
             ease: 'Linear',
             duration: 20,
-            delay: 2100
+            delay: 2000
         });
         this.add.tween({
             targets: this.byText,
@@ -63,7 +63,7 @@ class Opening extends Phaser.Scene {
             alpha: {from: 0, to: 1},
             ease: 'Linear',
             duration: 20,
-            delay: 3800
+            delay: 3700
         });
         this.add.tween({
             targets: this.seycaraText,
