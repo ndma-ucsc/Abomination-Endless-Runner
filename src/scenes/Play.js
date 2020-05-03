@@ -122,6 +122,7 @@ class Play extends Phaser.Scene {
             // console.log(this.currentTime.getHours() + ":" + this.currentTime.getMinutes() + ":" + this.currentTime.getSeconds());
             let obstacle = new Obstacle(this, this.obstacleSpeed, 'obstacle', `${this.fox_sprite[this.level-1]}_obs`);     // create new obstacle
             obstacle.setDepth(-999);
+            obstacle.body.setSize(60, 60, 200, 0);
             this.obstacles.add(obstacle);
         }
     }
