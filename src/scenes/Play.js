@@ -20,7 +20,7 @@ class Play extends Phaser.Scene {
         this.physics.world.gravity.y = 3000;
     
         // score control
-        this.scoreArray = [0, 300, 775, 1710, 2410, 3090, 4180, 5450, 6380, 7300]; // keep track of level threshold
+        this.scoreArray = [0, 300, 775, 1685, 2420, 3090, 4180, 5210, 6370]; // keep track of level threshold
         // this.scoreArray = [0, 50,100,150,200,250,300,350,400]; // tester track
         this.trueScore = 0;
         this.level = 1;
@@ -156,7 +156,7 @@ class Play extends Phaser.Scene {
                     ease: 'Linear',
                     duration: 1500,
                 });
-                bgMusic = this.sound.add(`${this.fox_sprite[this.level - 1]}_ost`, {volume: 0, loop: true});                
+                bgMusic = this.sound.add(`${this.fox_sprite[this.level - 1]}_ost`, {volume: 0, loop: false});                
                 bgMusic.play();
                 this.tweens.add({        // fade in
                     targets: bgMusic,
