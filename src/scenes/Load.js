@@ -60,6 +60,7 @@ class Load extends Phaser.Scene {
 
         this.load.path = "./assets/sfx/";
         this.load.audio('jump_sfx', 'jump_sfx.wav');
+        this.load.audio('death_sfx', 'death_sfx.wav');
 
 
         /* test loading bar buffer*/

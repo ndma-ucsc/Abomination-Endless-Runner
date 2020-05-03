@@ -20,7 +20,7 @@ class Play extends Phaser.Scene {
         this.physics.world.gravity.y = 3000;
         
         // score control
-        this.scoreArray = [0, 700, 1180, 2115, 2815, 3495, 4585, 5855, 6785, 7705]; // keep track of level threshold
+        this.scoreArray = [0, 300, 780, 1715, 2415, 3095, 4185, 5455, 6385, 7305]; // keep track of level threshold
         // this.scoreArray = [0, 50,100,150,200,250,300,350,400]; // tester track
         this.trueScore = 0;
         this.level = 1;
@@ -236,6 +236,7 @@ class Play extends Phaser.Scene {
 
         this.fox.alpha = 0;
         // death sequence
+        this.sound.play("death_sfx",{volume: 0.1});
         let death = this.add.sprite(this.fox.x, this.fox.y, 'death').setOrigin(1);
         death.anims.play('death'); // explosion animation
 
