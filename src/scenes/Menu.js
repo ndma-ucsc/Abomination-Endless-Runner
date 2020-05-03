@@ -159,12 +159,12 @@ class Menu extends Phaser.Scene {
             }
         }
         if(this.selected == 1) {
-            this.start.setTint(0x135300).setScale(1.2);
+            this.start.setTint(0x135300).setScale(1.3);
             this.option.setTint().setScale();
         }
         else if(this.selected == 2) {
             this.start.setTint().setScale();
-            this.option.setTint(0x135300).setScale(1.2);
+            this.option.setTint(0x135300).setScale(1.3);
         }
 
         if(Phaser.Input.Keyboard.JustDown(keyENTER)) {

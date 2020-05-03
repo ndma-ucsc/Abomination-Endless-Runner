@@ -51,19 +51,19 @@ class Option extends Phaser.Scene {
         }
 
         if(this.selected == 1) {
-            this.volume.setTint(0xABFFA6).setScale(1.1);
+            this.volume.setTint(0xABFFA6).setScale(1.3);
             this.fullscreen.setTint().setScale();
             this.return.setTint().setScale();
         }
         else if(this.selected == 2) {
             this.volume.setTint().setScale();
-            this.fullscreen.setTint(0xABFFA6).setScale(1.1);
+            this.fullscreen.setTint(0xABFFA6).setScale(1.3);
             this.return.setTint().setScale();
         }
         else if(this.selected == 3) {
             this.volume.setTint().setScale();
             this.fullscreen.setTint().setScale();
-            this.return.setTint(0xABFFA6).setScale(1.1);
+            this.return.setTint(0xABFFA6).setScale(1.3);
         }
         if(this.selected == 1){
             if(this.input.keyboard.checkDown(cursors.left, 250) && volPt > 0){
