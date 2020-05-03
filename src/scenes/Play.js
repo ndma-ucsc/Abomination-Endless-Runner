@@ -20,8 +20,8 @@ class Play extends Phaser.Scene {
         this.physics.world.gravity.y = 3000;
         
         // score control
-        // this.scoreArray = [0, 700, 1670, 0, 0, 0, 4473, 7000]; // keep track of level threshold
-        this.scoreArray = [0, 50,100,150,200,250,300,350,400]; // tester track
+        this.scoreArray = [0, 700, 1180, 2115, 2815, 3495, 4585, 5855, 6785, 7705]; // keep track of level threshold
+        // this.scoreArray = [0, 50,100,150,200,250,300,350,400]; // tester track
         this.trueScore = 0;
         this.level = 1;
         this.levelMax = 9;
@@ -113,7 +113,7 @@ class Play extends Phaser.Scene {
         this.gamePaused = false;
         this.gameOver = false;
         
-        this.add.image(0,0,'dream_border').setOrigin(0);
+        this.add.image(0,0,'dream_border').setOrigin(0).setDepth(9999);
     } // end of create()
 
     spawnObstacle() {
