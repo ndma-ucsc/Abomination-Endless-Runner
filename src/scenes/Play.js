@@ -18,11 +18,11 @@ class Play extends Phaser.Scene {
         this.collisionOn = true;
         this.SCORE_MULTIPLIER = 1;
         this.physics.world.gravity.y = 3000;
-        
+    
         // score control
-        this.scoreArray = [0, 300, 730, 1635, 2320, 2985, 4065, 5100, 6020]; // keep track of level threshold
+        this.scoreArray = [0, 300, 775, 1710, 2410, 3090, 4180, 5450, 6380, 7300]; // keep track of level threshold
         // this.scoreArray = [0, 50,100,150,200,250,300,350,400]; // tester track
-        this.trueScore = 0;
+        this.trueScore = 2350;
         this.level = 1;
         this.levelMax = 9;
         this.fox_sprite = ['fox1','fox2','fox3','fox4','fox5','fox6','fox7','fox8','fox9'];
