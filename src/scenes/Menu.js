@@ -10,8 +10,8 @@ class Menu extends Phaser.Scene {
             bgMusic.play();
         }
         this.input.keyboard.enabled = false;
-        this.cameras.main.fadeIn(1500);
-        this.time.delayedCall(1400, () => {this.input.keyboard.enabled = true;});
+        this.cameras.main.fadeIn(1000);
+        this.time.delayedCall(1000, () => {this.input.keyboard.enabled = true;});
         
         this.selected = 1;
         
@@ -25,7 +25,7 @@ class Menu extends Phaser.Scene {
             alpha: 1,
             ease: 'Linear',
             duration: 1500,
-            delay: 2000
+            delay: 1200
         });
 
         this.dreamBorder = this.add.image(0,0,'dream_border').setOrigin(0).setDepth(9999);
@@ -35,7 +35,7 @@ class Menu extends Phaser.Scene {
             alpha: 0.5,
             ease: 'Linear',
             duration: 1500,
-            delay: 3000
+            delay: 1200
         });
         
         //start buttons
@@ -123,29 +123,21 @@ class Menu extends Phaser.Scene {
             resetOnMatch: true,
             deleteOnMatch: true,
         });
-
+        this.collisionDebugText = this.add.text(3*game.config.width/4, 3*game.config.height/4, 'Collision are currently off!').setOrigin(0.5);
+        this.collisionDebugText.alpha = 0;
         this.input.keyboard.on('keycombomatch', (facadeDebug) => {
             collisionDebug = !collisionDebug;
-            if (collisionDebug){
-                this.add.tween({
-                    targets: this.add.text(game.config.width/2, game.config.height/4 + 100, 'Collisions off!', facadeConfig).setOrigin(0.5),
-                    alpha: {from: 1, to: 0},
-                    duration: 3000,
-                    ease: 'Linear'
-                });
-            }
-            else if (!collisionDebug){
-                this.add.tween({
-                    targets: this.add.text(game.config.width/2, game.config.height/4 + 100, 'Collisions on!', facadeConfig).setOrigin(0.5),
-                    alpha: {from: 1, to: 0},
-                    duration: 3000,
-                    ease: 'Linear'
-                });
-            }
         });
     }
 
     update(){
+        if (collisionDebug){
+            this.collisionDebugText.alpha = 1;
+        }
+        else if (!collisionDebug){
+            this.collisionDebugText.alpha = 0;
+        }
+
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);

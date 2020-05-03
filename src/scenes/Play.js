@@ -8,8 +8,8 @@ class Play extends Phaser.Scene {
         this.input.keyboard.enabled = true;
         this.obstacleSpeed = -450;
         // this.obstacleSpeed = -1500;
-        this.obstacleMin = 4000;
-        this.obstacleMax = 5000;
+        this.obstacleMin = 200;
+        this.obstacleMax = 300;
         this.obstacleSpreadMin = 850;
         this.obstacleSpreadMax = -2500;
         this.JUMP_VELOCITY = -750;
@@ -35,8 +35,6 @@ class Play extends Phaser.Scene {
         this.scoreTimer = this.time.addEvent({
             delay: 1000,
             callback: () => {
-                // this.score += 1;
-                // this.trueScore += 1;
                 this.trueScore += Math.floor(this.scoreTimer.getOverallProgress() * 5 * this.SCORE_MULTIPLIER);
             },
             loop: true
@@ -45,19 +43,19 @@ class Play extends Phaser.Scene {
         this.backgroundImage = this.add.tileSprite(0, 0, game.config.width, game.config.height, `${this.fox_sprite[this.level - 1]}_bg`).setOrigin(0).setDepth(-99999).setScale(1,1.4);
 
         // create player sprite
-        this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 3 * tileSize + 22, 'fox_atlas', `${this.fox_sprite[this.level - 1]}_sprite1`).setOrigin(1);
+        this.fox = this.physics.add.sprite(game.config.width / 5, game.config.height - 35, 'fox_atlas', `${this.fox_sprite[this.level - 1]}_sprite1`).setOrigin(1);
 
         // make ground tiles group (actual ground)
         this.ground = this.add.group();
         for(let i = 0; i < game.config.width; i += tileSize) {
-            let groundTile = this.physics.add.sprite(i, game.config.height - tileSize, 'tile_block').setOrigin(0);
+            let groundTile = this.physics.add.sprite(i, game.config.height - 25, 'blank_tile').setOrigin(0);
             groundTile.body.immovable = true;
             groundTile.body.allowGravity = false;
             this.ground.add(groundTile);
         }
 
         // pseudo ground
-        this.groundScroll = this.add.tileSprite(0, game.config.height-tileSize, game.config.width, tileSize, `${this.fox_sprite[this.level - 1]}_tile`).setOrigin(0);
+        this.groundScroll = this.add.tileSprite(0, game.config.height-tileSize, game.config.width, tileSize, `${this.fox_sprite[this.level - 1]}_tile`).setOrigin(0).setScale(1.1);
 
         // add physics collider
         this.physics.add.collider(this.fox, this.ground);
@@ -118,25 +116,12 @@ class Play extends Phaser.Scene {
         this.add.image(0,0,'dream_border').setOrigin(0).setDepth(9999999);
     } // end of create()
 
-
     spawnObstacle() {
         if (!this.gamePaused && !this.gameOver){
+            // this.currentTime = new Date();
+            // console.log(this.currentTime.getHours() + ":" + this.currentTime.getMinutes() + ":" + this.currentTime.getSeconds());
             let obstacle = new Obstacle(this, this.obstacleSpeed, 'obstacle', `${this.fox_sprite[this.level-1]}_obs`);     // create new obstacle
-            obstacle.x += Phaser.Math.Between(0,1000);
-            obstacle.x *= Phaser.Math.Between(1,2);
             obstacle.setDepth(-999);
-            if((this.prevObstacle - obstacle.x >= this.obstacleSpreadMin || this.prevObstacle - obstacle.x <= this.obstacleSpreadMax) ||
-            (this.prevObstacle - obstacle.x >= -1000 || this.prevObstacle - obstacle.x <= 500)){
-                console.log(`Canceled spawn @ ${obstacle.x}px Prev: ${this.prevObstacle}px`);
-                console.log(`Res: ${this.prevObstacle - obstacle.x}`);
-                this.prevObstacle = undefined;
-                obstacle.destroy();
-                return;
-            }
-            console.log(`Spawned in ${this.obstacleClock.delay}s @ ${obstacle.x}px Prev: ${this.prevObstacle}px`);
-            console.log(`Res: ${this.prevObstacle - obstacle.x}`);
-            this.prevObstacle = obstacle.x;
-            this.prevObstacle = obstacle.x;
             this.obstacles.add(obstacle);
         }
     }
@@ -147,7 +132,7 @@ class Play extends Phaser.Scene {
             this.backgroundImage.tilePositionX += this.SCROLL_SPEED;
             this.groundScroll.tilePositionX += this.SCROLL_SPEED;
             
-            // this.clock.delay = Math.ceil(Math.exp(Math.random()*(Math.log(this.obstacleMax)-Math.log(this.obstacleMin)))*this.obstacleMin);
+            this.obstacleClock.delay = Phaser.Math.Between(this.obstacleMin,this.obstacleMax) * Phaser.Math.Between(10,50) * Phaser.Math.Between(1,2);
             
             this.jumpUpdate();
                       
@@ -157,11 +142,11 @@ class Play extends Phaser.Scene {
 
                 // this.SCORE_MULTIPLIER *= 1.2;
                 this.level += 1;
-                this.cameras.main.flash(2000);
+                this.cameras.main.flash(2500);
                 this.obstacles.clear(true,true);
                 this.obstacleSpeed -= 150;
                 this.obstacleClock.delay -= 220;
-                this.obstacleSpreadMin -= 15;
+                this.obstacleMin -= 20;
                 this.SCROLL_SPEED += 1;
 
                 // update music
@@ -187,12 +172,12 @@ class Play extends Phaser.Scene {
                 // update fox sprite
                 this.fox.destroy();
                 this.run = this.fox_sprite[this.level - 1] + '_run';
-                this.fox = this.physics.add.sprite(game.config.width / 5 + 100, game.config.height - 3 * tileSize + 22, 'fox_atlas', `${this.fox_sprite[this.level - 1]}_sprite1`).setOrigin(1);
+                this.fox = this.physics.add.sprite(game.config.width / 5 + 100, game.config.height - 25, 'fox_atlas', `${this.fox_sprite[this.level - 1]}_sprite1`).setOrigin(1);
                 this.physics.add.collider(this.fox, this.ground);
 
                 // update ground
                 this.groundScroll.destroy();
-                this.groundScroll = this.add.tileSprite(0, game.config.height-tileSize, game.config.width, tileSize, `${this.fox_sprite[this.level - 1]}_tile`).setOrigin(0);
+                this.groundScroll = this.add.tileSprite(0, game.config.height-tileSize, game.config.width, tileSize, `${this.fox_sprite[this.level - 1]}_tile`).setOrigin(0).setScale(1.1);
 
                 // i-frame buffer
                 this.collisionOn = false;

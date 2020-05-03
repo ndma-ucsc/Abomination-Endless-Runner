@@ -23,13 +23,14 @@ class Load extends Phaser.Scene {
         this.load.path = "./assets/tiles/";
         this.load.image('fox1_tile', 'meadow_tile.png');
         this.load.image('fox2_tile', 'forest_tile.png');
-        this.load.image('fox3_tile', 'cloud_tile.png');
+        this.load.image('fox3_tile', 'blank_tile.png');
         this.load.image('fox4_tile', 'river_tile.png');
         this.load.image('fox5_tile', 'volcano_tile.png');
         this.load.image('fox6_tile', 'meadow_tile.png');
-        this.load.image('fox7_tile', 'light_tile.png');
-        this.load.image('fox8_tile', 'dark_tile.png');
-        this.load.image('fox9_tile', 'final_tile.png');
+        this.load.image('fox7_tile', 'blank_tile.png');
+        this.load.image('fox8_tile', 'blank_tile.png');
+        this.load.image('fox9_tile', 'blank_tile.png');
+        this.load.image('blank_tile', 'blank_tile.png');
 
         this.load.path = "./assets/ost/";
         this.load.audio('menu_ost', 'I_Am_Different.mp3');

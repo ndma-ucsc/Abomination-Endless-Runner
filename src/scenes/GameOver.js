@@ -90,8 +90,8 @@ class GameOver extends Phaser.Scene {
                     duration: 1500,
                 });
                 this.time.delayedCall(1500, () => {bgMusic.stop();});
-                this.cameras.main.fadeOut(1500);
-                this.time.delayedCall(1500, () => {this.scene.start("menuScene");})
+                this.cameras.main.fadeOut(1000);
+                this.time.delayedCall(1000, () => {this.scene.start("menuScene");})
             }
         }
     }
