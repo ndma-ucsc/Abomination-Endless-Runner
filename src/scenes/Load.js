@@ -111,9 +111,9 @@ class Load extends Phaser.Scene {
         });
 
         // load tracking
-        this.load.on('fileprogress', function (file) {
-            console.log(file.src);
-        });
+        // this.load.on('fileprogress', function (file) {
+        //     console.log(file.src);
+        // });
         
         // destroy loading bar
         this.load.on('complete', function () {

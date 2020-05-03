@@ -168,7 +168,6 @@ class Menu extends Phaser.Scene {
         }
 
         if(Phaser.Input.Keyboard.JustDown(keyENTER)) {
-            console.log('here');
             this.input.keyboard.enabled = false;
             if(this.selected == 1) {
                 this.tweens.add({        // fade out

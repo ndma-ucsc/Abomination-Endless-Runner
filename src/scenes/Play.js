@@ -138,7 +138,7 @@ class Play extends Phaser.Scene {
                       
             if (this.level < this.levelMax && this.trueScore >= this.scoreArray[this.level]){
                 // update level qualities
-                console.log(`Level Up: ${this.level + 1} @ ${this.scoreArray[this.level]}m`);
+                // console.log(`Level Up: ${this.level + 1} @ ${this.scoreArray[this.level]}m`);
 
                 // this.SCORE_MULTIPLIER *= 1.2;
                 this.level += 1;
@@ -192,7 +192,7 @@ class Play extends Phaser.Scene {
         }
 
         if(!this.gamePaused && Phaser.Input.Keyboard.JustDown(keyP)){
-            console.log("Game Paused");
+            // console.log("Game Paused");
             this.physics.world.gravity.y = 0;
             this.fox.body.velocity.y = 0;
             this.scoreTimer.paused = true;
@@ -202,7 +202,7 @@ class Play extends Phaser.Scene {
             this.gamePaused = true;
         }
         else if(this.gamePaused && Phaser.Input.Keyboard.JustDown(keyP)){
-            console.log("Game Unpaused");
+            // console.log("Game Unpaused");
             this.physics.world.gravity.y = 3000;
             this.scoreTimer.paused = false;
             this.anims.resumeAll();
@@ -214,7 +214,7 @@ class Play extends Phaser.Scene {
 
 
     foxCollision() {
-        console.log("Game Over");
+        // console.log("Game Over");
         this.input.keyboard.enabled = false;
         this.gameOver = true; // turn off collision checking
         // this.sound.play('death', { volume: 0.3 });  // play death sound
