@@ -20,7 +20,7 @@ class Play extends Phaser.Scene {
         this.physics.world.gravity.y = 3000;
         
         // score control
-        this.scoreArray = [0, 300, 780, 1715, 2415, 3095, 4185, 5455, 6385, 7305]; // keep track of level threshold
+        this.scoreArray = [0, 300, 730, 1635, 2320, 2985, 4065, 5100, 6020]; // keep track of level threshold
         // this.scoreArray = [0, 50,100,150,200,250,300,350,400]; // tester track
         this.trueScore = 0;
         this.level = 1;
@@ -146,7 +146,7 @@ class Play extends Phaser.Scene {
                 this.obstacles.clear(true,true);
                 this.obstacleSpeed -= 150;
                 this.obstacleClock.delay -= 220;
-                this.obstacleMin -= 20;
+                this.obstacleMin -= 5;
                 this.SCROLL_SPEED += 1;
 
                 // update music
