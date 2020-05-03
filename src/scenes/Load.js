@@ -9,7 +9,7 @@ class Load extends Phaser.Scene {
         this.load.atlas('fox_atlas', 'fox_atlas.png', 'fox_atlas.json');
 
         this.load.path = "./assets/bg/";
-        this.load.image('option_bg', 'option_bg.png');
+        this.load.image('option_bg', 'optionBG.png');
         this.load.image('fox1_bg', 'meadows.png');
         this.load.image('fox2_bg', 'forest.png');
         this.load.image('fox3_bg', 'cloud.png');
@@ -46,8 +46,11 @@ class Load extends Phaser.Scene {
         
         this.load.path = "./assets/misc/";
         this.load.image('title', 'title.png');
+        this.load.image('fullscreen', 'fullscreen.png');
         this.load.image('start', 'start.png');
         this.load.image('option', 'option.png');
+        this.load.image('volume', 'volume.png');
+        this.load.image('return', 'return.png');
         this.load.image('tutorial', 'tutorial.png');
         this.load.atlas('obstacle', 'obstacles.png', 'obstacles.json');
         this.load.image('dream_border', 'dream_border.png');
