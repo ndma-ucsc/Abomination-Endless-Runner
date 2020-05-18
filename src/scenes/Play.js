@@ -27,7 +27,7 @@ class Play extends Phaser.Scene {
         this.levelMax = 9;
         this.fox_sprite = ['fox1','fox2','fox3','fox4','fox5','fox6','fox7','fox8','fox9'];
         this.run = this.fox_sprite[0] + '_run';        
-        if (!bgMusic.isPlaying){
+        if (!bgMusic.isPlaying()){
             bgMusic = this.sound.add(`${this.fox_sprite[this.level - 1]}_ost`, {volume: bg_volume, loop: true});
             bgMusic.play();
         }
